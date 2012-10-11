@@ -3,4 +3,9 @@ bin
 obj
 
 # mstest test results
-TestResults
+TestResults 
+Debug/
+Release/
+*.sdf
+*.suo
+*.filters
