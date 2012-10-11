@@ -1,2 +1,1 @@
-Capstone
-========
+Capstone========This project contains the source and assets for my in-progress capstone project.Goal====The goal of this capstone is to look at implementing gamification in level editors and game design tools to assist with the process by making certain aspects more interesting. As a side goal, this project should also produce a simple 2D engine that supports the editor, and the engine itself should be relatively easy to port to other platforms.
