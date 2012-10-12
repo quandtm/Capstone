@@ -9,3 +9,6 @@ Release/
 *.sdf
 *.suo
 *.filters
+*.opensdf
+*.ipch
+*.user

@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseRenderer.cpp" />
+    <ClCompile Include="Entity.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{96FFB04D-EF8F-4475-85DA-C8D1179B8D86}</ProjectGuid>

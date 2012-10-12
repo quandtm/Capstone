@@ -1,21 +1,14 @@
 #pragma once
+
 #include <DirectXMath.h>
 
 class Entity
 {
 public:
+	DirectX::XMFLOAT2 Translation;
+	DirectX::XMFLOAT2 Scale;
 	float Rotation;
-	XMFLOAT2 Translation;
-	XMFLOAT2 Scale;
 
-	Entity()
-	{
-		Rotation = 0;
-		Translation = XMFLOAT2(0, 0);
-		Scale = XMFLOAT2(0, 0);
-	}
-
-	~Entity()
-	{
-	}
+	Entity();
+	~Entity();
 };
