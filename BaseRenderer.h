@@ -18,8 +18,8 @@ public:
 	BaseRenderer();
 	~BaseRenderer();
 
-	virtual void Draw(double elapsedSeconds);
-	virtual void Update(double elapsedSeconds);
+	virtual void Draw(double elapsedSeconds) = 0;
+	virtual void Update(double elapsedSeconds) = 0;
 
 	template <class VisualType>
 	VisualType* Create(LAYER layer)

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "BaseRenderer.h"
 
 BaseRenderer::BaseRenderer()
