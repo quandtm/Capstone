@@ -8,7 +8,7 @@ enum LAYER
 	LAYER_UI
 };
 
-class BaseRenderer
+class BaseRenderer abstract
 {
 private:
 	std::vector<IVisual*> *_gameLayer;

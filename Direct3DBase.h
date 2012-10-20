@@ -3,12 +3,10 @@
 #include "DirectXHelper.h"
 
 // Helper class that initializes DirectX APIs for 3D rendering.
-ref class Direct3DBase abstract
+class Direct3DBase
 {
-internal:
-	Direct3DBase();
-
 public:
+	Direct3DBase();
 	virtual void Initialize(Windows::UI::Core::CoreWindow^ window);
 	virtual void HandleDeviceLost();
 	virtual void CreateDeviceResources();
@@ -16,8 +14,11 @@ public:
 	virtual void UpdateForWindowSizeChange();
 	virtual void Present();
 	virtual float ConvertDipsToPixels(float dips);
+	void Clear();
 
-protected private:
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext1> GetDeviceContext(void) { return m_d3dContext; }
+
+private:
 	// Direct3D Objects.
 	Microsoft::WRL::ComPtr<ID3D11Device1> m_d3dDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext1> m_d3dContext;

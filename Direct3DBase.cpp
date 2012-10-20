@@ -336,6 +336,12 @@ void Direct3DBase::Present()
 	}
 }
 
+void Direct3DBase::Clear()
+{
+	const float col[4] = { 1, 0, 0, 0 };
+	m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), col);
+}
+
 // Method to convert a length in device-independent pixels (DIPs) to a length in physical pixels.
 float Direct3DBase::ConvertDipsToPixels(float dips)
 {

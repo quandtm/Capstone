@@ -2,6 +2,8 @@
 
 #include "pch.h"
 #include "WinRTTestGame.h"
+#include "Direct3DBase.h"
+#include "WinRTRenderer.h"
 
 ref class Capstone_WinRT sealed : public Windows::ApplicationModel::Core::IFrameworkView
 {
@@ -32,6 +34,8 @@ private:
 	bool m_windowVisible;
 
 	WinRTTestGame *_game;
+	Direct3DBase *_d3d;
+	WinRTRenderer *_renderer;
 };
 
 ref class Direct3DApplicationSource sealed : Windows::ApplicationModel::Core::IFrameworkViewSource

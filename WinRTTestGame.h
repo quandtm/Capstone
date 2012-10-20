@@ -1,7 +1,7 @@
 #pragma once
 #include "IGame.h"
 
-class WinRTTestGame : IGame
+class WinRTTestGame : public IGame
 {
 public:
 	WinRTTestGame(void);

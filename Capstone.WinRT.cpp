@@ -46,6 +46,9 @@ void Capstone_WinRT::SetWindow(CoreWindow^ window)
 
 	window->PointerMoved +=
 		ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &Capstone_WinRT::OnPointerMoved);
+
+	_d3d = new Direct3DBase();
+	_d3d->Initialize(window);
 }
 
 void Capstone_WinRT::Load(Platform::String^ entryPoint)
@@ -58,8 +61,8 @@ void Capstone_WinRT::Run()
 
 	_game = new WinRTTestGame();
 	_game->Initialise();
-	// TODO: Create renderer and set it here
-	//_game->setRenderer( HERE );
+	_renderer = new WinRTRenderer();
+	_game->setRenderer(_renderer);
 	_game->Load();
 
 	while (!m_windowClosed)
@@ -69,6 +72,11 @@ void Capstone_WinRT::Run()
 			timer->Update();
 			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 			_game->Update(timer->Delta);
+			_renderer->Update(timer->Delta);
+
+			_d3d->Clear();
+			_renderer->Draw(timer->Delta);
+			_d3d->Present();
 		}
 		else
 		{
@@ -83,6 +91,7 @@ void Capstone_WinRT::Uninitialize()
 
 void Capstone_WinRT::OnWindowSizeChanged(CoreWindow^ sender, WindowSizeChangedEventArgs^ args)
 {
+	_d3d->UpdateForWindowSizeChange();
 }
 
 void Capstone_WinRT::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
