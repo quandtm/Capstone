@@ -14,6 +14,8 @@ private:
 	std::vector<IVisual*> *_gameLayer;
 	std::vector<IVisual*> *_uiLayer;
 
+	void remove(std::vector<IVisual*>*, IVisual*);
+
 public:
 	BaseRenderer();
 	~BaseRenderer();

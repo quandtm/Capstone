@@ -15,5 +15,26 @@ BaseRenderer::~BaseRenderer()
 
 void BaseRenderer::Remove(IVisual *visual, LAYER layer)
 {
-	// TODO
+	switch (layer)
+	{
+	case LAYER_GAME:
+		remove(_gameLayer, visual);
+		break;
+
+	case LAYER_UI:
+		remove(_uiLayer, visual);
+		break;
+	}
+}
+
+void BaseRenderer::remove(std::vector<IVisual*> *layer, IVisual *visual)
+{
+	for (auto it = layer->begin(); it != layer->end(); ++it)
+	{
+		if(*it == visual)
+		{
+			layer->erase(it);
+			return;
+		}
+	}
 }
