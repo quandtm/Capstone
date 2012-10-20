@@ -18,4 +18,9 @@ void WinRTRenderer::Draw(double elapsedSeconds)
 
 void WinRTRenderer::Update(double elapsedSeconds)
 {
+	for (auto it = _gameLayer->begin(); it != _gameLayer->end(); ++it)
+		(*it)->Update(elapsedSeconds);
+
+	for (auto it = _uiLayer->begin(); it != _uiLayer->end(); ++it)
+		(*it)->Update(elapsedSeconds);
 }

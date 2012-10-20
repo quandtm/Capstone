@@ -10,7 +10,7 @@ enum LAYER
 
 class BaseRenderer abstract
 {
-private:
+protected:
 	std::vector<IVisual*> *_gameLayer;
 	std::vector<IVisual*> *_uiLayer;
 
