@@ -13,6 +13,7 @@ WinRTRenderer::~WinRTRenderer(void)
 
 void WinRTRenderer::Draw(double elapsedSeconds)
 {
+	// TODO: Draw Sprites
 }
 
 void WinRTRenderer::Update(double elapsedSeconds)
