@@ -137,6 +137,7 @@
     <ClInclude Include="Direct3DBase.h" />
     <ClInclude Include="BasicTimer.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="WinRTTestGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Capstone\BaseRenderer.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WinRTTestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

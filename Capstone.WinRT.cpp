@@ -56,12 +56,19 @@ void Capstone_WinRT::Run()
 {
 	BasicTimer^ timer = ref new BasicTimer();
 
+	_game = new WinRTTestGame();
+	_game->Initialise();
+	// TODO: Create renderer and set it here
+	//_game->setRenderer( HERE );
+	_game->Load();
+
 	while (!m_windowClosed)
 	{
 		if (m_windowVisible)
 		{
 			timer->Update();
 			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
+			_game->Update(timer->Delta);
 		}
 		else
 		{

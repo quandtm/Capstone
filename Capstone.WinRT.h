@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "pch.h"
+#include "WinRTTestGame.h"
 
 ref class Capstone_WinRT sealed : public Windows::ApplicationModel::Core::IFrameworkView
 {
@@ -29,6 +30,8 @@ protected:
 private:
 	bool m_windowClosed;
 	bool m_windowVisible;
+
+	WinRTTestGame *_game;
 };
 
 ref class Direct3DApplicationSource sealed : Windows::ApplicationModel::Core::IFrameworkViewSource
