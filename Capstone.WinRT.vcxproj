@@ -137,6 +137,7 @@
     <ClInclude Include="Direct3DBase.h" />
     <ClInclude Include="BasicTimer.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="WinRTRenderer.h" />
     <ClInclude Include="WinRTTestGame.h" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +148,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WinRTRenderer.cpp" />
     <ClCompile Include="WinRTTestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
