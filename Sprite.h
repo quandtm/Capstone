@@ -8,7 +8,7 @@ public:
 	Sprite(void);
 	~Sprite(void);
 
-	void Draw(double);
+	void Draw(double, DirectX::SpriteBatch*);
 	void Update(double);
 };
 

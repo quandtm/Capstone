@@ -8,6 +8,6 @@ protected:
 
 public:
 	virtual ~IVisual() {};
-	virtual void Draw(double elapsedSeconds) = 0;
+	virtual void Draw(double elapsedSeconds, DirectX::SpriteBatch *sb) = 0;
 	virtual void Update(double elapsedSeconds) = 0;
 };

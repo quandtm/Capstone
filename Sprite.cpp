@@ -11,7 +11,7 @@ Sprite::~Sprite(void)
 {
 }
 
-void Sprite::Draw(double elapsedSeconds)
+void Sprite::Draw(double elapsedSeconds, DirectX::SpriteBatch *sb)
 {
 }
 
