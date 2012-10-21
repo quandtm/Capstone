@@ -6,6 +6,8 @@ class Sprite :
 	public IVisual
 {
 public:
+	DirectX::XMFLOAT2 Origin;
+
 	Sprite(void);
 	~Sprite(void);
 

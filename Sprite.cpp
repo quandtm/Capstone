@@ -4,6 +4,7 @@
 
 Sprite::Sprite(void)
 {
+	Origin = DirectX::XMFLOAT2(0, 0);
 }
 
 
@@ -17,8 +18,7 @@ void Sprite::Load(char *path)
 
 void Sprite::Draw(double elapsedSeconds, DirectX::SpriteBatch *sb)
 {
-	auto vec = DirectX::XMLoadFloat2(&entity->Translation);
-	sb->Draw(_srv.Get(), vec);
+	sb->Draw(_srv.Get(), entity->Translation, nullptr, DirectX::Colors::White, entity->Rotation, Origin, entity->Scale);
 }
 
 void Sprite::Update(double elapsedSeconds)
