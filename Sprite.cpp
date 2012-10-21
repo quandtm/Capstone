@@ -17,6 +17,8 @@ void Sprite::Load(char *path)
 
 void Sprite::Draw(double elapsedSeconds, DirectX::SpriteBatch *sb)
 {
+	auto vec = DirectX::XMLoadFloat2(&entity->Translation);
+	sb->Draw(_srv.Get(), vec);
 }
 
 void Sprite::Update(double elapsedSeconds)
