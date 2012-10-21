@@ -27,6 +27,7 @@ public:
 	VisualType* Create(LAYER layer)
 	{
 		auto v = new VisualType();
+		v.SetOwner(this);
 
 		switch (layer)
 		{

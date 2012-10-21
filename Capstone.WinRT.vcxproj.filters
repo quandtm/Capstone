@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="WinRTTestGame.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Capstone.WinRT.cpp">
+      <Filter>Engine\WinRT</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DBase.cpp">
+      <Filter>Engine\WinRT</Filter>
+    </ClCompile>
+    <ClCompile Include="WinRTRenderer.cpp">
+      <Filter>Engine\WinRT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Capstone\BaseRenderer.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Capstone\Entity.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\WinRT</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="WinRTTestGame.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTimer.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="Capstone.WinRT.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="Direct3DBase.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXHelper.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="WinRTRenderer.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Capstone\BaseRenderer.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Capstone\Entity.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Capstone\IGame.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Capstone\IVisual.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Logo.png">
+      <Filter>Store Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallLogo.png">
+      <Filter>Store Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.png">
+      <Filter>Store Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Store Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{9902af04-082f-440d-98a0-b4edd46d17b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{81f4eb11-d935-48fb-9da4-b81938358fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Store Assets">
+      <UniqueIdentifier>{d8d0983c-8d2f-441c-8631-3c5b1aa455e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{df1d7800-640f-47e0-8f24-af7608653e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\WinRT">
+      <UniqueIdentifier>{4425cd93-a896-4270-9949-fdda5449a80a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Capstone.WinRT_TemporaryKey.pfx">
+      <Filter>Store Assets</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <Filter>Store Assets</Filter>
+    </AppxManifest>
+  </ItemGroup>
+</Project>
