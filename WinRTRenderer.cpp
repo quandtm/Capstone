@@ -15,7 +15,6 @@ WinRTRenderer::~WinRTRenderer(void)
 
 void WinRTRenderer::Draw(double elapsedSeconds)
 {
-	// TODO: Draw Sprites
 	// Draw game layer first
 	_sb->Begin();
 	for (auto it = _gameLayer->begin(); it != _gameLayer->end(); ++it)
