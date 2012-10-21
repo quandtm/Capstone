@@ -338,8 +338,11 @@ void Direct3DBase::Present()
 
 void Direct3DBase::Clear()
 {
-	const float col[4] = { 1, 0, 0, 0 };
+	const float col[4] = { 0, 0, 0, 1 };
 	m_d3dContext->ClearRenderTargetView(m_renderTargetView.Get(), col);
+	m_d3dContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	auto rtv = m_renderTargetView.Get();
+	m_d3dContext->OMSetRenderTargets(1, &rtv, m_depthStencilView.Get());
 }
 
 // Method to convert a length in device-independent pixels (DIPs) to a length in physical pixels.

@@ -5,6 +5,7 @@
 Sprite::Sprite(void)
 {
 	Origin = DirectX::XMFLOAT2(0, 0);
+	_isLoaded = false;
 }
 
 
@@ -12,26 +13,26 @@ Sprite::~Sprite(void)
 {
 }
 
-void Sprite::Load(char *path)
-{
-}
-
 void Sprite::Draw(double elapsedSeconds, DirectX::SpriteBatch *sb)
 {
-	sb->Draw(_srv.Get(), entity->Translation, nullptr, DirectX::Colors::White, entity->Rotation, Origin, entity->Scale);
+	if (_isLoaded)
+		sb->Draw(_srv.Get(), entity->Translation);
+		//sb->Draw(_srv.Get(), entity->Translation, nullptr, DirectX::Colors::White, entity->Rotation, Origin, entity->Scale);
 }
 
 void Sprite::Update(double elapsedSeconds)
 {
 }
 
-void Sprite::Load(wchar_t *path, Direct3DBase *d3d)
+void Sprite::Load(Direct3DBase *d3d)
 {
 	ID3D11Resource *res;
 	ID3D11ShaderResourceView *srv;
-	if (SUCCEEDED(DirectX::CreateWICTextureFromFile(d3d->GetDevice().Get(), d3d->GetDeviceContext().Get(), path, &res, &srv)))
+	HRESULT hr;
+	if (SUCCEEDED(hr = DirectX::CreateWICTextureFromFile(d3d->GetDevice().Get(), d3d->GetDeviceContext().Get(), assetPath, &res, &srv)))
 	{
 		_tex = res;
 		_srv = srv;
+		_isLoaded = true;
 	}
 }

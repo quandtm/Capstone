@@ -60,11 +60,12 @@ void Capstone_WinRT::Run()
 	BasicTimer^ timer = ref new BasicTimer();
 
 	_game = new WinRTTestGame();
-	_game->Initialise();
 	_renderer = new WinRTRenderer();
 	_renderer->setD3DBase(_d3d);
 	_game->setRenderer(_renderer);
-	_game->Load();
+
+	_game->Initialise();
+	_renderer->LoadVisuals();
 
 	while (!m_windowClosed)
 	{

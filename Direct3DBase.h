@@ -18,6 +18,7 @@ public:
 
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext1> GetDeviceContext(void) { return m_d3dContext; }
 	Microsoft::WRL::ComPtr<ID3D11Device1> GetDevice(void) { return m_d3dDevice; }
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetRTV(void) { return m_renderTargetView; }
 
 private:
 	// Direct3D Objects.

@@ -11,10 +11,10 @@ WinRTTestGame::~WinRTTestGame(void)
 
 void WinRTTestGame::Initialise()
 {
-}
-
-void WinRTTestGame::Load()
-{
+	e = new Entity();
+	e->Translation.x = 100;
+	e->Translation.y = 100;
+	testSprite = _renderer->Create<Sprite>(e, LAYER_GAME, L"Assets\\Logo.png");
 }
 
 void WinRTTestGame::Update(double elapsedSeconds)

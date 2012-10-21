@@ -20,6 +20,7 @@ void WinRTRenderer::Draw(double elapsedSeconds)
 	for (auto it = _gameLayer->begin(); it != _gameLayer->end(); ++it)
 		(*it)->Draw(elapsedSeconds, _sb);
 	_sb->End();
+	return;
 
 	// Then the UI layer
 	_sb->Begin();
@@ -37,7 +38,11 @@ void WinRTRenderer::Update(double elapsedSeconds)
 		(*it)->Update(elapsedSeconds);
 }
 
-void WinRTRenderer::loadItem(wchar_t *path, IVisual *obj)
+void WinRTRenderer::LoadVisuals()
 {
-	obj->Load(path, _d3d);
+	for (auto it = _gameLayer->begin(); it != _gameLayer->end(); ++it)
+		(*it)->Load(_d3d);
+
+	for (auto it = _uiLayer->begin(); it != _uiLayer->end(); ++it)
+		(*it)->Load(_d3d);
 }

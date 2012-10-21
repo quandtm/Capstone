@@ -1,6 +1,7 @@
 #pragma once
 #include "IVisual.h"
 #include <vector>
+#include "Entity.h"
 
 enum LAYER
 {
@@ -16,8 +17,6 @@ protected:
 
 	void remove(std::vector<IVisual*>*, IVisual*);
 
-	virtual void loadItem(wchar_t *path, IVisual *obj) = 0;
-
 public:
 	BaseRenderer();
 	~BaseRenderer();
@@ -26,10 +25,11 @@ public:
 	virtual void Update(double elapsedSeconds) = 0;
 
 	template <class VisualType>
-	VisualType* Create(LAYER layer, wchar_t *path)
+	VisualType* Create(Entity *e, LAYER layer, wchar_t *path)
 	{
 		auto v = new VisualType();
-		loadItem(path, v);
+		v->setPath(path);
+		v->setEntity(e);
 
 		switch (layer)
 		{
@@ -38,7 +38,7 @@ public:
 			break;
 
 		case LAYER_UI:
-			_gameLayer->push_back(v);
+			_uiLayer->push_back(v);
 			break;
 
 		default:
@@ -50,4 +50,5 @@ public:
 	}
 
 	void Remove(IVisual *visual, LAYER layer);
+	virtual void LoadVisuals() = 0;
 };

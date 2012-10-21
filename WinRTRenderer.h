@@ -24,13 +24,12 @@ public:
 
 	void Draw(double elapsedSeconds);
 	void Update(double elapsedSeconds);
+	void LoadVisuals();
 
 private:
 	Direct3DBase *_d3d;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext1> _ctx;
 	Microsoft::WRL::ComPtr<ID3D11Device1> _device;
 	DirectX::SpriteBatch *_sb;
-	
-	void loadItem(wchar_t *path, IVisual *obj);
 };
 
