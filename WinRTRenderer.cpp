@@ -36,3 +36,8 @@ void WinRTRenderer::Update(double elapsedSeconds)
 	for (auto it = _uiLayer->begin(); it != _uiLayer->end(); ++it)
 		(*it)->Update(elapsedSeconds);
 }
+
+void WinRTRenderer::loadItem(wchar_t *path, IVisual *obj)
+{
+	obj->Load(path, _d3d);
+}

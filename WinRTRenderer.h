@@ -15,6 +15,7 @@ public:
 		{
 			_d3d = base;
 			_ctx = _d3d->GetDeviceContext();
+			_device = _d3d->GetDevice();
 			if (_sb != nullptr)
 				delete _sb;
 			_sb = new DirectX::SpriteBatch(_ctx.Get());
@@ -27,6 +28,9 @@ public:
 private:
 	Direct3DBase *_d3d;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext1> _ctx;
+	Microsoft::WRL::ComPtr<ID3D11Device1> _device;
 	DirectX::SpriteBatch *_sb;
+	
+	void loadItem(wchar_t *path, IVisual *obj);
 };
 

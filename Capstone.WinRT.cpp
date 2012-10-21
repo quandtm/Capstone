@@ -62,6 +62,7 @@ void Capstone_WinRT::Run()
 	_game = new WinRTTestGame();
 	_game->Initialise();
 	_renderer = new WinRTRenderer();
+	_renderer->setD3DBase(_d3d);
 	_game->setRenderer(_renderer);
 	_game->Load();
 

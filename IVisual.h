@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Direct3DBase.h"
 
 class IVisual
 {
@@ -11,8 +12,5 @@ public:
 	virtual void Draw(double elapsedSeconds, DirectX::SpriteBatch *sb) = 0;
 	virtual void Update(double elapsedSeconds) = 0;
 
-	/*void SetOwner(BaseRenderer *renderer)
-	{
-		owner = renderer;
-	}*/
+	virtual void Load(wchar_t *path, Direct3DBase *d3d) = 0;
 };
