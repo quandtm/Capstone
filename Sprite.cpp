@@ -11,6 +11,10 @@ Sprite::~Sprite(void)
 {
 }
 
+void Sprite::Load(char *path)
+{
+}
+
 void Sprite::Draw(double elapsedSeconds, DirectX::SpriteBatch *sb)
 {
 }
