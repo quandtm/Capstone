@@ -8,7 +8,6 @@ Sprite::Sprite(void)
 	_isLoaded = false;
 }
 
-
 Sprite::~Sprite(void)
 {
 }
@@ -16,8 +15,7 @@ Sprite::~Sprite(void)
 void Sprite::Draw(double elapsedSeconds, DirectX::SpriteBatch *sb)
 {
 	if (_isLoaded)
-		sb->Draw(_srv.Get(), entity->Translation);
-		//sb->Draw(_srv.Get(), entity->Translation, nullptr, DirectX::Colors::White, entity->Rotation, Origin, entity->Scale);
+		sb->Draw(_srv.Get(), entity->Translation, nullptr, DirectX::Colors::White, entity->Rotation, Origin, entity->Scale);
 }
 
 void Sprite::Update(double elapsedSeconds)
