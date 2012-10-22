@@ -4,7 +4,7 @@
 
 class BaseAudioManager
 {
-private:
+protected:
 	std::map<char*, AudioTrack> *_musicTracks;
 	std::map<char*, AudioTrack> *_sfxTracks;
 
