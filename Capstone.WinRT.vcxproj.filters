@@ -23,9 +23,15 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Engine\WinRT</Filter>
     </ClCompile>
-    <ClCompile Include="BaseAudioManager.cpp" />
-    <ClCompile Include="AudioTrack.cpp" />
-    <ClCompile Include="XAudioManager.cpp" />
+    <ClCompile Include="AudioTrack.cpp">
+      <Filter>Engine\WinRT</Filter>
+    </ClCompile>
+    <ClCompile Include="XAudioManager.cpp">
+      <Filter>Engine\WinRT</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseAudioManager.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -62,9 +68,15 @@
     <ClInclude Include="Sprite.h">
       <Filter>Engine\WinRT</Filter>
     </ClInclude>
-    <ClInclude Include="BaseAudioManager.h" />
-    <ClInclude Include="AudioTrack.h" />
-    <ClInclude Include="XAudioManager.h" />
+    <ClInclude Include="AudioTrack.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="XAudioManager.h">
+      <Filter>Engine\WinRT</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAudioManager.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Logo.png">
