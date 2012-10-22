@@ -135,6 +135,8 @@
     <ClInclude Include="..\Capstone\Entity.h" />
     <ClInclude Include="..\Capstone\IGame.h" />
     <ClInclude Include="..\Capstone\IVisual.h" />
+    <ClInclude Include="AudioTrack.h" />
+    <ClInclude Include="BaseAudioManager.h" />
     <ClInclude Include="Capstone.WinRT.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="Direct3DBase.h" />
@@ -143,10 +145,13 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="WinRTRenderer.h" />
     <ClInclude Include="WinRTTestGame.h" />
+    <ClInclude Include="XAudioManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Capstone\BaseRenderer.cpp" />
     <ClCompile Include="..\Capstone\Entity.cpp" />
+    <ClCompile Include="AudioTrack.cpp" />
+    <ClCompile Include="BaseAudioManager.cpp" />
     <ClCompile Include="Capstone.WinRT.cpp" />
     <ClCompile Include="Direct3DBase.cpp" />
     <ClCompile Include="pch.cpp">
@@ -155,6 +160,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="WinRTRenderer.cpp" />
     <ClCompile Include="WinRTTestGame.cpp" />
+    <ClCompile Include="XAudioManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

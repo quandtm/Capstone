@@ -12,3 +12,5 @@
 #pragma comment(lib, "DirectXTK.lib")
 #endif
 #include <SpriteBatch.h>
+
+#include <xaudio2.h>
