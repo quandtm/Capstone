@@ -1,14 +1,17 @@
 #pragma once
-#include <map>
 #include "AudioTrack.h"
 
-class BaseAudioManager
+enum TRACKTYPE
 {
-protected:
-	std::map<char*, AudioTrack> *_musicTracks;
-	std::map<char*, AudioTrack> *_sfxTracks;
+	TRACKTYPE_MUSIC,
+	TRACKTYPE_SFX
+};
 
+class BaseAudioManager abstract
+{
 public:
-	BaseAudioManager(void);
-	~BaseAudioManager(void);
+	BaseAudioManager(void) { };
+	~BaseAudioManager(void) { };
+
+	virtual AudioTrack* Create(Entity *e, TRACKTYPE type, wchar_t *path) = 0;
 };

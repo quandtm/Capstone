@@ -47,3 +47,12 @@ void XAudioManager::Resume()
 	if (_sfxReady)
 		_sfxEngine->StartEngine();
 }
+
+AudioTrack* XAudioManager::Create(Entity *e, TRACKTYPE type, wchar_t *path)
+{
+	auto a = new AudioTrack();
+	auto engine = type == TRACKTYPE_MUSIC ? _musicEngine : _sfxEngine;
+	a->setEntity(e);
+	a->Load(path, engine.Get());
+	return a;
+}

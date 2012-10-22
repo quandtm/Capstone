@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AudioTrack.h"
+#include <mfapi.h>
 
 AudioTrack::AudioTrack(void)
 {
@@ -41,8 +42,7 @@ void AudioTrack::Load(wchar_t *path, IXAudio2 *engine)
 	
 	// TODO: Load audio
 
+
 	if (SUCCEEDED(engine->CreateSourceVoice(&_voice, &fmt)))
-	{
 		_ready = true;
-	}
 }

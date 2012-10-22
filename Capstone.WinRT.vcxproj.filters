@@ -29,9 +29,6 @@
     <ClCompile Include="XAudioManager.cpp">
       <Filter>Engine\WinRT</Filter>
     </ClCompile>
-    <ClCompile Include="BaseAudioManager.cpp">
-      <Filter>Engine\Common</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

@@ -1,4 +1,6 @@
 #pragma once
+#include "Entity.h"
+
 class AudioTrack
 {
 public:
@@ -9,9 +11,12 @@ public:
 	void Play();
 	void Stop();
 
+	void setEntity(Entity *e) { _entity = e; }
+
 private:
 	IXAudio2SourceVoice *_voice;
 	BYTE *_data;
 	int _buffLen;
 	bool _ready;
+	Entity *_entity;
 };

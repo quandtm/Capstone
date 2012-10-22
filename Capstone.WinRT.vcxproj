@@ -151,7 +151,6 @@
     <ClCompile Include="..\Capstone\BaseRenderer.cpp" />
     <ClCompile Include="..\Capstone\Entity.cpp" />
     <ClCompile Include="AudioTrack.cpp" />
-    <ClCompile Include="BaseAudioManager.cpp" />
     <ClCompile Include="Capstone.WinRT.cpp" />
     <ClCompile Include="Direct3DBase.cpp" />
     <ClCompile Include="pch.cpp">

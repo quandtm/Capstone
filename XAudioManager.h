@@ -17,4 +17,6 @@ public:
 	void Initialise();
 	void Suspend();
 	void Resume();
+
+	AudioTrack* Create(Entity *e, TRACKTYPE type, wchar_t *path);
 };
