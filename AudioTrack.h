@@ -7,6 +7,7 @@ public:
 
 	void Load(wchar_t *path, IXAudio2 *engine);
 	void Play();
+	void Stop();
 
 private:
 	IXAudio2SourceVoice *_voice;

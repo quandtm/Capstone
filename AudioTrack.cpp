@@ -27,10 +27,20 @@ void AudioTrack::Play()
 	_voice->Start();
 }
 
+void AudioTrack::Stop()
+{
+	if (!_ready) return;
+
+	_voice->Stop();
+}
+
 void AudioTrack::Load(wchar_t *path, IXAudio2 *engine)
 {
 	WAVEFORMATEX fmt;
+	ZeroMemory(&fmt, sizeof(fmt));
+	
 	// TODO: Load audio
+
 	if (SUCCEEDED(engine->CreateSourceVoice(&_voice, &fmt)))
 	{
 		_ready = true;
