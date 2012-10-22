@@ -4,6 +4,7 @@
 #include "WinRTTestGame.h"
 #include "Direct3DBase.h"
 #include "WinRTRenderer.h"
+#include "XAudioManager.h"
 
 ref class Capstone_WinRT sealed : public Windows::ApplicationModel::Core::IFrameworkView
 {
@@ -36,6 +37,7 @@ private:
 	WinRTTestGame *_game;
 	Direct3DBase *_d3d;
 	WinRTRenderer *_renderer;
+	XAudioManager *_audio;
 };
 
 ref class Direct3DApplicationSource sealed : Windows::ApplicationModel::Core::IFrameworkViewSource

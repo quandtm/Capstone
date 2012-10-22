@@ -15,4 +15,6 @@ public:
 	~XAudioManager(void);
 
 	void Initialise();
+	void Suspend();
+	void Resume();
 };

@@ -29,3 +29,21 @@ void XAudioManager::Initialise()
 
 	_sfxReady = true;
 }
+
+void XAudioManager::Suspend()
+{
+	if (_musicReady)
+		_musicEngine->StopEngine();
+
+	if (_sfxReady)
+		_sfxEngine->StopEngine();
+}
+
+void XAudioManager::Resume()
+{
+	if (_musicReady)
+		_musicEngine->StartEngine();
+
+	if (_sfxReady)
+		_sfxEngine->StartEngine();
+}

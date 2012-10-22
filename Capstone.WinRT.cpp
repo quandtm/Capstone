@@ -62,8 +62,12 @@ void Capstone_WinRT::Run()
 	_game = new WinRTTestGame();
 	_renderer = new WinRTRenderer();
 	_renderer->setD3DBase(_d3d);
-	_game->setRenderer(_renderer);
+	_audio = new XAudioManager();
 
+	_game->setRenderer(_renderer);
+	_game->setAudioManager(_audio);
+
+	_audio->Initialise();
 	_game->Initialise();
 	_renderer->LoadVisuals();
 
