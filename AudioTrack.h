@@ -6,9 +6,11 @@ public:
 	~AudioTrack(void);
 
 	void Load(wchar_t *path, IXAudio2 *engine);
+	void Play();
 
 private:
 	IXAudio2SourceVoice *_voice;
-	char *_data;
+	BYTE *_data;
+	int _buffLen;
 	bool _ready;
 };

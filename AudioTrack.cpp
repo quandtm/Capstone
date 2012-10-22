@@ -10,6 +10,23 @@ AudioTrack::~AudioTrack(void)
 {
 }
 
+void AudioTrack::Play()
+{
+	if (!_ready) return;
+
+	XAUDIO2_BUFFER buff = {0};
+
+	_voice->Stop();
+	_voice->FlushSourceBuffers();
+
+	buff.AudioBytes = _buffLen;
+	buff.pAudioData = _data;
+	buff.Flags = XAUDIO2_END_OF_STREAM;
+
+	_voice->SubmitSourceBuffer(&buff);
+	_voice->Start();
+}
+
 void AudioTrack::Load(wchar_t *path, IXAudio2 *engine)
 {
 	WAVEFORMATEX fmt;
