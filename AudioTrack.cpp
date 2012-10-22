@@ -30,6 +30,7 @@ void AudioTrack::Play()
 	buff.pAudioData = _data;
 	buff.Flags = XAUDIO2_END_OF_STREAM;
 
+	_voice->SetVolume(1.0f);
 	_voice->SubmitSourceBuffer(&buff);
 	_voice->Start();
 }
@@ -43,7 +44,6 @@ void AudioTrack::Stop()
 
 void AudioTrack::Load(wchar_t *path, IXAudio2 *engine)
 {
-	// TODO: Load audio
 	Microsoft::WRL::ComPtr<IMFSourceReader> reader;
 	if (FAILED(MFCreateSourceReaderFromURL(path, nullptr, &reader))) return;
 
@@ -107,7 +107,8 @@ void AudioTrack::Load(wchar_t *path, IXAudio2 *engine)
 			done = true;
 	}
 
-	_data = new BYTE[(pos + 3) / 4 * 4];
+	_buffLen = (pos + 3) / 4 * 4;
+	_data = new BYTE[_buffLen];
 	memcpy(fileData, _data, pos);
 	delete fileData;
 

@@ -32,6 +32,10 @@ void XAudioManager::Initialise()
 	MFStartup(MF_VERSION);
 
 	_sfxReady = true;
+
+	_musicVoice->SetVolume(1.0f);
+
+	Resume();
 }
 
 void XAudioManager::Suspend()
@@ -54,9 +58,14 @@ void XAudioManager::Resume()
 
 AudioTrack* XAudioManager::Create(Entity *e, TRACKTYPE type, wchar_t *path)
 {
-	auto a = new AudioTrack();
-	auto engine = type == TRACKTYPE_MUSIC ? _musicEngine : _sfxEngine;
-	a->setEntity(e);
-	a->Load(path, engine.Get());
-	return a;
+	if ((_musicReady && type == TRACKTYPE_MUSIC) || (_sfxReady && TRACKTYPE_SFX))
+	{
+		auto a = new AudioTrack();
+		auto engine = type == TRACKTYPE_MUSIC ? _musicEngine : _sfxEngine;
+		a->setEntity(e);
+		a->Load(path, engine.Get());
+		return a;
+	}
+	else
+		return nullptr;
 }

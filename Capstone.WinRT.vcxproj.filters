@@ -116,4 +116,7 @@
       <Filter>Store Assets</Filter>
     </AppxManifest>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Lithium.mp3" />
+  </ItemGroup>
 </Project>
