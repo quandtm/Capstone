@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "XAudioManager.h"
+#include <mfapi.h>
 
 XAudioManager::XAudioManager(void)
 {
@@ -26,6 +27,9 @@ void XAudioManager::Initialise()
 
 	if (FAILED(_sfxEngine->CreateMasteringVoice(&_sfxVoice)))
 		return;
+
+	// Init decoder parts
+	MFStartup(MF_VERSION);
 
 	_sfxReady = true;
 }
