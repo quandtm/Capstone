@@ -5,7 +5,8 @@
 class BaseAudioManager
 {
 private:
-	std::map<char*, AudioTrack> *_tracks;
+	std::map<char*, AudioTrack> *_musicTracks;
+	std::map<char*, AudioTrack> *_sfxTracks;
 
 public:
 	BaseAudioManager(void);
