@@ -9,6 +9,7 @@ private:
 public:
 	~Resources(void);
 
+	//void RegisterType(LGUID typeId /* some other param(s) for type handling */);
 	void GetResource(LGUID typeId, LGUID itemId);
 
 	static Resources* GetInstance(void)
