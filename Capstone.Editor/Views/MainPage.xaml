@@ -1,11 +1,14 @@
-﻿<Page
-    x:Class="Capstone.Editor.MainPage"
+﻿<common:LayoutAwarePage
+    x:Class="Capstone.Editor.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:Capstone.Editor.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="swapPanel_Loaded">
-    </SwapChainBackgroundPanel>
-</Page>
+    
+    <Grid Style="{StaticResource LayoutRootStyle}">
+        <Button Click="OpenGame">Open Test Game Screen</Button>
+    </Grid>
+    
+</common:LayoutAwarePage>

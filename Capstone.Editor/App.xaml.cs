@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Editor.Views;
+using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -9,6 +10,11 @@ namespace Capstone.Editor
     sealed partial class App
     {
         private readonly Dictionary<Type, Page> _pages;
+
+        public static App CurrentApp
+        {
+            get { return (App)Current; }
+        }
 
         public App()
         {
