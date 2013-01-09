@@ -132,32 +132,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <OutDir>build\win8\$(Platform)</OutDir>
+    <OutDir>$(SolutionDir)build\DXTK\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>Bin\Windows8\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DirectXTK_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <OutDir>build\win8\$(Platform)</OutDir>
+    <OutDir>$(SolutionDir)build\DXTK\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>Bin\Windows8\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DirectXTK</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>build\win8\$(Platform)</OutDir>
+    <OutDir>$(SolutionDir)build\DXTK\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>Bin\Windows8\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DirectXTK_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>build\win8\$(Platform)</OutDir>
+    <OutDir>$(SolutionDir)build\DXTK\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>Bin\Windows8\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DirectXTK</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>build\win8\$(Platform)</OutDir>
+    <OutDir>$(SolutionDir)build\DXTK\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>Bin\Windows8\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DirectXTK_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>build\win8\$(Platform)</OutDir>
+    <OutDir>$(SolutionDir)build\DXTK\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>Bin\Windows8\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DirectXTK</TargetName>
   </PropertyGroup>
