@@ -2,8 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\..\ScriptTD\ScriptTD\src\core\Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="..\..\ScriptTD\ScriptTD\src\core\Entity.h" />
+    <ClInclude Include="..\..\ScriptTD\ScriptTD\src\core\IComponent.h" />
   </ItemGroup>
 </Project>
