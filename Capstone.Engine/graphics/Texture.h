@@ -17,7 +17,7 @@ namespace Capstone
 				int _height;
 
 				virtual void Dispose();
-				virtual bool Load(const std::wstring& path);
+				virtual Capstone::Engine::Resources::ResourceStatus Load(const std::wstring& path);
 			};
 
 			public ref class Texture sealed : public Capstone::Core::IComponent
@@ -30,8 +30,8 @@ namespace Capstone
 
 				Platform::String^ _path;
 
-				bool _isLoaded;
-				bool _loading;
+				volatile bool _isLoaded;
+			    volatile bool _loading;
 
 			internal:
 				inline void Draw(std::shared_ptr<DirectX::SpriteBatch> batch);

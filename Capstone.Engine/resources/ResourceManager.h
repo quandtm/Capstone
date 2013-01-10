@@ -8,6 +8,7 @@ namespace Capstone
 	{
 		namespace Resources
 		{
+
 			class ResourceManager sealed
 			{
 			private:
@@ -19,30 +20,32 @@ namespace Capstone
 				~ResourceManager();
 
 				template<class ResType>
-				bool Load(const std::wstring& path, ResType **ppRes)
+				Concurrency::task<ResourceStatus> LoadAsync(const std::wstring& path, ResType **ppRes)
 				{
 					auto res = _lookup[path];
 					if (res == nullptr)
 					{
 						// Create and load
 						auto mem = _memory->Allocate<ResType>();
-						if (mem == nullptr) return false; // Allocation error, exiting
+						if (mem == nullptr) return concurrency::create_task([] { return ResourceStatus_AllocationError; }); // Allocation error, exiting
 						auto data = new (mem) ResType();
 						_lookup[path] = data;
 						*ppRes = data;
-						return data->Load(path);
+						return concurrency::create_task(
+							[this, path, data]
+						{ 
+							return data->Load(path);
+						});
 					}
 					else
 					{
 						*ppRes = static_cast<ResType*>(res);
-						return res->IsReady();
+						return concurrency::create_task(
+							[res]
+						{
+							return res->GetStatus();
+						});
 					}
-				}
-
-				template<class ResType>
-				inline Concurrency::task<bool> LoadAsync(const std::wstring& path, ResType **ppRes)
-				{
-					return concurrency::create_task([this, path, ppRes] { return this->Load(path, ppRes); });
 				}
 			};
 		}

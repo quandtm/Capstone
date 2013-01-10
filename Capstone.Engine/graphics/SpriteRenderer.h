@@ -48,10 +48,10 @@ namespace Capstone
 					Microsoft::WRL::ComPtr<ID3D11DeviceContext1> get() { return _context; }
 				}
 
+			public:
 				void RegisterTexture(Texture^ tex);
 				void RemoveTexture(Texture^ tex);
 
-			public:
 				static property SpriteRenderer^ Instance
 				{
 					SpriteRenderer^ get()

@@ -69,7 +69,7 @@ namespace Capstone
 			{
 				if (_device != nullptr && _context != nullptr)
 				{
-					_sb->Begin();
+					_sb->Begin(DirectX::SpriteSortMode_Immediate);
 					for (auto t : *_sprites)
 						t->Draw(_sb);
 					_sb->End();

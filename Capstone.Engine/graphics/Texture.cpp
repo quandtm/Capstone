@@ -10,12 +10,15 @@ namespace Capstone
 	{
 		namespace Graphics
 		{
+			using namespace Capstone::Engine::Resources;
+
 			// TextureData native type methods
-			bool TextureData::Load(const std::wstring& path)
+			ResourceStatus TextureData::Load(const std::wstring& path)
 			{
+				_status = ResourceStatus_Loading;
 				auto hr = DirectX::CreateDDSTextureFromFile(SpriteRenderer::Instance->Device.Get(), path.data(), &_resource, &_srv);
-				_isReady = SUCCEEDED(hr);
-				if (_isReady)
+				auto result = SUCCEEDED(hr);
+				if (result)
 				{
 					// Get information about the texture
 					Microsoft::WRL::ComPtr<ID3D11Texture2D> tex;
@@ -24,9 +27,11 @@ namespace Capstone
 					tex->GetDesc(&desc);
 					_width = desc.Width;
 					_height = desc.Height;
-					return true;
+					_status = ResourceStatus_Loaded;
 				}
-				return false;
+				else
+					_status = ResourceStatus_LoadingError;
+				return _status;
 			}
 
 			void TextureData::Dispose()
@@ -44,21 +49,34 @@ namespace Capstone
 				_loading = false;
 				_srcRect = RECT();
 				_origin = DirectX::XMFLOAT2(0, 0);
-				SpriteRenderer::Instance->RegisterTexture(this);
 			}
 
-			void Texture::Load(std::shared_ptr<Capstone::Engine::Resources::ResourceManager> resources)
+			void Texture::Load(std::shared_ptr<ResourceManager> resources)
 			{
 				if (_loading) return;
 				_loading = true;
-				resources->LoadAsync<TextureData>(std::wstring(_path->Data()), &_tex).then([this] (bool result)
+				resources->LoadAsync<TextureData>(std::wstring(_path->Data()), &_tex).then([this] (ResourceStatus result)
 				{
-					if (result)
+					if (result == ResourceStatus_AllocationError || result == ResourceStatus_LoadingError)
 					{
-						this->_srcRect.right = _tex->_width;
-						this->_srcRect.bottom = _tex->_height;
+						_isLoaded = false;
 					}
-					_isLoaded = result;
+					else
+					{
+						if (result == ResourceStatus_Loading)
+						{
+							while (_tex->GetStatus() == ResourceStatus_Loading) {}
+						}
+
+						if (_tex->GetStatus() == ResourceStatus_Loaded)
+						{
+							_srcRect.right = _tex->_width;
+							_srcRect.bottom = _tex->_height;
+							_isLoaded = true;
+						}
+						else
+							_isLoaded = false;
+					}
 					_loading = false;
 				});
 			}

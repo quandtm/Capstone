@@ -6,20 +6,29 @@ namespace Capstone
 	{
 		namespace Resources
 		{
+			typedef enum
+			{
+				ResourceStatus_None = 0,
+				ResourceStatus_AllocationError = -1,
+				ResourceStatus_LoadingError = -1,
+				ResourceStatus_Loading = 1,
+				ResourceStatus_Loaded = 2
+			} ResourceStatus;
+
 			class IResource abstract
 			{
 			protected:
-				std::atomic_bool _isReady;
+				std::atomic<ResourceStatus> _status;
 
 			public:
 				IResource()
 				{
-					_isReady = false;
+					_status = ResourceStatus_None;
 				};
 
-				virtual bool Load(const std::wstring& path) = 0;
+				virtual ResourceStatus Load(const std::wstring& path) = 0;
 				virtual void Dispose() = 0;
-				bool IsReady() { return _isReady; }
+				ResourceStatus GetStatus() { return _status; }
 			};
 		}
 	}
