@@ -1,6 +1,7 @@
 #pragma once
 #include "common\BasicTimer.h"
 #include "../graphics/SpriteRenderer.h"
+#include "../scripting/ScriptManager.h"
 
 namespace Capstone
 {
@@ -29,7 +30,12 @@ namespace Capstone
 				void Clear();
 				void Present();
 
+				void PointerPressedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
+				void PointerMovedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
+				void PointerReleasedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
+
 				Capstone::Engine::Graphics::SpriteRenderer^ _spriteRenderer;
+				Capstone::Engine::Scripting::ScriptManager^ _scriptManager;
 
 			internal:
 				D3D_FEATURE_LEVEL GetFeatureLevel();

@@ -16,8 +16,12 @@ namespace Capstone
 				}
 				void Unload();
 
-				void Update();
-				void PreDrawUpdate();
+				void Update(float deltaTime, float totalTime);
+				void PreDrawUpdate(float deltaTime, float totalTime);
+
+				void PointerPressed(float deltaTime, float totalTime, float x, float y);
+				void PointerMoved(float deltaTime, float totalTime, float x, float y);
+				void PointerReleased(float deltaTime, float totalTime, float x, float y);
 			};
 		}
 	}

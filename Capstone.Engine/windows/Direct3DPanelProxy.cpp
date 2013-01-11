@@ -44,7 +44,30 @@ namespace Capstone
 				// Hook Rendering event
 				CompositionTarget::Rendering::add(ref new EventHandler<Object^>(this, &Direct3DPanelProxy::RenderingHandler));
 
+				panel->PointerPressed += ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerPressedHandler);
+				panel->PointerMoved += ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerMovedHandler);
+				panel->PointerReleased += ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerReleasedHandler);
+
 				_timer->Reset();
+				_scriptManager = Capstone::Engine::Scripting::ScriptManager::Instance;
+			}
+
+			void Direct3DPanelProxy::PointerPressedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
+			{
+				auto pt = args->GetCurrentPoint(_panel)->Position;
+				_scriptManager->PointerPressed(_timer->Delta, _timer->Total, pt.X, pt.Y);
+			}
+
+			void Direct3DPanelProxy::PointerMovedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
+			{
+				auto pt = args->GetCurrentPoint(_panel)->Position;
+				_scriptManager->PointerMoved(_timer->Delta, _timer->Total, pt.X, pt.Y);
+			}
+
+			void Direct3DPanelProxy::PointerReleasedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
+			{
+				auto pt = args->GetCurrentPoint(_panel)->Position;
+				_scriptManager->PointerReleased(_timer->Delta, _timer->Total, pt.X, pt.Y);
 			}
 
 			void Direct3DPanelProxy::CreateDevice()
@@ -123,10 +146,15 @@ namespace Capstone
 
 			void Direct3DPanelProxy::RenderingHandler(Object^ sender, Object^ args)
 			{
+				_timer->Update();
+				_scriptManager->Update(_timer->Delta, _timer->Total);
+
 				// The RTV needs to be set every frame
 				auto view = _rtv.Get();
 				_context->OMSetRenderTargets(1, &view, nullptr);
-				// Update
+
+				_scriptManager->PreDrawUpdate(_timer->Delta, _timer->Total);
+
 				Clear();
 
 				_spriteRenderer->Draw();

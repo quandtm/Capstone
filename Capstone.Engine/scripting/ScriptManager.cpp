@@ -40,16 +40,34 @@ namespace Capstone
 				_scripts.clear();
 			}
 
-			void ScriptManager::Update()
+			void ScriptManager::Update(float deltaTime, float totalTime)
 			{
 				for (auto s : _scripts)
-					s->Update();
+					s->Update(deltaTime, totalTime);
 			}
 
-			void ScriptManager::PreDrawUpdate()
+			void ScriptManager::PreDrawUpdate(float deltaTime, float totalTime)
 			{
-				for (auto s: _scripts)
-					s->PreDrawUpdate();
+				for (auto s : _scripts)
+					s->PreDrawUpdate(deltaTime, totalTime);
+			}
+
+			void ScriptManager::PointerPressed(float deltaTime, float totalTime, float x, float y)
+			{
+				for (auto s : _scripts)
+					s->PointerPressed(deltaTime, totalTime, x, y);
+			}
+
+			void ScriptManager::PointerReleased(float deltaTime, float totalTime, float x, float y)
+			{
+				for (auto s : _scripts)
+					s->PointerMoved(deltaTime, totalTime, x, y);
+			}
+
+			void ScriptManager::PointerMoved(float deltaTime, float totalTime, float x, float y)
+			{
+				for (auto s : _scripts)
+					s->PointerReleased(deltaTime, totalTime, x, y);
 			}
 		}
 	}
