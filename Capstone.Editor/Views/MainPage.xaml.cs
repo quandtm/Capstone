@@ -11,7 +11,16 @@ namespace Capstone.Editor.Views
 
         private void OpenGame(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void NewMap(object sender, RoutedEventArgs e)
+        {
             App.CurrentApp.Navigate<GamePage>();
+        }
+
+        private void LoadMap(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
