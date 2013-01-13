@@ -35,7 +35,7 @@ namespace Capstone.Editor
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Window.Current.Content = new MainPage();
+            Navigate<MainPage>();
             Window.Current.Activate();
         }
 
