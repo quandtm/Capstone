@@ -46,7 +46,7 @@
     		</Grid.Background>
     		<Grid.RowDefinitions>
     			<RowDefinition Height="40"/>
-    			<RowDefinition Height="320"/>
+    			<RowDefinition/>
     		</Grid.RowDefinitions>
     		<TextBlock x:Name="inspectorLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Inspector" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="20,0,0,0"/>
     		<ScrollViewer Margin="0" Grid.Row="1"/>
