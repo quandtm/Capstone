@@ -36,13 +36,18 @@ namespace Capstone
 
 				Capstone::Engine::Graphics::SpriteRenderer^ _spriteRenderer;
 				Capstone::Engine::Scripting::ScriptManager^ _scriptManager;
+				void Initialise(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel);
 
 			internal:
 				D3D_FEATURE_LEVEL GetFeatureLevel();
 
 			public:
 				Direct3DPanelProxy(void);
-				void Initialise(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel);
+				void SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel);
+				property bool IsInitialised
+				{
+					bool get() { return _swapChain.Get() != nullptr; }
+				}
 			};
 		}
 	}

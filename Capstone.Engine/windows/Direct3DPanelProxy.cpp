@@ -144,6 +144,19 @@ namespace Capstone
 				_context->RSSetViewports(1, &vp);
 			}
 
+			void Direct3DPanelProxy::SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel)
+			{
+				if (_swapChain.Get() == nullptr)
+					Initialise(panel);
+				else
+				{
+					_panel = panel;
+					ComPtr<ISwapChainBackgroundPanelNative> nativePanel;
+					DX::ThrowIfFailed(reinterpret_cast<IUnknown*>(_panel)->QueryInterface(IID_PPV_ARGS(&nativePanel)));
+					DX::ThrowIfFailed(nativePanel->SetSwapChain(_swapChain.Get()));
+				}
+			}
+
 			void Direct3DPanelProxy::RenderingHandler(Object^ sender, Object^ args)
 			{
 				_timer->Update();
