@@ -28,11 +28,10 @@ namespace Capstone
 			{
 			}
 
-			void Direct3DPanelProxy::Initialise(SwapChainBackgroundPanel^ panel)
+			void Direct3DPanelProxy::Initialise()
 			{
 				auto window = Window::Current->CoreWindow;
 				auto dpi = DisplayProperties::LogicalDpi;
-				_panel = panel;
 
 				// Create base resources
 				CreateDevice();
@@ -43,10 +42,6 @@ namespace Capstone
 
 				// Hook Rendering event
 				CompositionTarget::Rendering::add(ref new EventHandler<Object^>(this, &Direct3DPanelProxy::RenderingHandler));
-
-				panel->PointerPressed += ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerPressedHandler);
-				panel->PointerMoved += ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerMovedHandler);
-				panel->PointerReleased += ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerReleasedHandler);
 
 				_timer->Reset();
 				_scriptManager = Capstone::Engine::Scripting::ScriptManager::Instance;
@@ -146,15 +141,27 @@ namespace Capstone
 
 			void Direct3DPanelProxy::SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel)
 			{
+				if (_panel != nullptr)
+				{
+					_panel->PointerPressed::remove(_pressedToken);
+					_panel->PointerMoved::remove(_movedToken);
+					_panel->PointerReleased::remove(_releasedToken);
+				}
+
+				_panel = panel;
+
 				if (_swapChain.Get() == nullptr)
-					Initialise(panel);
+					Initialise();
 				else
 				{
-					_panel = panel;
 					ComPtr<ISwapChainBackgroundPanelNative> nativePanel;
 					DX::ThrowIfFailed(reinterpret_cast<IUnknown*>(_panel)->QueryInterface(IID_PPV_ARGS(&nativePanel)));
 					DX::ThrowIfFailed(nativePanel->SetSwapChain(_swapChain.Get()));
 				}
+
+				_pressedToken = _panel->PointerPressed::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerPressedHandler));
+				_movedToken = _panel->PointerMoved::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerMovedHandler));
+				_releasedToken = _panel->PointerReleased::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerReleasedHandler));
 			}
 
 			void Direct3DPanelProxy::RenderingHandler(Object^ sender, Object^ args)

@@ -23,7 +23,7 @@ namespace Capstone
 				Microsoft::WRL::ComPtr<IDXGISwapChain1> _swapChain;
 				D3D_FEATURE_LEVEL _featureLevel;
 				::Windows::Foundation::Rect _windowBounds;
-				
+
 				void CreateDevice();
 				void CreateSizeDependentResources();
 				void RenderingHandler(Platform::Object^ sender, Platform::Object^ args);
@@ -34,9 +34,11 @@ namespace Capstone
 				void PointerMovedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
 				void PointerReleasedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
 
+				::Windows::Foundation::EventRegistrationToken _pressedToken, _movedToken, _releasedToken;
+
 				Capstone::Engine::Graphics::SpriteRenderer^ _spriteRenderer;
 				Capstone::Engine::Scripting::ScriptManager^ _scriptManager;
-				void Initialise(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel);
+				void Initialise();
 
 			internal:
 				D3D_FEATURE_LEVEL GetFeatureLevel();
