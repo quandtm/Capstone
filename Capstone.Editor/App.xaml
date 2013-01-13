@@ -14,6 +14,7 @@
                  -->
                 <ResourceDictionary Source="Common/StandardStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+        	<Color x:Key="DarkGreyBackground">#FF2C2C2C</Color>
 
         </ResourceDictionary>
     </Application.Resources>

@@ -8,6 +8,47 @@
     mc:Ignorable="d">
 
     <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded">
+    	<SwapChainBackgroundPanel.ColumnDefinitions>
+    		<ColumnDefinition Width="80"/>
+    		<ColumnDefinition/>
+    		<ColumnDefinition Width="326"/>
+    	</SwapChainBackgroundPanel.ColumnDefinitions>
+    	<SwapChainBackgroundPanel.RowDefinitions>
+    		<RowDefinition Height="40"/>
+    		<RowDefinition Height="360"/>
+    		<RowDefinition/>
+    	</SwapChainBackgroundPanel.RowDefinitions>
+    	<Grid x:Name="infoPanel" Grid.ColumnSpan="3" Background="#FF2C2C2C"/>
+    	<StackPanel x:Name="ctrlPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
+    		<StackPanel.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</StackPanel.Background>
+    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80"/>
+    		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80"/>
+    	</StackPanel>
+    	<Grid Grid.Row="1" Grid.Column="2">
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</Grid.Background>
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="40"/>
+    			<RowDefinition Height="320"/>
+    		</Grid.RowDefinitions>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Inspector" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="20,0,0,0"/>
+    		<ScrollViewer Margin="0" Grid.Row="1"/>
+    	</Grid>
+    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="2">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="40"/>
+    			<RowDefinition/>
+    		</Grid.RowDefinitions>
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</Grid.Background>
+    		<Button x:Name="btnBuildMenu" Content="Build Mode" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}"/>
+    		<Button x:Name="btnLandscapeMenu" Content="Landscape Mode" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="130,0,0,0"/>
+    		<ScrollViewer Grid.Row="1"/>
+    	</Grid>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>
