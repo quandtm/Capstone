@@ -20,6 +20,9 @@
     <ClCompile Include="scripting\ScriptManager.cpp">
       <Filter>Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\Camera.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -53,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="scripting\IScript.h">
       <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Camera.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
