@@ -57,11 +57,7 @@ namespace Capstone
 				_loading = true;
 				resources->LoadAsync<TextureData>(std::wstring(_path->Data()), &_tex).then([this] (ResourceStatus result)
 				{
-					if (result == ResourceStatus_AllocationError || result == ResourceStatus_LoadingError)
-					{
-						_isLoaded = false;
-					}
-					else
+					if (!(result == ResourceStatus_AllocationError || result == ResourceStatus_LoadingError))
 					{
 						if (result == ResourceStatus_Loading)
 						{

@@ -62,7 +62,7 @@ namespace Capstone
 				auto size = _toc[page].NumPages;
 				if (size > 0)
 				{
-					for (uint32_t i = page; i < page + size; ++i)
+					for (size_t i = page; i < page + size; ++i)
 						_toc[i].IsAllocated = false;
 					_allocated -= size * _pageSize;
 				}
