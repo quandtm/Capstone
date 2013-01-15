@@ -80,7 +80,7 @@
     				<RowDefinition Height="40"/>
     				<RowDefinition/>
     			</Grid.RowDefinitions>
-    			<GridView Grid.Row="1" ItemsSource="{Binding Sprites}" ItemTemplate="{StaticResource SpritePreviewTemplate}"/>
+    			<GridView Grid.Row="1" ItemsSource="{Binding Sprites}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedSprite, Mode=TwoWay}"/>
     			<Button Content="+" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="LoadSprite"/>
     		</Grid>
     	</Grid>

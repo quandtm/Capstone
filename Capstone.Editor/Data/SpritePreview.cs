@@ -12,6 +12,7 @@ namespace Capstone.Editor.Data
         public string Name { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
+        public string FilePath { get; private set; }
 
         private SpritePreview()
         {
@@ -27,6 +28,7 @@ namespace Capstone.Editor.Data
             sprite.Image = img;
             sprite.Width = img.PixelWidth;
             sprite.Height = img.PixelHeight;
+            sprite.FilePath = path;
             return sprite;
         }
     }
