@@ -76,6 +76,7 @@ namespace Capstone
 					float get() { return _origin.y; }
 					void set(float val) { _origin.y = val; }
 				}
+				property bool IsVisible;
 			};
 		}
 	}

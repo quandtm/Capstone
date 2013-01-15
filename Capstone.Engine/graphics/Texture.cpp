@@ -42,13 +42,9 @@ namespace Capstone
 
 
 			// Texture WinRT type methods
-			Texture::Texture(Platform::String^ path)
+			Texture::Texture(Platform::String^ path) : _path(path), _isLoaded(false), _loading(false), _srcRect(RECT()), _origin(DirectX::XMFLOAT2(0, 0))
 			{
-				_path = path;
-				_isLoaded = false;
-				_loading = false;
-				_srcRect = RECT();
-				_origin = DirectX::XMFLOAT2(0, 0);
+				IsVisible = true;
 			}
 
 			void Texture::Load(std::shared_ptr<ResourceManager> resources)
@@ -79,7 +75,7 @@ namespace Capstone
 
 			void Texture::Draw(std::shared_ptr<DirectX::SpriteBatch> batch)
 			{
-				if (_isLoaded)
+				if (_isLoaded && IsVisible)
 				{
 					DirectX::XMFLOAT2 pos(Entity->TranslationX, Entity->TranslationY);
 					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, _origin, Entity->Scale);

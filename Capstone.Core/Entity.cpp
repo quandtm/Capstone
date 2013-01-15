@@ -26,5 +26,18 @@ namespace Capstone
 		{
 			return _components[key];
 		}
+
+		void Entity::RemoveComponent(Platform::String^ key)
+		{
+			if (!key->IsEmpty())
+			{
+				auto item = _components[key];
+				if (item != nullptr)
+				{
+					_components.erase(key);
+					item->Entity = nullptr;
+				}
+			}
+		}
 	}
 }
