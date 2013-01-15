@@ -5,7 +5,21 @@
     xmlns:common="using:Capstone.Editor.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Capstone.Editor.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:EditorViewModel, IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
+	<common:LayoutAwarePage.Resources>
+		<DataTemplate x:Key="SpritePreviewTemplate">
+			<Grid Width="100" Height="150">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="100"/>
+					<RowDefinition Height="50"/>
+				</Grid.RowDefinitions>
+				<Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="{Binding Image, Mode=OneWay}"/>
+				<TextBlock TextWrapping="Wrap" Text="{Binding Name, Mode=OneWay}" Margin="5" Grid.Row="1"/>
+			</Grid>
+		</DataTemplate>
+	</common:LayoutAwarePage.Resources>
 	<common:LayoutAwarePage.BottomAppBar>
 		<AppBar>
 			<Grid>
@@ -61,7 +75,14 @@
     		</Grid.Background>
     		<Button x:Name="btnBuildMenu" Content="Build Mode" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
     		<Button x:Name="btnLandscapeMenu" Content="Landscape Mode" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="130,0,0,0" Click="OpenLandscapeMode"/>
-    		<ScrollViewer Grid.Row="1"/>
+    		<Grid Grid.Row="1">
+    			<Grid.RowDefinitions>
+    				<RowDefinition Height="40"/>
+    				<RowDefinition/>
+    			</Grid.RowDefinitions>
+    			<GridView Grid.Row="1" ItemsSource="{Binding Sprites}" ItemTemplate="{StaticResource SpritePreviewTemplate}"/>
+    			<Button Content="+" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="LoadSprite"/>
+    		</Grid>
     	</Grid>
     </SwapChainBackgroundPanel>
 
