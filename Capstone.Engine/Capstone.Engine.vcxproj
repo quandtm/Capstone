@@ -233,6 +233,7 @@
     <ClInclude Include="common\BasicTimer.h" />
     <ClInclude Include="common\DirectXHelper.h" />
     <ClInclude Include="graphics\Camera.h" />
+    <ClInclude Include="graphics\CameraManager.h" />
     <ClInclude Include="graphics\SpriteRenderer.h" />
     <ClInclude Include="graphics\Texture.h" />
     <ClInclude Include="memory\PageAllocator.h" />
@@ -245,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graphics\Camera.cpp" />
+    <ClCompile Include="graphics\CameraManager.cpp" />
     <ClCompile Include="graphics\SpriteRenderer.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
     <ClCompile Include="memory\PageAllocator.cpp" />

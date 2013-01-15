@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SpriteRenderer.h"
+#include "CameraManager.h"
 
 namespace Capstone
 {
@@ -74,7 +75,13 @@ namespace Capstone
 			{
 				if (_device != nullptr && _context != nullptr)
 				{
-					_sb->Begin(DirectX::SpriteSortMode_Immediate);
+					auto cam = CameraManager::Instance->ActiveCamera;
+					DirectX::XMMATRIX view;
+					if (cam != nullptr)
+						view = *(cam->GetView());
+					else
+						view = DirectX::XMMatrixIdentity();
+					_sb->Begin(DirectX::SpriteSortMode_Immediate, nullptr, nullptr, nullptr, nullptr, nullptr, view);
 					for (auto t : *_sprites)
 						t->Draw(_sb);
 					_sb->End();
