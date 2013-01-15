@@ -61,13 +61,13 @@ namespace Capstone
 			void ScriptManager::PointerReleased(float deltaTime, float totalTime, float x, float y)
 			{
 				for (auto s : _scripts)
-					s->PointerMoved(deltaTime, totalTime, x, y);
+					s->PointerReleased(deltaTime, totalTime, x, y);
 			}
 
 			void ScriptManager::PointerMoved(float deltaTime, float totalTime, float x, float y)
 			{
 				for (auto s : _scripts)
-					s->PointerReleased(deltaTime, totalTime, x, y);
+					s->PointerMoved(deltaTime, totalTime, x, y);
 			}
 		}
 	}
