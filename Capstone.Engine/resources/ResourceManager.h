@@ -30,7 +30,8 @@ namespace Capstone
 						if (mem == nullptr) return concurrency::create_task([] { return ResourceStatus_AllocationError; }); // Allocation error, exiting
 						auto data = new (mem) ResType();
 						_lookup[path] = data;
-						*ppRes = data;
+						if (ppRes != nullptr)
+							*ppRes = data;
 						return concurrency::create_task(
 							[this, path, data]
 						{ 
@@ -39,7 +40,8 @@ namespace Capstone
 					}
 					else
 					{
-						*ppRes = static_cast<ResType*>(res);
+						if (ppRes != nullptr)
+							*ppRes = static_cast<ResType*>(res);
 						return concurrency::create_task(
 							[res]
 						{
