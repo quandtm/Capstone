@@ -108,6 +108,7 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\SpritePreview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\PointerFollowScript.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="Views\EditorPage.xaml.cs">
       <DependentUpon>EditorPage.xaml</DependentUpon>

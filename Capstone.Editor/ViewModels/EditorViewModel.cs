@@ -1,7 +1,9 @@
 ﻿using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
+using Capstone.Editor.Scripts;
 using Capstone.Engine.Graphics;
+using Capstone.Engine.Scripting;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -20,6 +22,9 @@ namespace Capstone.Editor.ViewModels
             Sprites = new ObservableCollection<SpritePreview>();
 
             _previewEntity = new Entity();
+            var script = new PointerFollowScript();
+            ScriptManager.Instance.RegisterScript(script);
+            _previewEntity.AddComponent("ptrScript", script);
         }
 
         public async void OpenSprite(StorageFile file)
@@ -46,7 +51,7 @@ namespace Capstone.Editor.ViewModels
             var tex = new Texture(path);
             SpriteRenderer.Instance.RegisterTexture(tex);
             _previewEntity.AddComponent("sprite", tex);
-            tex.IsVisible = false;
+            //tex.IsVisible = false;
         }
     }
 }

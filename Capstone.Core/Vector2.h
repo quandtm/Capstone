@@ -9,6 +9,18 @@ namespace Capstone
 		public:
 			property float X;
 			property float Y;
+
+			Vector2(void)
+			{
+				X = 0;
+				Y = 0;
+			}
+
+			Vector2(float x, float y)
+			{
+				X = x;
+				Y = y;
+			}
 		};
 	}
 }

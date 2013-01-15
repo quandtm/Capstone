@@ -20,6 +20,8 @@ namespace Capstone
 
 			public:
 				virtual property Capstone::Core::Entity^ Entity;
+
+				void ScreenToWorld(Capstone::Core::Vector2^ screen, Capstone::Core::Vector2^ world);
 			};
 		}
 	}
