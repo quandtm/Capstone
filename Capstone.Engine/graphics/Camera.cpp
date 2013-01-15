@@ -16,7 +16,7 @@ namespace Capstone
 
 			void Camera::UpdateMatrices()
 			{
-				_view = XMMatrixTranslation(Entity->TranslationX, Entity->TranslationY, 0);
+				_view = XMMatrixTranslation(Entity->Translation->X, Entity->Translation->Y, 0);
 			}
 		}
 	}

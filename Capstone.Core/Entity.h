@@ -1,5 +1,6 @@
 #pragma once
 #include "IComponent.h"
+#include "Vector2.h"
 
 namespace Capstone
 {
@@ -13,8 +14,7 @@ namespace Capstone
 		public:
 			Entity();
 
-			property float TranslationX;
-			property float TranslationY;
+			property Vector2^ Translation;
 			property float Scale;
 			property float Rotation;
 

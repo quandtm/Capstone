@@ -7,8 +7,8 @@ namespace Capstone
 	{
 		Entity::Entity()
 		{
-			TranslationX = 0;
-			TranslationY = 0;
+			Translation->X = 0;
+			Translation->Y = 0;
 			Scale = 1;
 			Rotation = 0;
 		}

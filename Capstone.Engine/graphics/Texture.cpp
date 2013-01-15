@@ -77,7 +77,7 @@ namespace Capstone
 			{
 				if (_isLoaded && IsVisible)
 				{
-					DirectX::XMFLOAT2 pos(Entity->TranslationX, Entity->TranslationY);
+					DirectX::XMFLOAT2 pos(Entity->Translation->X, Entity->Translation->Y);
 					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, _origin, Entity->Scale);
 				}
 			}

@@ -1,10 +1,10 @@
-﻿using System.IO;
-using Capstone.Core;
+﻿using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Engine.Graphics;
-using System.Collections.ObjectModel;
 using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using Windows.Storage;
 
 namespace Capstone.Editor.ViewModels
@@ -20,8 +20,6 @@ namespace Capstone.Editor.ViewModels
             Sprites = new ObservableCollection<SpritePreview>();
 
             _previewEntity = new Entity();
-            _previewEntity.TranslationX = 200;
-            _previewEntity.TranslationY = 200;
         }
 
         public async void OpenSprite(StorageFile file)
@@ -48,6 +46,7 @@ namespace Capstone.Editor.ViewModels
             var tex = new Texture(path);
             SpriteRenderer.Instance.RegisterTexture(tex);
             _previewEntity.AddComponent("sprite", tex);
+            tex.IsVisible = false;
         }
     }
 }
