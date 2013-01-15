@@ -10,6 +10,8 @@ namespace Capstone.Editor.Data
     {
         public ImageSource Image { get; private set; }
         public string Name { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         private SpritePreview()
         {
@@ -21,7 +23,10 @@ namespace Capstone.Editor.Data
 
             var sprite = new SpritePreview();
             sprite.Name = fn;
-            sprite.Image = new BitmapImage(new Uri(path));
+            var img = new BitmapImage(new Uri(path));
+            sprite.Image = img;
+            sprite.Width = img.PixelWidth;
+            sprite.Height = img.PixelHeight;
             return sprite;
         }
     }

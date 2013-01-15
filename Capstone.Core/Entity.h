@@ -10,11 +10,12 @@ namespace Capstone
 		{
 		private:
 			std::map<Platform::String^, IComponent^> _components;
+			Vector2 _trans;
 
 		public:
 			Entity();
 
-			property Vector2^ Translation;
+			property Vector2^ Translation { Vector2^ get() { return %_trans; } };
 			property float Scale;
 			property float Rotation;
 
