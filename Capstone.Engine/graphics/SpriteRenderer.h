@@ -51,6 +51,7 @@ namespace Capstone
 			public:
 				void RegisterTexture(Texture^ tex);
 				void RemoveTexture(Texture^ tex);
+				void Preload(Platform::String^ path);
 
 				static property SpriteRenderer^ Instance
 				{

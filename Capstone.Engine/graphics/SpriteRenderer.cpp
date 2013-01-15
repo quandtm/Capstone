@@ -51,6 +51,11 @@ namespace Capstone
 					tex->Load(_resources);
 			}
 
+			void SpriteRenderer::Preload(Platform::String^ path)
+			{
+				_resources->LoadAsync<TextureData>(std::wstring(path->Data()), nullptr);
+			}
+
 			void SpriteRenderer::RemoveTexture(Texture^ tex)
 			{
 				TextureIterator it;
