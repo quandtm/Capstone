@@ -33,11 +33,6 @@ namespace Capstone.Editor.Views
 
         }
 
-        private void OpenTriggerMode(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ChangeToolSelect(object sender, RoutedEventArgs e)
         {
             VM.Tool = EditorTool.Select;
@@ -56,6 +51,11 @@ namespace Capstone.Editor.Views
         private void swapPanel_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             VM.HandleClick(e.GetCurrentPoint(swapPanel).Position);
+        }
+
+        private void ToggleEventEditor(object sender, RoutedEventArgs e)
+        {
+            VM.EventEditorVisible = !VM.EventEditorVisible;
         }
     }
 }

@@ -9,7 +9,8 @@
     d:DataContext="{d:DesignInstance Type=viewModels:EditorViewModel, IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
 	<common:LayoutAwarePage.Resources>
-		<common:InvertBoolVisibility x:Key="BoolVisibility"/>
+		<common:InvertBoolVisibility x:Key="InverseBoolVisibility"/>
+        <common:BoolVisibility x:Key="BoolVisibility" />
 		<DataTemplate x:Key="SpritePreviewTemplate">
 			<Grid Width="100" Height="150">
 				<Grid.Background>
@@ -20,7 +21,7 @@
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="ObjectiveItemTemplate">
-			<Grid Background="#19000000" IsHitTestVisible="False" Visibility="{Binding IsComplete, Converter={StaticResource BoolVisibility}, Mode=OneWay}">
+			<Grid Background="#19000000" IsHitTestVisible="False" Visibility="{Binding IsComplete, Converter={StaticResource InverseBoolVisibility}, Mode=OneWay}">
 				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="5,2" IsHitTestVisible="False">
 					<Run Text="-"/>
 					<Run Text="{Binding Description}"/>
@@ -66,6 +67,7 @@
     			<Run Text="{Binding RemainingSprites}"/>
     		</TextBlock>
     		<Button Content="Object Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
+    		<Button Content="Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,170,0" Click="ToggleEventEditor"/>
     	</Grid>
     	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
     		<StackPanel.Background>
@@ -96,12 +98,16 @@
     		</Grid.Background>
     		<Button x:Name="btnBuildMenu" Content="Objects" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
     		<Button x:Name="btnLandscapeMenu" Content="Landscape" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="100,0,0,0" Click="OpenLandscapeMode"/>
-    		<Button x:Name="btnTriggers" Content="Triggers" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="200,0,0,0" Style="{StaticResource TextButtonStyle}" Click="OpenTriggerMode"/>
     		<Grid Grid.Row="1">
     			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" />
     		</Grid>
     	</Grid>
-    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" ItemsSource="{Binding Objectives}" ItemTemplate="{StaticResource ObjectiveItemTemplate}" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False"/>
+    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding Objectives}"/>
+    	<Grid x:Name="eventPanel" HorizontalAlignment="Right" Width="400" Grid.Column="1" Margin="0" Grid.Row="1" Grid.RowSpan="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource BoolVisibility}}">
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</Grid.Background>
+    	</Grid>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>

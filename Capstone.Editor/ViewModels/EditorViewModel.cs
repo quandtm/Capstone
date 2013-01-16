@@ -34,6 +34,7 @@ namespace Capstone.Editor.ViewModels
         private readonly Dictionary<string, Objective> _objectiveLookup;
 
         public EditorTool Tool { get; set; }
+        public bool EventEditorVisible { get; set; }
 
         public EditorViewModel()
         {
@@ -48,6 +49,7 @@ namespace Capstone.Editor.ViewModels
             RegisterObjectives();
 
             Tool = EditorTool.Select;
+            EventEditorVisible = false;
         }
 
         private void RegisterObjectives()
