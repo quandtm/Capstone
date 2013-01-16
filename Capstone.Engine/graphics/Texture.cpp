@@ -42,9 +42,10 @@ namespace Capstone
 
 
 			// Texture WinRT type methods
-			Texture::Texture(Platform::String^ path) : _path(path), _isLoaded(false), _loading(false), _srcRect(RECT()), _origin(DirectX::XMFLOAT2(0, 0))
+			Texture::Texture(Platform::String^ path) : _path(path), _isLoaded(false), _loading(false), _srcRect(RECT())
 			{
 				IsVisible = true;
+				Origin = OriginPoint::TopLeft;
 			}
 
 			void Texture::Load(std::shared_ptr<ResourceManager> resources)
@@ -78,7 +79,29 @@ namespace Capstone
 				if (_isLoaded && IsVisible)
 				{
 					DirectX::XMFLOAT2 pos(Entity->Translation->X, Entity->Translation->Y);
-					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, _origin, Entity->Scale);
+					DirectX::XMFLOAT2 origin(0, 0);
+					// Calculate the origin, the default is top left so don't handle that
+					switch (Origin)
+					{
+					case OriginPoint::TopRight:
+						origin.x = SourceRectWidth;
+						break;
+
+					case OriginPoint::Center:
+						origin.x = SourceRectWidth / 2.0f;
+						origin.y = SourceRectHeight / 2.0f;
+						break;
+
+					case OriginPoint::BottomLeft:
+						origin.y = SourceRectHeight;
+						break;
+						
+					case OriginPoint::BottomRight:
+						origin.x = SourceRectWidth;
+						origin.y = SourceRectHeight;
+						break;
+					}
+					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, origin, Entity->Scale);
 				}
 			}
 		}

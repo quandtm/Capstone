@@ -81,7 +81,7 @@ namespace Capstone
 						view = *(cam->GetView());
 					else
 						view = DirectX::XMMatrixIdentity();
-					_sb->Begin(DirectX::SpriteSortMode_Immediate, nullptr, nullptr, nullptr, nullptr, nullptr, view);
+					_sb->Begin(DirectX::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, view);
 					for (auto t : *_sprites)
 						t->Draw(_sb);
 					_sb->End();

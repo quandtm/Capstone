@@ -8,6 +8,15 @@ namespace Capstone
 	{
 		namespace Graphics
 		{
+			public enum class OriginPoint
+			{
+				TopLeft,
+				TopRight,
+				Center,
+				BottomLeft,
+				BottomRight
+			};
+
 			class TextureData sealed : public Capstone::Engine::Resources::IResource
 			{
 			public:
@@ -26,7 +35,6 @@ namespace Capstone
 				TextureData *_tex;
 
 				RECT _srcRect;
-				DirectX::XMFLOAT2 _origin;
 
 				Platform::String^ _path;
 
@@ -66,17 +74,8 @@ namespace Capstone
 					int get() { return _srcRect.bottom - _srcRect.top; }
 					void set(int val) { _srcRect.bottom = _srcRect.top + val; }
 				}
-				property float OriginX
-				{
-					float get() { return _origin.x; }
-					void set(float val) { _origin.x = val; }
-				}
-				property float OriginY
-				{
-					float get() { return _origin.y; }
-					void set(float val) { _origin.y = val; }
-				}
 				property bool IsVisible;
+				property OriginPoint Origin;
 			};
 		}
 	}
