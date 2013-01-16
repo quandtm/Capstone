@@ -65,6 +65,7 @@
     			<Run Text="$"/>
     			<Run Text="{Binding RemainingSprites}"/>
     		</TextBlock>
+    		<Button Content="Object Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
     	</Grid>
     	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
     		<StackPanel.Background>
@@ -93,8 +94,9 @@
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
-    		<Button x:Name="btnBuildMenu" Content="Build Mode" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
-    		<Button x:Name="btnLandscapeMenu" Content="Landscape Mode" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="130,0,0,0" Click="OpenLandscapeMode"/>
+    		<Button x:Name="btnBuildMenu" Content="Objects" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
+    		<Button x:Name="btnLandscapeMenu" Content="Landscape" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="100,0,0,0" Click="OpenLandscapeMode"/>
+    		<Button x:Name="btnTriggers" Content="Triggers" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="200,0,0,0" Style="{StaticResource TextButtonStyle}" Click="OpenTriggerMode"/>
     		<Grid Grid.Row="1">
     			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" />
     		</Grid>
