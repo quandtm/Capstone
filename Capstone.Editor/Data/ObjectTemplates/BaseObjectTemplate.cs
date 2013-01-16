@@ -21,7 +21,13 @@ namespace Capstone.Editor.Data.ObjectTemplates
         public int InstancesUsed { get; protected set; }
         public int InstancesRemaining
         {
-            get { return MaxInstances - InstancesUsed; }
+            get
+            {
+                if (MaxInstances == 0)
+                    return 1;
+                else
+                    return MaxInstances - InstancesUsed;
+            }
         }
 
         protected BaseObjectTemplate(int maxInstances)

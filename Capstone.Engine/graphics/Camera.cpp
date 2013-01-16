@@ -17,14 +17,20 @@ namespace Capstone
 
 			void Camera::UpdateMatrices()
 			{
-				_view = XMMatrixTranslation(Entity->Translation->X, Entity->Translation->Y, 0);
+				_view = XMMatrixTranslation(-Entity->Translation->X, -Entity->Translation->Y, 0);
 			}
 
 			void Camera::ScreenToWorld(Vector2^ screen, Vector2^ world)
 			{
-				// TODO: Actually transform
-				world->X = screen->X;
-				world->Y = screen->Y;
+				auto flt = XMFLOAT2(screen->X, screen->Y);
+				_declspec(align(16)) auto vec = XMLoadFloat2(&flt);
+				auto det = XMMatrixDeterminant(_view);
+				auto inv = XMMatrixInverse(&det, _view);
+				_declspec(align(16)) auto result = XMVector2TransformCoord(vec, inv);
+				auto worldFlt = XMFLOAT2();
+				XMStoreFloat2(&worldFlt, result);
+				world->X = worldFlt.x;
+				world->Y = worldFlt.y;
 			}
 		}
 	}

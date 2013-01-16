@@ -31,8 +31,8 @@ namespace Capstone.Editor.Scripts
                 var dy = y - _prevY;
                 _prevX = x;
                 _prevY = y;
-                Entity.Translation.X = Entity.Translation.X + dx;
-                Entity.Translation.Y = Entity.Translation.Y + dy;
+                Entity.Translation.X = Entity.Translation.X - dx;
+                Entity.Translation.Y = Entity.Translation.Y - dy;
             }
         }
 

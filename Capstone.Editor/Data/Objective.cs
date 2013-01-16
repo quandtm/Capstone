@@ -21,6 +21,7 @@ namespace Capstone.Editor.Data
 
         public void CompleteItem()
         {
+            if (IsComplete) return;
             Count = Count + 1;
             if (Count >= Total)
             {

@@ -9,7 +9,7 @@ namespace Capstone
 			public ref class Camera sealed : Capstone::Core::IComponent
 			{
 			private:
-				DirectX::XMMATRIX _view;
+				_declspec(align(16)) DirectX::XMMATRIX _view;
 
 			internal:
 				void UpdateMatrices();
