@@ -21,18 +21,18 @@ namespace Capstone
 				size_t _pageSize;
 				uint32_t _numPages;
 
-				BYTE* alloc(size_t requestedSize);
+				BYTE* alloc(const size_t requestedSize);
 				void dealloc(BYTE *startPtr);
 
 				size_t _totalMemory;
 				size_t _allocated;
 
 			public:
-				PageAllocator(uint32_t numPages, size_t pageSize);
+				PageAllocator(const uint32_t numPages, const size_t pageSize);
 
-				inline size_t TotalSize() { return _totalMemory; }
-				inline size_t Available() { return _totalMemory - _allocated; }
-				inline size_t Allocated() { return _allocated; }
+				inline const size_t TotalSize() const { return _totalMemory; };
+				inline const size_t Available() const { return _totalMemory - _allocated; };
+				inline const size_t Allocated() const { return _allocated; };
 
 				template<class T>
 				inline T* Allocate()

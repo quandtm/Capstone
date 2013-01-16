@@ -28,7 +28,7 @@ namespace Capstone
 
 				virtual ResourceStatus Load(const std::wstring& path) = 0;
 				virtual void Dispose() = 0;
-				ResourceStatus GetStatus() { return _status; }
+				const ResourceStatus GetStatus() const { return _status; }
 			};
 		}
 	}

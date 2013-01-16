@@ -124,6 +124,9 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Capstone.Editor_TemporaryKey.pfx" />
+    <Content Include="Content\sprites\player.DDS">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
