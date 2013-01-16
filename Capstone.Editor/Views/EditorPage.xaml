@@ -9,6 +9,7 @@
     d:DataContext="{d:DesignInstance Type=viewModels:EditorViewModel, IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
 	<common:LayoutAwarePage.Resources>
+		<common:InvertBoolVisibility x:Key="BoolVisibility"/>
 		<DataTemplate x:Key="SpritePreviewTemplate">
 			<Grid Width="100" Height="150">
 				<Grid.Background>
@@ -16,6 +17,19 @@
 				</Grid.Background>
 				<Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="100" Source="{Binding PreviewImage, Mode=OneWay}" Stretch="None"/>
 				<TextBlock TextWrapping="Wrap" Text="{Binding PreviewLabel, Mode=OneWay}" Height="40" VerticalAlignment="Bottom" Margin="5,0,5,5" TextAlignment="Center"/>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ObjectiveItemTemplate">
+			<Grid Background="#19000000" IsHitTestVisible="False" Visibility="{Binding IsComplete, Converter={StaticResource BoolVisibility}, Mode=OneWay}">
+				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="5,2" IsHitTestVisible="False">
+					<Run Text="-"/>
+					<Run Text="{Binding Description}"/>
+					<Run Text="("/>
+					<Run Text="{Binding Count}"/>
+					<Run Text="/"/>
+					<Run Text="{Binding Total}"/>
+					<Run Text=")"/>
+				</TextBlock>
 			</Grid>
 		</DataTemplate>
 	</common:LayoutAwarePage.Resources>
@@ -84,6 +98,7 @@
     			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" />
     		</Grid>
     	</Grid>
+    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" ItemsSource="{Binding Objectives}" ItemTemplate="{StaticResource ObjectiveItemTemplate}" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False"/>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>

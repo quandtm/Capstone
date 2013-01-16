@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Capstone.Core;
 using Capstone.Editor.Common;
+using Capstone.Editor.Data;
 using Capstone.Editor.Data.ObjectTemplates;
-using System.Collections.ObjectModel;
-using Capstone.Core;
 using Capstone.Engine.Graphics;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Capstone.Editor.ViewModels
 {
@@ -18,15 +19,42 @@ namespace Capstone.Editor.ViewModels
 
         private readonly List<Entity> _entities;
 
+        public ObservableCollection<Objective> Objectives { get; private set; }
+        private readonly Dictionary<string, Objective> _objectiveLookup;
+
         public EditorViewModel()
         {
+            Objectives = new ObservableCollection<Objective>();
             _entities = new List<Entity>();
-
             Objects = new ObservableCollection<BaseObjectTemplate>();
+            _objectiveLookup = new Dictionary<string, Objective>();
 
             RemainingSprites = 500;
 
             SetupCamera();
+            RegisterObjectives();
+        }
+
+        private void RegisterObjectives()
+        {
+            AddObjective("addplayer", "Add Player");
+        }
+
+        public void AddObjective(string name, string description)
+        {
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(description) && !_objectiveLookup.ContainsKey(name))
+            {
+                var obj = new Objective(description);
+                _objectiveLookup.Add(name, obj);
+                Objectives.Add(obj);
+            }
+        }
+
+        public void CompleteObjective(string name)
+        {
+            Objective obj;
+            if (_objectiveLookup.TryGetValue(name, out obj))
+                obj.CompleteItem();
         }
 
         private void SetupCamera()
@@ -54,6 +82,9 @@ namespace Capstone.Editor.ViewModels
             CameraManager.Instance.ActiveCamera.ScreenToWorld(screenPt, e.Translation);
             _entities.Add(e);
             RemainingSprites = RemainingSprites - 1;
+
+            if (SelectedObject is PlayerObject)
+                CompleteObjective("addplayer");
         }
     }
 }
