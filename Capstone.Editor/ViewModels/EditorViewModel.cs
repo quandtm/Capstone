@@ -2,14 +2,25 @@
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Editor.Data.ObjectTemplates;
+using Capstone.Editor.Scripts;
 using Capstone.Engine.Graphics;
+using Capstone.Engine.Scripting;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.Foundation;
 
 namespace Capstone.Editor.ViewModels
 {
+    public enum EditorTool
+    {
+        Select,
+        Pan,
+        Build
+    }
+
     public class EditorViewModel : BindableBase
     {
+        private Point _prevPoint;
         private Entity _cam;
 
         public ObservableCollection<BaseObjectTemplate> Objects { get; private set; }
@@ -22,6 +33,8 @@ namespace Capstone.Editor.ViewModels
         public ObservableCollection<Objective> Objectives { get; private set; }
         private readonly Dictionary<string, Objective> _objectiveLookup;
 
+        public EditorTool Tool { get; set; }
+
         public EditorViewModel()
         {
             Objectives = new ObservableCollection<Objective>();
@@ -33,6 +46,8 @@ namespace Capstone.Editor.ViewModels
 
             SetupCamera();
             RegisterObjectives();
+
+            Tool = EditorTool.Select;
         }
 
         private void RegisterObjectives()
@@ -64,6 +79,9 @@ namespace Capstone.Editor.ViewModels
             CameraManager.Instance.AddCamera("camera", c);
             CameraManager.Instance.MakeActive("camera");
             _cam.AddComponent("camera", c);
+            var cscript = new EditorCameraScript(this);
+            ScriptManager.Instance.RegisterScript(cscript);
+            _cam.AddComponent("controlscript", cscript);
         }
 
         public void PopulateObjectList()
@@ -72,6 +90,16 @@ namespace Capstone.Editor.ViewModels
         }
 
         internal void HandleClick(Windows.Foundation.Point point)
+        {
+            switch (Tool)
+            {
+                case EditorTool.Build:
+                    BuildSprite(point);
+                    break;
+            }
+        }
+
+        private void BuildSprite(Point point)
         {
             if (RemainingSprites <= 0) return;
             if (SelectedObject == null) return;

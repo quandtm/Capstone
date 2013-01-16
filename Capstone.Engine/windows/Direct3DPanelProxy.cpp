@@ -2,6 +2,7 @@
 #include "Direct3DPanelProxy.h"
 #include "common\DirectXHelper.h"
 #include <windows.ui.xaml.media.dxinterop.h>
+#include "../graphics/CameraManager.h"
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -12,6 +13,7 @@ using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Core;
 using namespace Capstone::Engine::Common;
 using namespace Microsoft::WRL;
+using namespace Capstone::Engine::Graphics;
 
 namespace Capstone
 {
@@ -173,6 +175,7 @@ namespace Capstone
 				auto view = _rtv.Get();
 				_context->OMSetRenderTargets(1, &view, nullptr);
 
+				CameraManager::Instance->Update();
 				_scriptManager->PreDrawUpdate(_timer->Delta, _timer->Total);
 
 				Clear();

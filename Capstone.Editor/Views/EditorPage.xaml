@@ -70,8 +70,9 @@
     		<StackPanel.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</StackPanel.Background>
-    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect"/>
     		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolPan"/>
+    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0"/>
+    		<Button x:Name="btnBuild" Content="Place" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Margin="0" Click="ChangeToolBuild"/>
     	</StackPanel>
     	<Grid x:Name="inspectorPanel" Grid.Row="1" Grid.Column="2">
     		<Grid.Background>

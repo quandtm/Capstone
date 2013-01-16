@@ -32,6 +32,12 @@ namespace Capstone
 				if (cam != nullptr && cam != _active)
 					_active = cam;
 			}
+
+			void CameraManager::Update()
+			{
+				if (ActiveCamera != nullptr)
+					ActiveCamera->UpdateMatrices();
+			}
 		}
 	}
 }
