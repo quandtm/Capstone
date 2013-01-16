@@ -46,7 +46,12 @@
     		<RowDefinition Height="45*"/>
     		<RowDefinition Height="46*"/>
     	</SwapChainBackgroundPanel.RowDefinitions>
-    	<Grid x:Name="infoPanel" Grid.ColumnSpan="3" Background="#FF2C2C2C"/>
+    	<Grid x:Name="infoPanel" Grid.ColumnSpan="3" Background="#FF2C2C2C">
+    		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Style="{StaticResource BasicTextStyle}">
+    			<Run Text="$"/>
+    			<Run Text="{Binding RemainingSprites}"/>
+    		</TextBlock>
+    	</Grid>
     	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
     		<StackPanel.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>

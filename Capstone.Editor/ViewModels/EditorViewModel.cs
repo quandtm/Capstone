@@ -45,6 +45,7 @@ namespace Capstone.Editor.ViewModels
 
         internal void HandleClick(Windows.Foundation.Point point)
         {
+            if (RemainingSprites <= 0) return;
             if (SelectedObject == null) return;
 
             var e = SelectedObject.CreateEntityInstance();
@@ -52,6 +53,7 @@ namespace Capstone.Editor.ViewModels
             var screenPt = new Vector2((float)point.X, (float)point.Y);
             CameraManager.Instance.ActiveCamera.ScreenToWorld(screenPt, e.Translation);
             _entities.Add(e);
+            RemainingSprites = RemainingSprites - 1;
         }
     }
 }
