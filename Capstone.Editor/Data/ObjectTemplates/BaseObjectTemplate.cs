@@ -17,6 +17,8 @@ namespace Capstone.Editor.Data.ObjectTemplates
         protected string DDSPath { get; private set; }
         protected string PreviewPath { get; private set; }
 
+        public int Cost { get; protected set; }
+
         public int MaxInstances { get; protected set; }
         public int InstancesUsed { get; protected set; }
         public int InstancesRemaining
@@ -30,10 +32,11 @@ namespace Capstone.Editor.Data.ObjectTemplates
             }
         }
 
-        protected BaseObjectTemplate(int maxInstances)
+        protected BaseObjectTemplate(int maxInstances, int costPerInstance = 1)
         {
             MaxInstances = maxInstances;
             InstancesUsed = 0;
+            Cost = costPerInstance;
         }
 
         protected async Task LoadImages(string path)

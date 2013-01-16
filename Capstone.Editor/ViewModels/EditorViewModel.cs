@@ -1,4 +1,5 @@
-﻿using Capstone.Core;
+﻿using System;
+using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Editor.Data.ObjectTemplates;
@@ -26,7 +27,7 @@ namespace Capstone.Editor.ViewModels
         public ObservableCollection<BaseObjectTemplate> Objects { get; private set; }
         public BaseObjectTemplate SelectedObject { get; set; }
 
-        public int RemainingSprites { get; private set; }
+        public int Money { get; private set; }
 
         private readonly List<Entity> _entities;
 
@@ -34,6 +35,18 @@ namespace Capstone.Editor.ViewModels
         private readonly Dictionary<string, Objective> _objectiveLookup;
 
         public EditorTool Tool { get; set; }
+        public bool IsBuildTool
+        {
+            get { return Tool == EditorTool.Build; }
+        }
+        public bool IsPanTool
+        {
+            get { return Tool == EditorTool.Pan; }
+        }
+        public bool IsSelectTool
+        {
+            get { return Tool == EditorTool.Select; }
+        }
         public bool EventEditorVisible { get; set; }
 
         public EditorViewModel()
@@ -43,7 +56,7 @@ namespace Capstone.Editor.ViewModels
             Objects = new ObservableCollection<BaseObjectTemplate>();
             _objectiveLookup = new Dictionary<string, Objective>();
 
-            RemainingSprites = 500;
+            Money = 1; // Force player to be placed first by only allowing one sprite
 
             SetupCamera();
             RegisterObjectives();
@@ -54,14 +67,16 @@ namespace Capstone.Editor.ViewModels
 
         private void RegisterObjectives()
         {
-            AddObjective("addplayer", "Add Player");
+            AddObjective("addplayer", "Add Player", () => Money = Money + 500);
         }
 
-        public void AddObjective(string name, string description)
+        public void AddObjective(string name, string description, Action completeCallback = null)
         {
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(description) && !_objectiveLookup.ContainsKey(name))
             {
                 var obj = new Objective(description);
+                if (completeCallback != null)
+                    obj.Completed += completeCallback;
                 _objectiveLookup.Add(name, obj);
                 Objectives.Add(obj);
             }
@@ -103,7 +118,7 @@ namespace Capstone.Editor.ViewModels
 
         private void BuildSprite(Point point)
         {
-            if (RemainingSprites <= 0) return;
+            if (Money <= 0) return;
             if (SelectedObject == null) return;
 
             var e = SelectedObject.CreateEntityInstance();
@@ -111,7 +126,7 @@ namespace Capstone.Editor.ViewModels
             var screenPt = new Vector2((float)point.X, (float)point.Y);
             CameraManager.Instance.ActiveCamera.ScreenToWorld(screenPt, e.Translation);
             _entities.Add(e);
-            RemainingSprites = RemainingSprites - 1;
+            Money = Money - SelectedObject.Cost;
 
             if (SelectedObject is PlayerObject)
                 CompleteObjective("addplayer");

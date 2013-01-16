@@ -1,4 +1,5 @@
 ﻿using Capstone.Editor.Common;
+using System;
 using Windows.UI.Notifications;
 
 namespace Capstone.Editor.Data
@@ -10,6 +11,8 @@ namespace Capstone.Editor.Data
 
         public int Count { get; set; }
         public int Total { get; set; }
+
+        public event Action Completed;
 
         public Objective(string description, int total = 1)
         {
@@ -31,6 +34,8 @@ namespace Capstone.Editor.Data
                 xml.GetElementsByTagName("text")[0].AppendChild(
                     xml.CreateTextNode("Objective Complete: " + Description));
                 ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(xml));
+                if (Completed != null)
+                    Completed();
             }
         }
     }

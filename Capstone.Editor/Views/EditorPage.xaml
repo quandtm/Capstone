@@ -9,15 +9,24 @@
     d:DataContext="{d:DesignInstance Type=viewModels:EditorViewModel, IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
 	<common:LayoutAwarePage.Resources>
+		<common:Inverter x:Key="Inverter"/>
 		<common:InvertBoolVisibility x:Key="InverseBoolVisibility"/>
         <common:BoolVisibility x:Key="BoolVisibility" />
 		<DataTemplate x:Key="SpritePreviewTemplate">
 			<Grid Width="100" Height="150">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="100"/>
+					<RowDefinition Height="50"/>
+				</Grid.RowDefinitions>
 				<Grid.Background>
 					<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
 				</Grid.Background>
 				<Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="100" Source="{Binding PreviewImage, Mode=OneWay}" Stretch="None"/>
-				<TextBlock TextWrapping="Wrap" Text="{Binding PreviewLabel, Mode=OneWay}" Height="40" VerticalAlignment="Bottom" Margin="5,0,5,5" TextAlignment="Center"/>
+				<TextBlock TextWrapping="Wrap" Text="{Binding PreviewLabel, Mode=OneWay}" VerticalAlignment="Top" Margin="5,0" TextAlignment="Center" Grid.Row="1" FontSize="13.333"/>
+				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" FontSize="13.333" Margin="5,30,5,0" HorizontalAlignment="Center">
+					<Run Text="$"/>
+					<Run Text="{Binding Cost}"/>
+				</TextBlock>
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="ObjectiveItemTemplate">
@@ -64,7 +73,7 @@
     	<Grid x:Name="infoPanel" Grid.ColumnSpan="3" Background="#FF2C2C2C">
     		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Style="{StaticResource BasicTextStyle}">
     			<Run Text="$"/>
-    			<Run Text="{Binding RemainingSprites}"/>
+    			<Run Text="{Binding Money}"/>
     		</TextBlock>
     		<Button Content="Object Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
     		<Button Content="Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,170,0" Click="ToggleEventEditor"/>
@@ -73,9 +82,9 @@
     		<StackPanel.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</StackPanel.Background>
-    		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolPan"/>
-    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0"/>
-    		<Button x:Name="btnBuild" Content="Place" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Margin="0" Click="ChangeToolBuild"/>
+    		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
+    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0" IsEnabled="{Binding IsSelectTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
+    		<Button x:Name="btnBuild" Content="Place" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Margin="0" Click="ChangeToolBuild" IsEnabled="{Binding IsBuildTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     	</StackPanel>
     	<Grid x:Name="inspectorPanel" Grid.Row="1" Grid.Column="2">
     		<Grid.Background>
