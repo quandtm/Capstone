@@ -35,7 +35,7 @@
 		</AppBar>
 	</common:LayoutAwarePage.BottomAppBar>
 
-    <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded">
+    <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded" PointerReleased="swapPanel_PointerReleased">
     	<SwapChainBackgroundPanel.ColumnDefinitions>
     		<ColumnDefinition Width="80"/>
     		<ColumnDefinition/>
@@ -76,7 +76,7 @@
     		<Button x:Name="btnBuildMenu" Content="Build Mode" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
     		<Button x:Name="btnLandscapeMenu" Content="Landscape Mode" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="130,0,0,0" Click="OpenLandscapeMode"/>
     		<Grid Grid.Row="1">
-    			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" />
+    			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" />
     		</Grid>
     	</Grid>
     </SwapChainBackgroundPanel>

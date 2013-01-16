@@ -20,6 +20,8 @@ namespace Capstone.Editor.Views
         {
             var proxy = App.CurrentApp.Direct3D;
             proxy.SetPanel(swapPanel);
+
+            VM.PopulateObjectList();
         }
 
         private void OpenBuildMode(object sender, RoutedEventArgs e)
@@ -39,6 +41,11 @@ namespace Capstone.Editor.Views
         private void ChangeToolPan(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void swapPanel_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            VM.HandleClick(e.GetCurrentPoint(swapPanel).Position);
         }
     }
 }
