@@ -84,7 +84,6 @@
     		</StackPanel.Background>
     		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0" IsEnabled="{Binding IsSelectTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
-    		<Button x:Name="btnBuild" Content="Place" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Margin="0" Click="ChangeToolBuild" IsEnabled="{Binding IsBuildTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     	</StackPanel>
     	<Grid x:Name="inspectorPanel" Grid.Row="1" Grid.Column="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
     		<Grid.Background>

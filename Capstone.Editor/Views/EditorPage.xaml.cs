@@ -43,11 +43,6 @@ namespace Capstone.Editor.Views
             VM.Tool = EditorTool.Pan;
         }
 
-        private void ChangeToolBuild(object sender, RoutedEventArgs e)
-        {
-            VM.Tool = EditorTool.Build;
-        }
-
         private void swapPanel_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             VM.HandleClick(e.GetCurrentPoint(swapPanel).Position);

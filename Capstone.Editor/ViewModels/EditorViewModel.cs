@@ -24,7 +24,18 @@ namespace Capstone.Editor.ViewModels
         private Entity _cam;
 
         public ObservableCollection<BaseObjectTemplate> Objects { get; private set; }
-        public BaseObjectTemplate SelectedObject { get; set; }
+        private BaseObjectTemplate _selectedObj;
+        public BaseObjectTemplate SelectedObject
+        {
+            get { return _selectedObj; }
+            set
+            {
+                if (_selectedObj == value) return;
+                _selectedObj = value;
+                if (_selectedObj != null)
+                    Tool = EditorTool.Build;
+            }
+        }
 
         public int Money { get; private set; }
 
@@ -33,7 +44,18 @@ namespace Capstone.Editor.ViewModels
         public ObjectiveManager ObjectiveManager { get; private set; }
         private readonly Dictionary<string, Objective> _objectiveLookup;
 
-        public EditorTool Tool { get; set; }
+        private EditorTool _tool;
+        public EditorTool Tool
+        {
+            get { return _tool; }
+            set
+            {
+                if (_tool == value) return;
+                _tool = value;
+                if (_tool != EditorTool.Build)
+                    SelectedObject = null;
+            }
+        }
         public bool IsBuildTool
         {
             get { return Tool == EditorTool.Build; }
