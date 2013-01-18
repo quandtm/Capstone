@@ -33,20 +33,25 @@ namespace Capstone
 			void Direct3DPanelProxy::Initialise()
 			{
 				auto window = Window::Current->CoreWindow;
-				auto dpi = DisplayProperties::LogicalDpi;
 
 				// Create base resources
 				CreateDevice();
 				CreateSizeDependentResources();
 
 				// Hook SizeChanged Event
-				//window->SizeChanged += ref new TypedEventHandler<CoreWindow^, WindowSizeChangedEventArgs^>(this, HANDLERFUNC);
+				window->SizeChanged += ref new TypedEventHandler<CoreWindow^, WindowSizeChangedEventArgs^>(this, &Direct3DPanelProxy::SizeChangedHandler);
 
 				// Hook Rendering event
 				CompositionTarget::Rendering::add(ref new EventHandler<Object^>(this, &Direct3DPanelProxy::RenderingHandler));
 
 				_timer->Reset();
 				_scriptManager = Capstone::Engine::Scripting::ScriptManager::Instance;
+			}
+
+			void Direct3DPanelProxy::SizeChangedHandler(CoreWindow^ window, WindowSizeChangedEventArgs^ args)
+			{
+				_rtv = nullptr;
+				CreateSizeDependentResources();
 			}
 
 			void Direct3DPanelProxy::PointerPressedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
