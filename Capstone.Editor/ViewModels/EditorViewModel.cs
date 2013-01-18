@@ -1,5 +1,4 @@
-﻿using System;
-using Capstone.Core;
+﻿using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Editor.Data.ObjectTemplates;
@@ -31,7 +30,7 @@ namespace Capstone.Editor.ViewModels
 
         private readonly List<Entity> _entities;
 
-        public ObservableCollection<Objective> Objectives { get; private set; }
+        public ObjectiveManager ObjectiveManager { get; private set; }
         private readonly Dictionary<string, Objective> _objectiveLookup;
 
         public EditorTool Tool { get; set; }
@@ -51,12 +50,11 @@ namespace Capstone.Editor.ViewModels
 
         public EditorViewModel()
         {
-            Objectives = new ObservableCollection<Objective>();
+            ObjectiveManager = new ObjectiveManager();
             _entities = new List<Entity>();
             Objects = new ObservableCollection<BaseObjectTemplate>();
-            _objectiveLookup = new Dictionary<string, Objective>();
 
-            Money = 1; // Force player to be placed first by only allowing one sprite
+            Money = 500;
 
             SetupCamera();
             RegisterObjectives();
@@ -67,26 +65,7 @@ namespace Capstone.Editor.ViewModels
 
         private void RegisterObjectives()
         {
-            AddObjective("addplayer", "Add Player", () => Money = Money + 500);
-        }
-
-        public void AddObjective(string name, string description, Action completeCallback = null)
-        {
-            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(description) && !_objectiveLookup.ContainsKey(name))
-            {
-                var obj = new Objective(description);
-                if (completeCallback != null)
-                    obj.Completed += completeCallback;
-                _objectiveLookup.Add(name, obj);
-                Objectives.Add(obj);
-            }
-        }
-
-        public void CompleteObjective(string name)
-        {
-            Objective obj;
-            if (_objectiveLookup.TryGetValue(name, out obj))
-                obj.CompleteItem();
+            ObjectiveManager.AddObjective("AddPlayer", "Add a Player Object", 10);
         }
 
         private void SetupCamera()
@@ -129,7 +108,7 @@ namespace Capstone.Editor.ViewModels
             Money = Money - SelectedObject.Cost;
 
             if (SelectedObject is PlayerObject)
-                CompleteObjective("addplayer");
+                ObjectiveManager.CompleteObjective("AddPlayer");
         }
     }
 }

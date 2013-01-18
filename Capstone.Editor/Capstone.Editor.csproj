@@ -112,6 +112,7 @@
     <Compile Include="Common\InvertBoolVisibility.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\Objective.cs" />
+    <Compile Include="Data\ObjectiveManager.cs" />
     <Compile Include="Data\ObjectTemplates\BaseObjectTemplate.cs" />
     <Compile Include="Data\ObjectTemplates\PlayerObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

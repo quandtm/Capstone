@@ -11,6 +11,7 @@ namespace Capstone.Editor.Data
 
         public int Count { get; set; }
         public int Total { get; set; }
+        public int Score { get; set; }
 
         public event Action Completed;
 

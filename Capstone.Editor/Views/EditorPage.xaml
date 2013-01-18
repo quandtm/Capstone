@@ -116,7 +116,7 @@
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     	</Grid>
-    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding Objectives}"/>
+    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}"/>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>
