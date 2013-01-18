@@ -56,10 +56,6 @@ namespace Capstone.Editor.ViewModels
                     SelectedObject = null;
             }
         }
-        public bool IsBuildTool
-        {
-            get { return Tool == EditorTool.Build; }
-        }
         public bool IsPanTool
         {
             get { return Tool == EditorTool.Pan; }
