@@ -76,7 +76,7 @@
     			<Run Text="{Binding Money}"/>
     		</TextBlock>
     		<Button Content="Object Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
-    		<Button Content="Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,170,0" Click="ToggleEventEditor"/>
+    		<Button Content="Toggle Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,170,0" Click="ToggleEventEditor"/>
     	</Grid>
     	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
     		<StackPanel.Background>
@@ -86,7 +86,7 @@
     		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0" IsEnabled="{Binding IsSelectTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     		<Button x:Name="btnBuild" Content="Place" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Margin="0" Click="ChangeToolBuild" IsEnabled="{Binding IsBuildTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     	</StackPanel>
-    	<Grid x:Name="inspectorPanel" Grid.Row="1" Grid.Column="2">
+    	<Grid x:Name="inspectorPanel" Grid.Row="1" Grid.Column="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
@@ -97,7 +97,7 @@
     		<TextBlock x:Name="inspectorLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Inspector" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="20,0,0,0"/>
     		<ScrollViewer Margin="0" Grid.Row="1"/>
     	</Grid>
-    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="2">
+    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
     		<Grid.RowDefinitions>
     			<RowDefinition Height="40"/>
     			<RowDefinition/>
@@ -111,12 +111,12 @@
     			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" />
     		</Grid>
     	</Grid>
-    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding Objectives}"/>
-    	<Grid x:Name="eventPanel" HorizontalAlignment="Right" Width="400" Grid.Column="1" Margin="0" Grid.Row="1" Grid.RowSpan="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource BoolVisibility}}">
+    	<Grid x:Name="eventPanel" Grid.Column="2" Margin="0" Grid.Row="1" Grid.RowSpan="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource BoolVisibility}}">
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     	</Grid>
+    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding Objectives}"/>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>
