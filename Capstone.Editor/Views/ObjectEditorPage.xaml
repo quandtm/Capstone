@@ -5,6 +5,8 @@
     xmlns:common="using:Capstone.Editor.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Capstone.Editor.ViewModels"
+    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:ObjectEditorViewModel}"
     mc:Ignorable="d">
     <Grid>
     	<Grid.ColumnDefinitions>
@@ -20,6 +22,63 @@
     	</Grid.Background>
     	<Button Content="Button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle}" Click="GoBack"/>
     	<TextBlock TextWrapping="Wrap" Text="Entity Editor" VerticalAlignment="Bottom" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
-    	<Grid Grid.Row="1" Grid.ColumnSpan="2"/>
+    	<Grid x:Name="sidebar" Grid.Row="1" Width="400" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="40*"/>
+    			<RowDefinition Height="41*"/>
+    		</Grid.RowDefinitions>
+    		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" Text="Available" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
+    		<ListView Margin="0,40,0,0" ItemsSource="{Binding Available}" SelectionMode="None">
+    			<ListView.Resources>
+    				<DataTemplate x:Key="AvailableItemTemplate">
+    					<Grid Width="360">
+    						<TextBlock TextWrapping="Wrap" Margin="20,0,50,0" VerticalAlignment="Center" Text="{Binding TemplateName, Mode=OneWay}" Style="{StaticResource BasicTextStyle}"/>
+    						<Button Content="ADD" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{StaticResource TextButtonStyle}" Margin="0,10" Click="AddTemplate" Tag="{Binding}"/>
+    					</Grid>
+    				</DataTemplate>
+    			</ListView.Resources>
+    			<ListView.ItemTemplate>
+    				<StaticResource ResourceKey="AvailableItemTemplate"/>
+    			</ListView.ItemTemplate>
+    			<ListView.Background>
+    				<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
+    			</ListView.Background>
+    		</ListView>
+    		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Added" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
+    		<ListView Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding Added}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
+    			<ListView.Resources>
+    				<DataTemplate x:Key="AddedItemTemplate">
+    					<Grid Width="340">
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,0,50,0" Style="{StaticResource BasicTextStyle}">
+                                <Run Text="{Binding InstanceName}" />
+                                <Run Text="("/>
+                                <Run Text="{Binding TemplateName}" />
+                                <Run Text=")"/>
+                            </TextBlock>
+                            <Button Content="DEL" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{StaticResource TextButtonStyle}" Margin="0,10" Tag="{Binding}" Click="DelTemplate"/>
+    					</Grid>
+    				</DataTemplate>
+    			</ListView.Resources>
+    			<ListView.ItemTemplate>
+    				<StaticResource ResourceKey="AddedItemTemplate"/>
+    			</ListView.ItemTemplate>
+    			<ListView.Background>
+    				<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
+    			</ListView.Background>
+    		</ListView>
+    	</Grid>
+    	<Canvas x:Name="viewer" Grid.Column="1" Margin="300,40,300,0" Grid.Row="1">
+    		<Canvas.Background>
+    			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
+    		</Canvas.Background>
+    	</Canvas>
+    	<Grid HorizontalAlignment="Right" Width="280" Grid.Row="1" Grid.Column="1" Margin="0,40,0,0">
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
+    		</Grid.Background>
+    		<TextBlock Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Text="{Binding SelectedComponent.TemplateName, Mode=OneWay}"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" TextWrapping="Wrap" Text="Instance Name" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+    		<TextBox Text="{Binding SelectedComponent.InstanceName, Mode=TwoWay}" VerticalAlignment="Top" Margin="20,70,20,0"/>
+    	</Grid>
     </Grid>
 </common:LayoutAwarePage>

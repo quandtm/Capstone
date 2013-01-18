@@ -12,23 +12,6 @@
 		<common:Inverter x:Key="Inverter"/>
 		<common:InvertBoolVisibility x:Key="InverseBoolVisibility"/>
         <common:BoolVisibility x:Key="BoolVisibility" />
-		<DataTemplate x:Key="SpritePreviewTemplate">
-			<Grid Width="100" Height="150">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="100"/>
-					<RowDefinition Height="50"/>
-				</Grid.RowDefinitions>
-				<Grid.Background>
-					<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
-				</Grid.Background>
-				<Image HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="100" Source="{Binding PreviewImage, Mode=OneWay}" Stretch="None"/>
-				<TextBlock TextWrapping="Wrap" Text="{Binding PreviewLabel, Mode=OneWay}" VerticalAlignment="Top" Margin="5,0" TextAlignment="Center" Grid.Row="1" FontSize="13.333"/>
-				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" FontSize="13.333" Margin="5,30,5,0" HorizontalAlignment="Center">
-					<Run Text="$"/>
-					<Run Text="{Binding Cost}"/>
-				</TextBlock>
-			</Grid>
-		</DataTemplate>
 		<DataTemplate x:Key="ObjectiveItemTemplate">
 			<Grid Background="#19000000" IsHitTestVisible="False" Visibility="{Binding IsComplete, Converter={StaticResource InverseBoolVisibility}, Mode=OneWay}">
 				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="5,2" IsHitTestVisible="False">
@@ -107,7 +90,7 @@
     		<Button x:Name="btnBuildMenu" Content="Entities" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
     		<Button x:Name="btnLandscapeMenu" Content="Landscape" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="100,0,0,0" Click="OpenLandscapeMode"/>
     		<Grid Grid.Row="1">
-    			<GridView ItemTemplate="{StaticResource SpritePreviewTemplate}" />
+    			<GridView />
     		</Grid>
     	</Grid>
     	<Grid x:Name="eventPanel" Grid.Column="2" Margin="0" Grid.Row="1" Grid.RowSpan="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource BoolVisibility}}">
