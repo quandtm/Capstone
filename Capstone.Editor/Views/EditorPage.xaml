@@ -72,10 +72,10 @@
     	</SwapChainBackgroundPanel.RowDefinitions>
     	<Grid x:Name="infoPanel" Grid.ColumnSpan="3" Background="#FF2C2C2C">
     		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Style="{StaticResource BasicTextStyle}">
-    			<Run Text="$"/>
     			<Run Text="{Binding Money}"/>
+    			<Run Text="resources"/>
     		</TextBlock>
-    		<Button Content="Object Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
+    		<Button Content="Entity Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
     		<Button Content="Toggle Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,170,0" Click="ToggleEventEditor"/>
     	</Grid>
     	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
@@ -104,7 +104,7 @@
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
-    		<Button x:Name="btnBuildMenu" Content="Objects" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
+    		<Button x:Name="btnBuildMenu" Content="Entities" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
     		<Button x:Name="btnLandscapeMenu" Content="Landscape" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="100,0,0,0" Click="OpenLandscapeMode"/>
     		<Grid Grid.Row="1">
     			<GridView ItemsSource="{Binding Objects}" ItemTemplate="{StaticResource SpritePreviewTemplate}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" />
