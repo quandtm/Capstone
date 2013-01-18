@@ -52,5 +52,10 @@ namespace Capstone.Editor.Views
         {
             VM.EventEditorVisible = !VM.EventEditorVisible;
         }
+
+        private void OpenEntityEditor(object sender, RoutedEventArgs e)
+        {
+            App.CurrentApp.Navigate<ObjectEditorPage>();
+        }
     }
 }

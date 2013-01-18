@@ -75,8 +75,8 @@
     			<Run Text="{Binding Money}"/>
     			<Run Text="resources"/>
     		</TextBlock>
-    		<Button Content="Entity Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
-    		<Button Content="Toggle Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,170,0" Click="ToggleEventEditor"/>
+    		<Button Content="Entity Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0" Click="OpenEntityEditor"/>
+    		<Button Content="Toggle Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,150,0" Click="ToggleEventEditor"/>
     	</Grid>
     	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
     		<StackPanel.Background>

@@ -125,6 +125,9 @@
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ObjectEditorPage.xaml.cs">
+      <DependentUpon>ObjectEditorPage.xaml</DependentUpon>
+    </Compile>
     <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -164,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ObjectEditorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -11,6 +11,7 @@ namespace Capstone.Editor
     sealed partial class App
     {
         private readonly Dictionary<Type, Page> _pages;
+        private readonly Stack<Page> _backStack;
 
         public Direct3DPanelProxy _d3d;
         public Direct3DPanelProxy Direct3D
@@ -31,6 +32,7 @@ namespace Capstone.Editor
         {
             InitializeComponent();
             _pages = new Dictionary<Type, Page>();
+            _backStack = new Stack<Page>();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -47,7 +49,15 @@ namespace Capstone.Editor
                 p = new T();
                 _pages.Add(typeof(T), p);
             }
+            _backStack.Push((Page)Window.Current.Content);
             Window.Current.Content = p;
+        }
+
+        public void GoBack()
+        {
+            var back = _backStack.Pop();
+            if (back != null)
+                Window.Current.Content = back;
         }
     }
 }
