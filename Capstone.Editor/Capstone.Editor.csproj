@@ -110,6 +110,7 @@
     <Compile Include="Common\Inverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\InvertBoolVisibility.cs" />
+    <Compile Include="Common\NullVisibility.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\ComponentTemplate.cs" />
     <Compile Include="Data\ComponentTemplates\TextureTemplate.cs" />

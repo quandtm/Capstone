@@ -16,6 +16,9 @@ namespace Capstone.Editor.ViewModels
         {
             Available = ComponentTemplateManager.Instance.AvailableTemplates;
             Added = new ObservableCollection<ComponentTemplate>();
+
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                SelectedComponent = new TextureTemplate();
         }
 
         internal void AddComponent(ComponentTemplate component)

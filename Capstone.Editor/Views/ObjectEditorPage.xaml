@@ -8,6 +8,9 @@
     xmlns:vm="using:Capstone.Editor.ViewModels"
     d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:ObjectEditorViewModel}"
     mc:Ignorable="d">
+	<common:LayoutAwarePage.Resources>
+		<common:NullVisibility x:Key="NullVisibility"/>
+	</common:LayoutAwarePage.Resources>
     <Grid>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition Width="120"/>
@@ -72,7 +75,7 @@
     			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
     		</Canvas.Background>
     	</Canvas>
-    	<Grid HorizontalAlignment="Right" Width="280" Grid.Row="1" Grid.Column="1" Margin="0,40,0,0">
+    	<Grid HorizontalAlignment="Right" Width="280" Grid.Row="1" Grid.Column="1" Margin="0,40,0,0" Visibility="{Binding SelectedComponent, Converter={StaticResource NullVisibility}}">
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
     		</Grid.Background>
