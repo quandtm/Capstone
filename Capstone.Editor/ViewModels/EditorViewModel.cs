@@ -71,12 +71,14 @@ namespace Capstone.Editor.ViewModels
         {
             _cam = new Entity();
             var c = new Camera();
-            CameraManager.Instance.AddCamera("camera", c);
+            c.Name = "camera";
+            c.Setup();
             CameraManager.Instance.MakeActive("camera");
-            _cam.AddComponent("camera", c);
+            _cam.AddComponent(c);
             var cscript = new EditorCameraScript(this);
-            ScriptManager.Instance.RegisterScript(cscript);
-            _cam.AddComponent("controlscript", cscript);
+            cscript.Name = "controlscript";
+            cscript.Setup();
+            _cam.AddComponent(cscript);
         }
 
         public void PopulateObjectList()
@@ -88,7 +90,6 @@ namespace Capstone.Editor.ViewModels
             switch (Tool)
             {
                 case EditorTool.Build:
-                    //BuildSprite(point);
                     break;
             }
         }

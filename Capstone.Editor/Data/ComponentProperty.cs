@@ -19,6 +19,7 @@ namespace Capstone.Editor.Data
             }
         }
 
+        private PropertyInfo _propInfo;
         public string Name { get; private set; }
         public Type DataType { get; private set; }
 
@@ -31,6 +32,11 @@ namespace Capstone.Editor.Data
             EnumOptions = new List<Enum>();
 
             InitialiseData();
+        }
+
+        public void ApplyProperty(object target)
+        {
+            _propInfo.SetMethod.Invoke(target, new[] { _data });
         }
 
         private void InitialiseData()
@@ -56,7 +62,7 @@ namespace Capstone.Editor.Data
 
         internal ComponentProperty Clone()
         {
-            return new ComponentProperty(Name, DataType) { Data = this.Data, EnumOptions = this.EnumOptions };
+            return new ComponentProperty(Name, DataType) { Data = this.Data, EnumOptions = this.EnumOptions, _propInfo = this._propInfo };
         }
 
         public static ComponentProperty Create(PropertyInfo pi)
@@ -80,7 +86,7 @@ namespace Capstone.Editor.Data
             }
 
             if (found)
-                return new ComponentProperty(displayName, t);
+                return new ComponentProperty(displayName, t) { _propInfo = pi };
             else
                 return null;
         }

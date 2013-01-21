@@ -19,7 +19,7 @@ namespace Capstone
 			property float Scale;
 			property float Rotation;
 
-			void AddComponent(Platform::String^ key, IComponent^ component);
+			void AddComponent(IComponent^ component);
 			IComponent^ GetComponent(Platform::String^ key);
 			void RemoveComponent(Platform::String^ key);
 		};

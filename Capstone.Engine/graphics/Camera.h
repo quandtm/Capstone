@@ -20,6 +20,8 @@ namespace Capstone
 				Camera(void);
 
 				virtual property Capstone::Core::Entity^ Entity;
+				virtual property Platform::String^ Name;
+				virtual void Setup();
 
 				void ScreenToWorld(Capstone::Core::Vector2^ screen, Capstone::Core::Vector2^ world);
 			};

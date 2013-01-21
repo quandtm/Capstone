@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Camera.h"
+#include "CameraManager.h"
 
 using namespace DirectX;
 using namespace Capstone::Core;
@@ -13,6 +14,11 @@ namespace Capstone
 			Camera::Camera()
 			{
 				_view = XMMatrixIdentity();
+			}
+
+			void Camera::Setup()
+			{
+				CameraManager::Instance->AddCamera(Name, this);
 			}
 
 			void Camera::UpdateMatrices()

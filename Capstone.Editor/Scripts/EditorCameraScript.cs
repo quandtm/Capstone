@@ -9,6 +9,7 @@ namespace Capstone.Editor.Scripts
         private float _prevX, _prevY;
         private bool _isDown;
         public EditorViewModel VM { get; set; }
+        public string Name { get; set; }
 
         public EditorCameraScript(EditorViewModel vm)
         {
@@ -19,6 +20,11 @@ namespace Capstone.Editor.Scripts
         public void Initialise()
         {
             IsInitialised = true;
+        }
+
+        public void Setup()
+        {
+            ScriptManager.Instance.RegisterScript(this);
         }
 
         public bool IsInitialised { get; private set; }

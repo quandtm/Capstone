@@ -61,6 +61,8 @@ namespace Capstone
 				}
 
 				virtual property Capstone::Core::Entity^ Entity;
+				virtual property Platform::String^ Name;
+				virtual void Setup();
 
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="Source Left")]
 				property int SourceRectX

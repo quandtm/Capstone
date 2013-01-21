@@ -48,6 +48,11 @@ namespace Capstone
 				Origin = OriginPoint::TopLeft;
 			}
 
+			void Texture::Setup()
+			{
+				SpriteRenderer::Instance->RegisterTexture(this);
+			}
+
 			void Texture::Load(std::shared_ptr<ResourceManager> resources)
 			{
 				if (_loading || _path == nullptr) return;

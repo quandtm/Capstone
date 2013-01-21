@@ -1,4 +1,5 @@
-﻿using Capstone.Editor.Common;
+﻿using Capstone.Core;
+using Capstone.Editor.Common;
 using System.Collections.ObjectModel;
 
 namespace Capstone.Editor.Data
@@ -12,6 +13,18 @@ namespace Capstone.Editor.Data
         {
             Name = string.Empty;
             Components = new ObservableCollection<ComponentTemplate>();
+        }
+
+        public Entity BuildEntity()
+        {
+            var e = new Entity();
+            foreach (var c in Components)
+            {
+                var obj = (IComponent)c.CreateInstance();
+                e.AddComponent(obj);
+                obj.Setup();
+            }
+            return e;
         }
     }
 }

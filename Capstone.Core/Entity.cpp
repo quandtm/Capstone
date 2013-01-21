@@ -13,8 +13,9 @@ namespace Capstone
 			Rotation = 0;
 		}
 
-		void Entity::AddComponent(Platform::String^ key, IComponent^ component)
+		void Entity::AddComponent(IComponent^ component)
 		{
+			auto key = component->Name;
 			if (!key->IsEmpty())
 			{
 				_components[key] = component;
