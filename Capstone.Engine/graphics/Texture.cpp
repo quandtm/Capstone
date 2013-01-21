@@ -42,7 +42,7 @@ namespace Capstone
 
 
 			// Texture WinRT type methods
-			Texture::Texture(Platform::String^ path) : _path(path), _isLoaded(false), _loading(false), _srcRect(RECT())
+			Texture::Texture() : _path(nullptr), _isLoaded(false), _loading(false), _srcRect(RECT())
 			{
 				IsVisible = true;
 				Origin = OriginPoint::TopLeft;
@@ -50,7 +50,7 @@ namespace Capstone
 
 			void Texture::Load(std::shared_ptr<ResourceManager> resources)
 			{
-				if (_loading) return;
+				if (_loading || _path == nullptr) return;
 				_loading = true;
 				resources->LoadAsync<TextureData>(std::wstring(_path->Data()), &_tex).then([this] (ResourceStatus result)
 				{

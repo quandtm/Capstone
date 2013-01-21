@@ -51,9 +51,17 @@ namespace Capstone
 				}
 
 			public:
-				Texture(Platform::String^ path);
+				Texture();
+
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="DDS Path")]
+				property Platform::String^ Path
+				{
+					Platform::String^ get() { return _path; }
+					void set(Platform::String^ value) { _path = value; }
+				}
 
 				virtual property Capstone::Core::Entity^ Entity;
+
 				property int SourceRectX
 				{
 					int get() { return _srcRect.left; }
@@ -74,6 +82,8 @@ namespace Capstone
 					int get() { return _srcRect.bottom - _srcRect.top; }
 					void set(int val) { _srcRect.bottom = _srcRect.top + val; }
 				}
+				
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Visible")]
 				property bool IsVisible;
 				property OriginPoint Origin;
 			};

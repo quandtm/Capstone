@@ -1,4 +1,4 @@
-﻿using Capstone.Editor.Data.ComponentTemplates;
+﻿using Capstone.Engine.Graphics;
 using System.Collections.ObjectModel;
 
 namespace Capstone.Editor.Data
@@ -26,7 +26,8 @@ namespace Capstone.Editor.Data
 
         private void BuildTemplateList()
         {
-            AvailableTemplates.Add(new TextureTemplate());
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof(Camera)));
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof(Texture)));
         }
     }
 }

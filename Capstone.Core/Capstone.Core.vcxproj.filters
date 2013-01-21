@@ -3,11 +3,13 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="ComponentParameterAttribute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="ComponentParameterAttribute.h" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Capstone.Editor.Common;
 using Capstone.Editor.Data;
-using Capstone.Editor.Data.ComponentTemplates;
+using Capstone.Engine.Graphics;
 using System.Collections.ObjectModel;
 
 namespace Capstone.Editor.ViewModels
@@ -18,13 +18,11 @@ namespace Capstone.Editor.ViewModels
             Added = new ObservableCollection<ComponentTemplate>();
 
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-                SelectedComponent = new TextureTemplate();
+                SelectedComponent = ComponentTemplate.Create(typeof(Texture));
         }
 
         internal void AddComponent(ComponentTemplate component)
         {
-            var c = component.Clone();
-            Added.Add(c);
         }
 
         internal void RemoveComponent(ComponentTemplate component)

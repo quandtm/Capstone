@@ -9,6 +9,7 @@ namespace Capstone
 	{
 		namespace Windows
 		{
+			[::Windows::Foundation::Metadata::WebHostHiddenAttribute]
 			public ref class Direct3DPanelProxy sealed
 			{
 			private:

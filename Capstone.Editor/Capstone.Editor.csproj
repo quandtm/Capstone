@@ -112,8 +112,8 @@
     <Compile Include="Common\InvertBoolVisibility.cs" />
     <Compile Include="Common\NullVisibility.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Data\ComponentProperty.cs" />
     <Compile Include="Data\ComponentTemplate.cs" />
-    <Compile Include="Data\ComponentTemplates\TextureTemplate.cs" />
     <Compile Include="Data\Objective.cs" />
     <Compile Include="Data\ObjectiveManager.cs" />
     <Compile Include="Data\ComponentTemplateManager.cs" />

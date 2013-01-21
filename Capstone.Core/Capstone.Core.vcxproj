@@ -217,12 +217,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ComponentParameterAttribute.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ComponentParameterAttribute.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
