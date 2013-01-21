@@ -145,9 +145,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="Content\sprites\player_preview.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Capstone.Editor_TemporaryKey.pfx" />
     <Content Include="Content\sprites\player.DDS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

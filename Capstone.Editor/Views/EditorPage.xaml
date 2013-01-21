@@ -90,7 +90,7 @@
     		<Button x:Name="btnBuildMenu" Content="Entities" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
     		<Button x:Name="btnLandscapeMenu" Content="Landscape" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="100,0,0,0" Click="OpenLandscapeMode"/>
     		<Grid Grid.Row="1">
-    			<GridView />
+                <ListView />
     		</Grid>
     	</Grid>
     	<Grid x:Name="eventPanel" Grid.Column="2" Margin="0" Grid.Row="1" Grid.RowSpan="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource BoolVisibility}}">
