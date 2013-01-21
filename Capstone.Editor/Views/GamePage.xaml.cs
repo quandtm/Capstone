@@ -1,6 +1,6 @@
 ﻿namespace Capstone.Editor.Views
 {
-    public sealed partial class GamePage
+    public sealed partial class GamePage : IView
     {
         public GamePage()
         {
@@ -19,6 +19,14 @@
         {
             var proxy = App.CurrentApp.Direct3D;
             proxy.SetPanel(swapPanel);
+        }
+
+        public void HandleNavigationTo()
+        {
+        }
+
+        public void HandleNavigationFrom()
+        {
         }
     }
 }

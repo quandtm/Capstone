@@ -108,9 +108,11 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BoolVisibility.cs" />
     <Compile Include="Common\ComponentPropertyTemplateSelector.cs" />
+    <Compile Include="Common\IntBoolean.cs" />
     <Compile Include="Common\Inverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\InvertBoolVisibility.cs" />
+    <Compile Include="Common\NullBoolean.cs" />
     <Compile Include="Common\NullVisibility.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\ComponentProperty.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Views\GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\IView.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

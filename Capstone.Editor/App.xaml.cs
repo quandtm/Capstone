@@ -50,14 +50,25 @@ namespace Capstone.Editor
                 _pages.Add(typeof(T), p);
             }
             _backStack.Push((Page)Window.Current.Content);
+
+            if (Window.Current.Content != null && Window.Current.Content is IView)
+                ((IView) Window.Current.Content).HandleNavigationFrom();
             Window.Current.Content = p;
+            if (p is IView)
+                ((IView) p).HandleNavigationTo();
         }
 
         public void GoBack()
         {
             var back = _backStack.Pop();
             if (back != null)
+            {
+                if (Window.Current.Content != null && Window.Current.Content is IView)
+                    ((IView)Window.Current.Content).HandleNavigationFrom();
                 Window.Current.Content = back;
+                if (back is IView)
+                    ((IView) back).HandleNavigationTo();
+            }
         }
     }
 }

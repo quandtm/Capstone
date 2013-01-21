@@ -8,6 +8,7 @@ namespace Capstone.Editor.Common
     {
         public DataTemplate StringTemplate { get; set; }
         public DataTemplate BoolTemplate { get; set; }
+        public DataTemplate NumericTemplate { get; set; }
 
         protected override Windows.UI.Xaml.DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
@@ -18,6 +19,9 @@ namespace Capstone.Editor.Common
                     return StringTemplate;
                 else if (prop.DataType == typeof(bool))
                     return BoolTemplate;
+                else if (prop.DataType == typeof(int) || prop.DataType == typeof(float) ||
+                         prop.DataType == typeof(double))
+                    return NumericTemplate;
             }
             return base.SelectTemplateCore(item, container);
         }

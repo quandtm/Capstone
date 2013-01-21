@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Capstone.Editor.Views
 {
-    public sealed partial class ObjectEditorPage
+    public sealed partial class ObjectEditorPage : IView
     {
         public ObjectEditorViewModel VM
         {
@@ -43,6 +43,14 @@ namespace Capstone.Editor.Views
         private void CreateNewEntity(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             VM.CreateNewEntity();
+        }
+
+        public void HandleNavigationTo()
+        {
+        }
+
+        public void HandleNavigationFrom()
+        {
         }
     }
 }

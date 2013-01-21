@@ -13,10 +13,5 @@ namespace Capstone.Editor.Data
             Name = string.Empty;
             Components = new ObservableCollection<ComponentTemplate>();
         }
-
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

@@ -9,16 +9,26 @@
     d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:ObjectEditorViewModel}"
     mc:Ignorable="d">
 	<common:LayoutAwarePage.Resources>
+		<common:IntBoolean x:Key="IntBoolean"/>
 		<common:NullVisibility x:Key="NullVisibility"/>
 		<DataTemplate x:Key="StringEditTemplate">
 			<Grid Width="240" Height="60">
-				<TextBlock TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+				<TextBlock TextWrapping="NoWrap" Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
 				<TextBox HorizontalAlignment="Stretch" Text="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom"/>
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="BoolEditTemplate">
 			<CheckBox Content="{Binding Name, Mode=OneWay}" VerticalAlignment="Top" IsChecked="{Binding Data, Mode=TwoWay}" Width="200"/>
 		</DataTemplate>
+		<DataTemplate x:Key="EntityNameDataTemplate">
+			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Foreground="Black" VerticalAlignment="Center"/>
+		</DataTemplate>
+        <DataTemplate x:Key="NumericEditTemplate">
+            <Grid Height="60" Width="240">
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}" />
+                <TextBox HorizontalAlignment="Stretch" Text="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom" InputScope="Number" />
+            </Grid>
+        </DataTemplate>
 	</common:LayoutAwarePage.Resources>
     
     <Grid>
@@ -100,13 +110,14 @@
                 <ListView.ItemTemplateSelector>
                     <common:ComponentPropertyTemplateSelector 
                         StringTemplate="{StaticResource StringEditTemplate}"
-                        BoolTemplate="{StaticResource BoolEditTemplate}" />
+                        BoolTemplate="{StaticResource BoolEditTemplate}"
+                        NumericTemplate="{StaticResource NumericEditTemplate}"/>
                 </ListView.ItemTemplateSelector>
             </ListView>
         </Grid>
     	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="300,40,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}"/>
     	<TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedEntity.Name, Mode=TwoWay}" VerticalAlignment="Top" Grid.Column="1" Margin="390,40,0,0" Grid.Row="1" Width="210"/>
-    	<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="320,52,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"/>
+    	<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="320,52,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity, Mode=TwoWay}" IsEnabled="{Binding Entities.Count, Converter={StaticResource IntBoolean}, Mode=OneWay}" ItemTemplate="{StaticResource EntityNameDataTemplate}"/>
     	<Button Content="Create New" Grid.Column="1" HorizontalAlignment="Left" Margin="605,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,-0.132" Click="CreateNewEntity"/>
     </Grid>
 </common:LayoutAwarePage>

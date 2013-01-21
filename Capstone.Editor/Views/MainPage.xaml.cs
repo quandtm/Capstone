@@ -2,7 +2,7 @@
 
 namespace Capstone.Editor.Views
 {
-    public sealed partial class MainPage
+    public sealed partial class MainPage : IView
     {
         public MainPage()
         {
@@ -22,6 +22,14 @@ namespace Capstone.Editor.Views
         private void LoadMap(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void HandleNavigationTo()
+        {
+        }
+
+        public void HandleNavigationFrom()
+        {
         }
     }
 }

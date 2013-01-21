@@ -3,11 +3,11 @@ using Windows.UI.Xaml;
 
 namespace Capstone.Editor.Views
 {
-    public sealed partial class EditorPage
+    public sealed partial class EditorPage : IView
     {
         private EditorViewModel VM
         {
-            get { return (EditorViewModel) DataContext; }
+            get { return (EditorViewModel)DataContext; }
         }
 
         public EditorPage()
@@ -56,6 +56,14 @@ namespace Capstone.Editor.Views
         private void OpenEntityEditor(object sender, RoutedEventArgs e)
         {
             App.CurrentApp.Navigate<ObjectEditorPage>();
+        }
+
+        public void HandleNavigationTo()
+        {
+        }
+
+        public void HandleNavigationFrom()
+        {
         }
     }
 }

@@ -62,21 +62,25 @@ namespace Capstone
 
 				virtual property Capstone::Core::Entity^ Entity;
 
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Source Left")]
 				property int SourceRectX
 				{
 					int get() { return _srcRect.left; }
 					void set(int val) { _srcRect.left = val; }
 				}
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Source Top")]
 				property int SourceRectY
 				{
 					int get() { return _srcRect.top; }
 					void set(int val) { _srcRect.top = val; }
 				}
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Source Width")]
 				property int SourceRectWidth
 				{
 					int get() { return _srcRect.right - _srcRect.left; }
 					void set(int val) { _srcRect.right = _srcRect.left + val; }
 				}
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Source Height")]
 				property int SourceRectHeight
 				{
 					int get() { return _srcRect.bottom - _srcRect.top; }
