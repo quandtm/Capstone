@@ -89,6 +89,7 @@ namespace Capstone
 				
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="Visible")]
 				property bool IsVisible;
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Origin")]
 				property OriginPoint Origin;
 			};
 		}

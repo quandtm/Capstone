@@ -29,6 +29,12 @@
                 <TextBox HorizontalAlignment="Stretch" Text="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom" InputScope="Number" />
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="EnumEditTemplate">
+            <Grid Height="60" Width="240">
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}" />
+                <ComboBox ItemsSource="{Binding EnumOptions}" SelectedItem="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom" />
+            </Grid>
+        </DataTemplate>
 	</common:LayoutAwarePage.Resources>
     
     <Grid>
@@ -111,7 +117,8 @@
                     <common:ComponentPropertyTemplateSelector 
                         StringTemplate="{StaticResource StringEditTemplate}"
                         BoolTemplate="{StaticResource BoolEditTemplate}"
-                        NumericTemplate="{StaticResource NumericEditTemplate}"/>
+                        NumericTemplate="{StaticResource NumericEditTemplate}"
+                        EnumTemplate="{StaticResource EnumEditTemplate}"/>
                 </ListView.ItemTemplateSelector>
             </ListView>
         </Grid>

@@ -1,6 +1,7 @@
 ﻿using Capstone.Core;
 using Capstone.Editor.Common;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Capstone.Editor.Data
@@ -13,7 +14,7 @@ namespace Capstone.Editor.Data
             get { return _data; }
             set
             {
-                if (_data.Equals(value)) return;
+                if (_data != null && _data.Equals(value)) return;
                 _data = value;
             }
         }
@@ -21,10 +22,13 @@ namespace Capstone.Editor.Data
         public string Name { get; private set; }
         public Type DataType { get; private set; }
 
+        public List<Enum> EnumOptions { get; private set; }
+
         protected ComponentProperty(string name, Type dataType)
         {
             Name = name;
             DataType = dataType;
+            EnumOptions = new List<Enum>();
 
             InitialiseData();
         }
@@ -39,13 +43,20 @@ namespace Capstone.Editor.Data
                 _data = 0.0f;
             else if (DataType == typeof(int))
                 _data = 0;
-            else if (DataType == typeof (double))
+            else if (DataType == typeof(double))
                 _data = 0.0F;
+            else if (DataType.GetRuntimeMethod("HasFlag", new[] { typeof(Enum) }) != null)
+            {
+                var items = Enum.GetValues(DataType);
+                foreach (var i in items)
+                    EnumOptions.Add((Enum)i);
+                Data = EnumOptions[0];
+            }
         }
 
         internal ComponentProperty Clone()
         {
-            return new ComponentProperty(Name, DataType) { Data = Data };
+            return new ComponentProperty(Name, DataType) { Data = this.Data, EnumOptions = this.EnumOptions };
         }
 
         public static ComponentProperty Create(PropertyInfo pi)

@@ -1,4 +1,6 @@
 ﻿using Capstone.Editor.Data;
+using System;
+using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,6 +11,7 @@ namespace Capstone.Editor.Common
         public DataTemplate StringTemplate { get; set; }
         public DataTemplate BoolTemplate { get; set; }
         public DataTemplate NumericTemplate { get; set; }
+        public DataTemplate EnumTemplate { get; set; }
 
         protected override Windows.UI.Xaml.DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
@@ -22,6 +25,8 @@ namespace Capstone.Editor.Common
                 else if (prop.DataType == typeof(int) || prop.DataType == typeof(float) ||
                          prop.DataType == typeof(double))
                     return NumericTemplate;
+                else if (prop.DataType.GetRuntimeMethod("HasFlag", new[] { typeof(Enum) }) != null)
+                    return EnumTemplate;
             }
             return base.SelectTemplateCore(item, container);
         }
