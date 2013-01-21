@@ -10,7 +10,17 @@
     mc:Ignorable="d">
 	<common:LayoutAwarePage.Resources>
 		<common:NullVisibility x:Key="NullVisibility"/>
+		<DataTemplate x:Key="StringEditTemplate">
+			<Grid Width="240" Height="60">
+				<TextBlock TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+				<TextBox HorizontalAlignment="Stretch" Text="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom"/>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="BoolEditTemplate">
+			<CheckBox Content="{Binding Name, Mode=OneWay}" VerticalAlignment="Top" IsChecked="{Binding Data, Mode=TwoWay}" Width="200"/>
+		</DataTemplate>
 	</common:LayoutAwarePage.Resources>
+    
     <Grid>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition Width="120"/>
@@ -48,7 +58,7 @@
     			</ListView.Background>
     		</ListView>
     		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Added" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
-    		<ListView Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding Added}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
+    		<ListView Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding SelectedEntity.Components}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
     			<ListView.Resources>
     				<DataTemplate x:Key="AddedItemTemplate">
     					<Grid Width="340">
@@ -70,18 +80,33 @@
     			</ListView.Background>
     		</ListView>
     	</Grid>
-    	<Canvas x:Name="viewer" Grid.Column="1" Margin="300,40,300,0" Grid.Row="1">
+    	<Canvas x:Name="viewer" Grid.Column="1" Margin="300,80,300,0" Grid.Row="1">
     		<Canvas.Background>
     			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
     		</Canvas.Background>
     	</Canvas>
     	<Grid HorizontalAlignment="Right" Width="280" Grid.Row="1" Grid.Column="1" Margin="0,40,0,0" Visibility="{Binding SelectedComponent, Converter={StaticResource NullVisibility}}">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="120"/>
+    			<RowDefinition/>
+    		</Grid.RowDefinitions>
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
     		</Grid.Background>
     		<TextBlock Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Text="{Binding SelectedComponent.TemplateName, Mode=OneWay}"/>
     		<TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" TextWrapping="Wrap" Text="Instance Name" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
     		<TextBox Text="{Binding SelectedComponent.InstanceName, Mode=TwoWay}" VerticalAlignment="Top" Margin="20,70,20,0"/>
-    	</Grid>
+            <ListView Grid.Row="1" ItemsSource="{Binding SelectedComponent.Properties}" SelectionMode="None" Margin="20,0,20,0" IsSwipeEnabled="False">
+                <ListView.ItemTemplateSelector>
+                    <common:ComponentPropertyTemplateSelector 
+                        StringTemplate="{StaticResource StringEditTemplate}"
+                        BoolTemplate="{StaticResource BoolEditTemplate}" />
+                </ListView.ItemTemplateSelector>
+            </ListView>
+        </Grid>
+    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="300,40,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}"/>
+    	<TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedEntity.Name, Mode=TwoWay}" VerticalAlignment="Top" Grid.Column="1" Margin="390,40,0,0" Grid.Row="1" Width="210"/>
+    	<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="320,52,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"/>
+    	<Button Content="Create New" Grid.Column="1" HorizontalAlignment="Left" Margin="605,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,-0.132" Click="CreateNewEntity"/>
     </Grid>
 </common:LayoutAwarePage>

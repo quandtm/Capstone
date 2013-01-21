@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BoolVisibility.cs" />
+    <Compile Include="Common\ComponentPropertyTemplateSelector.cs" />
     <Compile Include="Common\Inverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\InvertBoolVisibility.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\ComponentProperty.cs" />
     <Compile Include="Data\ComponentTemplate.cs" />
+    <Compile Include="Data\EntityTemplate.cs" />
     <Compile Include="Data\Objective.cs" />
     <Compile Include="Data\ObjectiveManager.cs" />
     <Compile Include="Data\ComponentTemplateManager.cs" />

@@ -39,5 +39,10 @@ namespace Capstone.Editor.Views
             if (component == null) return;
             VM.RemoveComponent(component);
         }
+
+        private void CreateNewEntity(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            VM.CreateNewEntity();
+        }
     }
 }
