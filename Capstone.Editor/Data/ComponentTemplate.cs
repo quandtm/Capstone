@@ -1,4 +1,5 @@
-﻿using Capstone.Editor.Common;
+﻿using Capstone.Core;
+using Capstone.Editor.Common;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
@@ -34,6 +35,7 @@ namespace Capstone.Editor.Data
         public object CreateInstance()
         {
             var obj = Activator.CreateInstance(_type);
+            ((IComponent) obj).Name = InstanceName;
             foreach (var p in Properties)
                 p.ApplyProperty(obj);
             return obj;

@@ -15,7 +15,7 @@ namespace Capstone.Editor.Data
             Components = new ObservableCollection<ComponentTemplate>();
         }
 
-        public Entity BuildEntity()
+        public Entity BuildAndSetupEntity()
         {
             var e = new Entity();
             foreach (var c in Components)

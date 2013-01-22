@@ -108,6 +108,12 @@ namespace Capstone.Editor.ViewModels
             switch (Tool)
             {
                 case EditorTool.Build:
+                    if (_selectedTemplate != null)
+                    {
+                        var e = _selectedTemplate.BuildAndSetupEntity();
+                        Vector2 screen = new Vector2((float)point.X, (float)point.Y);
+                        ((Camera)_cam.GetComponent("camera")).ScreenToWorld(screen, e.Translation);
+                    }
                     break;
             }
         }
