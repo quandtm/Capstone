@@ -68,18 +68,7 @@
     		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0" IsEnabled="{Binding IsSelectTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
     	</StackPanel>
-    	<Grid x:Name="inspectorPanel" Grid.Row="1" Grid.Column="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
-    		<Grid.Background>
-    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
-    		</Grid.Background>
-    		<Grid.RowDefinitions>
-    			<RowDefinition Height="40"/>
-    			<RowDefinition/>
-    		</Grid.RowDefinitions>
-    		<TextBlock x:Name="inspectorLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Inspector" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="20,0,0,0"/>
-    		<ScrollViewer Margin="0" Grid.Row="1"/>
-    	</Grid>
-    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
+    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="1" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}" Grid.RowSpan="2">
     		<Grid.RowDefinitions>
     			<RowDefinition Height="40"/>
     			<RowDefinition/>
