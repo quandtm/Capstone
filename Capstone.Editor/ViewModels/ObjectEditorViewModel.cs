@@ -17,7 +17,7 @@ namespace Capstone.Editor.ViewModels
         public ObjectEditorViewModel()
         {
             Available = ComponentTemplateManager.Instance.AvailableTemplates;
-            Entities = new ObservableCollection<EntityTemplate>();
+            Entities = EntityTemplateCache.Instance.Entities;
 
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 SelectedComponent = ComponentTemplate.Create(typeof(Texture));

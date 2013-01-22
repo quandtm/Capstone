@@ -33,6 +33,16 @@ namespace Capstone.Editor
             InitializeComponent();
             _pages = new Dictionary<Type, Page>();
             _backStack = new Stack<Page>();
+
+            this.Suspending += App_Suspending;
+        }
+
+        private void App_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+            if (Window.Current.Content != null && Window.Current.Content is IView)
+                ((IView) Window.Current.Content).HandleNavigationFrom();
+            deferral.Complete();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)

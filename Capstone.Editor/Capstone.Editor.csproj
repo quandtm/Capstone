@@ -118,6 +118,7 @@
     <Compile Include="Data\ComponentProperty.cs" />
     <Compile Include="Data\ComponentTemplate.cs" />
     <Compile Include="Data\EntityTemplate.cs" />
+    <Compile Include="Data\EntityTemplateCache.cs" />
     <Compile Include="Data\Objective.cs" />
     <Compile Include="Data\ObjectiveManager.cs" />
     <Compile Include="Data\ComponentTemplateManager.cs" />

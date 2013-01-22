@@ -3,8 +3,8 @@ using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Editor.Scripts;
 using Capstone.Engine.Graphics;
-using Capstone.Engine.Scripting;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.Foundation;
 
 namespace Capstone.Editor.ViewModels
@@ -36,6 +36,8 @@ namespace Capstone.Editor.ViewModels
             {
                 if (_tool == value) return;
                 _tool = value;
+                if (_tool != EditorTool.Build)
+                    SelectedTemplate = null;
             }
         }
         public bool IsPanTool
@@ -48,8 +50,23 @@ namespace Capstone.Editor.ViewModels
         }
         public bool EventEditorVisible { get; set; }
 
+        public ObservableCollection<EntityTemplate> EntityTemplates { get; private set; }
+        private EntityTemplate _selectedTemplate;
+        public EntityTemplate SelectedTemplate
+        {
+            get { return _selectedTemplate; }
+            set
+            {
+                if (_selectedTemplate == value) return;
+                _selectedTemplate = value;
+                if (_selectedTemplate != null)
+                    Tool = EditorTool.Build;
+            }
+        }
+
         public EditorViewModel()
         {
+            EntityTemplates = EntityTemplateCache.Instance.Entities;
             ObjectiveManager = new ObjectiveManager();
             _entities = new List<Entity>();
 
@@ -83,6 +100,7 @@ namespace Capstone.Editor.ViewModels
 
         public void PopulateObjectList()
         {
+            EntityTemplateCache.Instance.Load();
         }
 
         internal void HandleClick(Windows.Foundation.Point point)
