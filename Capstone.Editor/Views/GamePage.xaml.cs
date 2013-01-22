@@ -1,4 +1,6 @@
-﻿namespace Capstone.Editor.Views
+﻿using System.Threading.Tasks;
+
+namespace Capstone.Editor.Views
 {
     public sealed partial class GamePage : IView
     {
@@ -25,7 +27,7 @@
         {
         }
 
-        public void HandleNavigationFrom()
+        public async Task HandleNavigationFrom()
         {
         }
     }

@@ -41,7 +41,7 @@ namespace Capstone.Editor
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             if (Window.Current.Content != null && Window.Current.Content is IView)
-                ((IView) Window.Current.Content).HandleNavigationFrom();
+                ((IView)Window.Current.Content).HandleNavigationFrom().Wait();
             deferral.Complete();
         }
 
@@ -62,10 +62,10 @@ namespace Capstone.Editor
             _backStack.Push((Page)Window.Current.Content);
 
             if (Window.Current.Content != null && Window.Current.Content is IView)
-                ((IView) Window.Current.Content).HandleNavigationFrom();
+                ((IView)Window.Current.Content).HandleNavigationFrom();
             Window.Current.Content = p;
             if (p is IView)
-                ((IView) p).HandleNavigationTo();
+                ((IView)p).HandleNavigationTo();
         }
 
         public void GoBack()
@@ -77,7 +77,7 @@ namespace Capstone.Editor
                     ((IView)Window.Current.Content).HandleNavigationFrom();
                 Window.Current.Content = back;
                 if (back is IView)
-                    ((IView) back).HandleNavigationTo();
+                    ((IView)back).HandleNavigationTo();
             }
         }
     }

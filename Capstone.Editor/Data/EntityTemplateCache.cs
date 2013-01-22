@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Capstone.Editor.Data
 {
@@ -24,7 +26,14 @@ namespace Capstone.Editor.Data
 
         public async Task Load()
         {
+            // TODO: Load Templates
+        }
 
+        internal async Task Save()
+        {
+            var folder = ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync("entitytemplates", CreationCollisionOption.ReplaceExisting);
+            // TODO: Save templates
         }
     }
 }

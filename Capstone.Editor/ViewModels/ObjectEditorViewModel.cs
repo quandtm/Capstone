@@ -1,7 +1,9 @@
-﻿using Capstone.Editor.Common;
+﻿using System.Runtime.Serialization;
+using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Engine.Graphics;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Capstone.Editor.ViewModels
 {
@@ -41,6 +43,11 @@ namespace Capstone.Editor.ViewModels
             e.Name = "New Entity";
             Entities.Add(e);
             SelectedEntity = e;
+        }
+
+        internal Task Save()
+        {
+            return EntityTemplateCache.Instance.Save();
         }
     }
 }

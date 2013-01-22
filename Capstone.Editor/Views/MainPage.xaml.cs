@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace Capstone.Editor.Views
 {
@@ -28,7 +29,7 @@ namespace Capstone.Editor.Views
         {
         }
 
-        public void HandleNavigationFrom()
+        public async Task HandleNavigationFrom()
         {
         }
     }
