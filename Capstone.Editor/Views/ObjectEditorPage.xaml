@@ -18,7 +18,7 @@
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="BoolEditTemplate">
-			<CheckBox Content="{Binding Name, Mode=OneWay}" VerticalAlignment="Top" IsChecked="{Binding Data, Mode=TwoWay}" Width="360"/>
+			<CheckBox Content="{Binding Name, Mode=OneWay}" VerticalAlignment="Center" IsChecked="{Binding Data, Mode=TwoWay}" Width="360"/>
 		</DataTemplate>
 		<DataTemplate x:Key="EntityNameDataTemplate">
 			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Foreground="Black" VerticalAlignment="Center"/>
