@@ -12,25 +12,25 @@
 		<common:IntBoolean x:Key="IntBoolean"/>
 		<common:NullVisibility x:Key="NullVisibility"/>
 		<DataTemplate x:Key="StringEditTemplate">
-			<Grid Width="240" Height="60">
+			<Grid Width="360" Height="60">
 				<TextBlock TextWrapping="NoWrap" Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
 				<TextBox HorizontalAlignment="Stretch" Text="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom"/>
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="BoolEditTemplate">
-			<CheckBox Content="{Binding Name, Mode=OneWay}" VerticalAlignment="Top" IsChecked="{Binding Data, Mode=TwoWay}" Width="200"/>
+			<CheckBox Content="{Binding Name, Mode=OneWay}" VerticalAlignment="Top" IsChecked="{Binding Data, Mode=TwoWay}" Width="360"/>
 		</DataTemplate>
 		<DataTemplate x:Key="EntityNameDataTemplate">
 			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Foreground="Black" VerticalAlignment="Center"/>
 		</DataTemplate>
         <DataTemplate x:Key="NumericEditTemplate">
-            <Grid Height="60" Width="240">
+            <Grid Height="60" Width="360">
                 <TextBlock Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}" />
                 <TextBox HorizontalAlignment="Stretch" Text="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom" InputScope="Number" />
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="EnumEditTemplate">
-            <Grid Height="60" Width="240">
+            <Grid Height="60" Width="330">
                 <TextBlock Text="{Binding Name}" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}" />
                 <ComboBox ItemsSource="{Binding EnumOptions}" SelectedItem="{Binding Data, Mode=TwoWay}" VerticalAlignment="Bottom" />
             </Grid>
@@ -51,10 +51,9 @@
     	</Grid.Background>
     	<Button Content="Button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle}" Click="GoBack"/>
     	<TextBlock TextWrapping="Wrap" Text="Entity Editor" VerticalAlignment="Bottom" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
-    	<Grid x:Name="sidebar" Grid.Row="1" Width="400" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+    	<Grid Grid.Row="1" Width="400" Grid.ColumnSpan="2" HorizontalAlignment="Left">
     		<Grid.RowDefinitions>
-    			<RowDefinition Height="40*"/>
-    			<RowDefinition Height="41*"/>
+    			<RowDefinition/>
     		</Grid.RowDefinitions>
     		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" Text="Available" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
     		<ListView Margin="0,40,0,0" ItemsSource="{Binding Available}" SelectionMode="None">
@@ -73,18 +72,20 @@
     				<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
     			</ListView.Background>
     		</ListView>
-    		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Added" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
-    		<ListView Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding SelectedEntity.Components}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
+    	</Grid>
+    	<Grid HorizontalAlignment="Left" Grid.Row="1" Width="400" Margin="300,0,0,0" Grid.Column="1">
+    		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" Text="Added" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
+    		<ListView Margin="0,40,0,0" ItemsSource="{Binding SelectedEntity.Components}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
     			<ListView.Resources>
     				<DataTemplate x:Key="AddedItemTemplate">
     					<Grid Width="340">
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,0,50,0" Style="{StaticResource BasicTextStyle}">
-                                <Run Text="{Binding InstanceName}" />
-                                <Run Text="("/>
-                                <Run Text="{Binding TemplateName}" />
-                                <Run Text=")"/>
-                            </TextBlock>
-                            <Button Content="DEL" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{StaticResource TextButtonStyle}" Margin="0,10" Tag="{Binding}" Click="DelTemplate"/>
+    						<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,0,50,0" Style="{StaticResource BasicTextStyle}">
+    							<Run Text="{Binding InstanceName}" />
+    							<Run Text="("/>
+    							<Run Text="{Binding TemplateName}" />
+    							<Run Text=")"/>
+    						</TextBlock>
+    						<Button Content="DEL" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{StaticResource TextButtonStyle}" Margin="0,10" Tag="{Binding}" Click="DelTemplate"/>
     					</Grid>
     				</DataTemplate>
     			</ListView.Resources>
@@ -96,12 +97,7 @@
     			</ListView.Background>
     		</ListView>
     	</Grid>
-    	<Canvas x:Name="viewer" Grid.Column="1" Margin="300,80,300,0" Grid.Row="1">
-    		<Canvas.Background>
-    			<SolidColorBrush Color="{StaticResource LightGreyBackground}"/>
-    		</Canvas.Background>
-    	</Canvas>
-    	<Grid HorizontalAlignment="Right" Width="280" Grid.Row="1" Grid.Column="1" Margin="0,40,0,0" Visibility="{Binding SelectedComponent, Converter={StaticResource NullVisibility}}">
+    	<Grid HorizontalAlignment="Left" Width="400" Grid.Row="1" Margin="720,40,0,0" Visibility="{Binding SelectedComponent, Converter={StaticResource NullVisibility}}" Grid.Column="1">
     		<Grid.RowDefinitions>
     			<RowDefinition Height="120"/>
     			<RowDefinition/>
@@ -111,7 +107,7 @@
     		</Grid.Background>
     		<TextBlock Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Text="{Binding SelectedComponent.TemplateName, Mode=OneWay}"/>
     		<TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" TextWrapping="Wrap" Text="Instance Name" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
-    		<TextBox Text="{Binding SelectedComponent.InstanceName, Mode=TwoWay}" VerticalAlignment="Top" Margin="20,70,20,0"/>
+    		<TextBox Text="{Binding SelectedComponent.InstanceName, Mode=TwoWay}" VerticalAlignment="Top" Margin="20,70,40,0"/>
             <ListView Grid.Row="1" ItemsSource="{Binding SelectedComponent.Properties}" SelectionMode="None" Margin="20,0,20,0" IsSwipeEnabled="False">
                 <ListView.ItemTemplateSelector>
                     <common:ComponentPropertyTemplateSelector 
@@ -122,8 +118,8 @@
                 </ListView.ItemTemplateSelector>
             </ListView>
         </Grid>
-    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="300,40,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}"/>
-    	<TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedEntity.Name, Mode=TwoWay}" VerticalAlignment="Top" Grid.Column="1" Margin="390,40,0,0" Grid.Row="1" Width="210"/>
+    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="760,25,0,0" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}"/>
+    	<TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedEntity.Name, Mode=TwoWay}" VerticalAlignment="Top" Grid.Column="1" Margin="760,52,0,0" Width="210"/>
     	<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="320,52,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity, Mode=TwoWay}" IsEnabled="{Binding Entities.Count, Converter={StaticResource IntBoolean}, Mode=OneWay}" ItemTemplate="{StaticResource EntityNameDataTemplate}"/>
     	<Button Content="Create New" Grid.Column="1" HorizontalAlignment="Left" Margin="605,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,-0.132" Click="CreateNewEntity"/>
     </Grid>
