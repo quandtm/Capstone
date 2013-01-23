@@ -18,12 +18,13 @@ namespace Capstone.Editor.ViewModels
 
     public class EditorViewModel : BindableBase
     {
+        private int _entityCounter;
         private Point _prevPoint;
         private Entity _cam;
 
         public int Money { get; private set; }
 
-        private readonly List<Entity> _entities;
+        public ObservableCollection<EntityInstance> Instances { get; private set; }
 
         public ObjectiveManager ObjectiveManager { get; private set; }
         private readonly Dictionary<string, Objective> _objectiveLookup;
@@ -66,10 +67,11 @@ namespace Capstone.Editor.ViewModels
 
         public EditorViewModel()
         {
+            Instances = new ObservableCollection<EntityInstance>();
             EntityTemplates = EntityTemplateCache.Instance.Entities;
             ObjectiveManager = new ObjectiveManager();
-            _entities = new List<Entity>();
 
+            _entityCounter = 0;
             Money = 500;
 
             SetupCamera();
@@ -87,13 +89,19 @@ namespace Capstone.Editor.ViewModels
         private void SetupCamera()
         {
             _cam = new Entity();
-            var c = new Camera();
-            c.Name = "camera";
+
+            var c = new Camera()
+                {
+                    Name = "camera"
+                };
             c.Setup();
             CameraManager.Instance.MakeActive("camera");
             _cam.AddComponent(c);
-            var cscript = new EditorCameraScript(this);
-            cscript.Name = "controlscript";
+
+            var cscript = new EditorCameraScript(this)
+                {
+                    Name = "controlscript"
+                };
             cscript.Setup();
             _cam.AddComponent(cscript);
         }
@@ -110,9 +118,11 @@ namespace Capstone.Editor.ViewModels
                 case EditorTool.Build:
                     if (_selectedTemplate != null)
                     {
-                        var e = _selectedTemplate.BuildAndSetupEntity();
+                        var instance = EntityInstance.Create(_selectedTemplate);
                         Vector2 screen = new Vector2((float)point.X, (float)point.Y);
-                        ((Camera)_cam.GetComponent("camera")).ScreenToWorld(screen, e.Translation);
+                        ((Camera)_cam.GetComponent("camera")).ScreenToWorld(screen, instance.Entity.Translation);
+                        instance.Entity.Name = string.Format("entity_{0:000}", ++_entityCounter);
+                        Instances.Add(instance);
                     }
                     break;
             }
