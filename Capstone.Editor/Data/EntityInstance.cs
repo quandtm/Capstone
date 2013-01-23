@@ -6,6 +6,15 @@ namespace Capstone.Editor.Data
     public class EntityInstance : BindableBase
     {
         public Entity Entity { get; private set; }
+        public string Name
+        {
+            get { return Entity.Name; }
+            set
+            {
+                if (Entity.Name == value) return;
+                Entity.Name = value;
+            }
+        }
 
         private EntityInstance()
         {

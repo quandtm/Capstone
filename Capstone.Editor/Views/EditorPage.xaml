@@ -25,6 +25,9 @@
 				</TextBlock>
 			</Grid>
 		</DataTemplate>
+		<DataTemplate x:Key="EntityInstanceTemplate">
+			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="20,0"/>
+		</DataTemplate>
 	</common:LayoutAwarePage.Resources>
     
 	<common:LayoutAwarePage.BottomAppBar>
@@ -44,7 +47,7 @@
 
     <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded" PointerReleased="swapPanel_PointerReleased">
     	<SwapChainBackgroundPanel.ColumnDefinitions>
-    		<ColumnDefinition Width="80"/>
+    		<ColumnDefinition Width="200"/>
     		<ColumnDefinition/>
     		<ColumnDefinition Width="326"/>
     	</SwapChainBackgroundPanel.ColumnDefinitions>
@@ -61,14 +64,32 @@
     		<Button Content="Entity Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0" Click="OpenEntityEditor"/>
     		<Button Content="Toggle Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,150,0" Click="ToggleEventEditor"/>
     	</Grid>
-    	<StackPanel x:Name="toolPanel" Grid.Row="1" Margin="0" Grid.RowSpan="2">
-    		<StackPanel.Background>
+    	<Grid x:Name="toolPanel" Grid.Row="1">
+    		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
-    		</StackPanel.Background>
-    		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
-    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="80" Click="ChangeToolSelect" Margin="0,20,0,0" IsEnabled="{Binding IsSelectTool, Converter={StaticResource Inverter}, Mode=OneWay}"/>
-    	</StackPanel>
-    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="1" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}" Grid.RowSpan="2">
+    		</Grid.Background>
+    		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}" Width="80" Margin="10,0,0,0" Height="80"/>
+    		<Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ChangeToolSelect" IsEnabled="{Binding IsSelectTool, Converter={StaticResource Inverter}, Mode=OneWay}" Width="80" Margin="100,0,10,0" Height="80"/>
+    	</Grid>
+    	<Grid Margin="0" Grid.Row="2">
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</Grid.Background>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}" Margin="10,0,0,0"/>
+    		<TextBox TextWrapping="Wrap" Text="{Binding SelectedInstance.Name, Mode=TwoWay}" VerticalAlignment="Top" Margin="10,30,10,0"/>
+    	</Grid>
+    	<Grid x:Name="entityInstances" Grid.Row="1" Grid.Column="2">
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</Grid.Background>
+    		<Grid.RowDefinitions>
+    			<RowDefinition/>
+    			<RowDefinition Height="8*"/>
+    		</Grid.RowDefinitions>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entities" VerticalAlignment="Top" Margin="20,0,0,0" Style="{StaticResource GroupHeaderTextStyle}"/>
+    		<ListView Grid.Row="1" ItemsSource="{Binding Instances}" ItemTemplate="{StaticResource EntityInstanceTemplate}" SelectedItem="{Binding SelectedInstance, Mode=TwoWay}"/>
+    	</Grid>
+    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
     		<Grid.RowDefinitions>
     			<RowDefinition Height="40"/>
     			<RowDefinition/>
@@ -96,7 +117,7 @@
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     	</Grid>
-    	<ListView Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}"/>
+    	<ListView x:Name="objectives" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}"/>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>

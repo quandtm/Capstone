@@ -25,6 +25,7 @@ namespace Capstone.Editor.ViewModels
         public int Money { get; private set; }
 
         public ObservableCollection<EntityInstance> Instances { get; private set; }
+        public EntityInstance SelectedInstance { get; set; }
 
         public ObjectiveManager ObjectiveManager { get; private set; }
         private readonly Dictionary<string, Objective> _objectiveLookup;
