@@ -114,6 +114,7 @@
     <Compile Include="Common\InvertBoolVisibility.cs" />
     <Compile Include="Common\NullBoolean.cs" />
     <Compile Include="Common\NullVisibility.cs" />
+    <Compile Include="Common\StringDataExtensions.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\ComponentProperty.cs" />
     <Compile Include="Data\ComponentTemplate.cs" />

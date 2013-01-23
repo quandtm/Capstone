@@ -1,6 +1,9 @@
-﻿using Capstone.Core;
+﻿using System.Threading.Tasks;
+using Capstone.Core;
 using Capstone.Editor.Common;
+using System;
 using System.Collections.ObjectModel;
+using Windows.Storage.Streams;
 
 namespace Capstone.Editor.Data
 {
@@ -25,6 +28,26 @@ namespace Capstone.Editor.Data
                 obj.Setup();
             }
             return e;
+        }
+
+        internal void Save(DataWriter dw)
+        {
+            dw.WriteStringEx(Name);
+            dw.WriteInt32(Components.Count);
+            foreach (var c in Components)
+                c.Save(dw);
+        }
+
+        internal async Task Load(DataReader dr)
+        {
+            Name = await dr.ReadStringEx();
+            await dr.LoadAsync(sizeof(int));
+            var count = dr.ReadInt32();
+            for (int i = 0; i < count; i++)
+            {
+                var c = await ComponentTemplate.Load(dr);
+                Components.Add(c);
+            }
         }
     }
 }

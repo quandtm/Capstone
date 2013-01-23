@@ -3,6 +3,8 @@ using Capstone.Editor.Common;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Threading.Tasks;
+using Windows.Storage.Streams;
 
 namespace Capstone.Editor.Data
 {
@@ -35,7 +37,7 @@ namespace Capstone.Editor.Data
         public object CreateInstance()
         {
             var obj = Activator.CreateInstance(_type);
-            ((IComponent) obj).Name = InstanceName;
+            ((IComponent)obj).Name = InstanceName;
             foreach (var p in Properties)
                 p.ApplyProperty(obj);
             return obj;
@@ -52,6 +54,43 @@ namespace Capstone.Editor.Data
                     template.Properties.Add(item);
             }
             return template;
+        }
+
+        internal async static Task<ComponentTemplate> Load(DataReader dr)
+        {
+            var aqn = await dr.ReadStringEx();
+            var type = Type.GetType(aqn);
+            var c = Create(type);
+            c.InstanceName = await dr.ReadStringEx();
+
+            await dr.LoadAsync(sizeof(int));
+            var propCount = dr.ReadInt32();
+            for (var i = 0; i < propCount; ++i)
+            {
+                var name = await dr.ReadStringEx();
+                foreach (var p in c.Properties)
+                {
+                    if (p.Name.Equals(name))
+                    {
+                        await p.LoadData(dr);
+                        break;
+                    }
+                }
+            }
+
+            return c;
+        }
+
+        internal void Save(DataWriter dw)
+        {
+            dw.WriteStringEx(_type.AssemblyQualifiedName);
+            dw.WriteStringEx(InstanceName);
+            dw.WriteInt32(Properties.Count);
+            foreach (var c in Properties)
+            {
+                dw.WriteStringEx(c.Name);
+                c.SaveData(dw);
+            }
         }
     }
 }
