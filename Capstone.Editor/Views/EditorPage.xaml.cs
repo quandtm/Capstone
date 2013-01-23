@@ -34,11 +34,6 @@ namespace Capstone.Editor.Views
 
         }
 
-        private void ChangeToolSelect(object sender, RoutedEventArgs e)
-        {
-            VM.Tool = EditorTool.Select;
-        }
-
         private void ChangeToolPan(object sender, RoutedEventArgs e)
         {
             VM.Tool = EditorTool.Pan;
