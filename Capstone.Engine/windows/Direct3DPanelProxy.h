@@ -34,6 +34,12 @@ namespace Capstone
 				void PointerPressedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
 				void PointerMovedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
 				void PointerReleasedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
+
+				// TODO: Need to write these and make the C++ event binding optional, then re-bind to a panel in the C# code and call these
+				void PressPointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args);
+				void MovePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args);
+				void ReleasePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args);
+
 				void SizeChangedHandler(::Windows::UI::Core::CoreWindow^ window, ::Windows::UI::Core::WindowSizeChangedEventArgs^ args);
 
 				::Windows::Foundation::EventRegistrationToken _pressedToken, _movedToken, _releasedToken;

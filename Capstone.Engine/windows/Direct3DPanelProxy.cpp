@@ -72,6 +72,18 @@ namespace Capstone
 				_scriptManager->PointerReleased(_timer->Delta, _timer->Total, pt.X, pt.Y);
 			}
 
+			void Direct3DPanelProxy::PressPointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
+			{
+			}
+
+			void Direct3DPanelProxy::MovePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
+			{
+			}
+
+			void Direct3DPanelProxy::ReleasePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
+			{
+			}
+
 			void Direct3DPanelProxy::CreateDevice()
 			{
 				D3D_FEATURE_LEVEL featureLevels[] =
