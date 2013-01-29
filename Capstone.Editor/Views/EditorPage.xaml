@@ -45,7 +45,7 @@
 		</AppBar>
 	</common:LayoutAwarePage.BottomAppBar>
 
-    <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded" PointerReleased="swapPanel_PointerReleased">
+    <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded">
     	<SwapChainBackgroundPanel.ColumnDefinitions>
     		<ColumnDefinition Width="200"/>
     		<ColumnDefinition/>
@@ -70,7 +70,7 @@
     		</Grid.Background>
     		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}" Width="80" Margin="10,0,0,0" Height="80"/>
     	</Grid>
-    	<Grid Margin="0" Grid.Row="2">
+    	<Grid x:Name="inspectorPanel" Margin="0" Grid.Row="2">
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
@@ -116,7 +116,9 @@
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     	</Grid>
-    	<ListView x:Name="objectives" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="300" Grid.RowSpan="2" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}"/>
+    	<Grid x:Name="clickPanel" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" PointerPressed="GameAreaPressed" PointerReleased="GameAreaReleased" PointerMoved="GameAreaMoved" Background="#00000000">
+    		<ListView x:Name="objectives" HorizontalAlignment="Left" Width="300" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}" Margin="0"/>
+    	</Grid>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>

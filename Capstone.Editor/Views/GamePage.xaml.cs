@@ -20,7 +20,7 @@ namespace Capstone.Editor.Views
         private void swapPanel_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var proxy = App.CurrentApp.Direct3D;
-            proxy.SetPanel(swapPanel);
+            proxy.SetPanel(swapPanel, true);
         }
 
         public void HandleNavigationTo()

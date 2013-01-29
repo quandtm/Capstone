@@ -54,34 +54,44 @@ namespace Capstone
 				CreateSizeDependentResources();
 			}
 
+			void Direct3DPanelProxy::BindPointerEvents()
+			{
+				_pressedToken = _panel->PointerPressed::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerPressedHandler));
+				_movedToken = _panel->PointerMoved::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerMovedHandler));
+				_releasedToken = _panel->PointerReleased::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerReleasedHandler));
+			}
+
 			void Direct3DPanelProxy::PointerPressedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
 			{
-				auto pt = args->GetCurrentPoint(_panel)->Position;
-				_scriptManager->PointerPressed(_timer->Delta, _timer->Total, pt.X, pt.Y);
+				PressPointer(args, _panel);
 			}
 
 			void Direct3DPanelProxy::PointerMovedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
 			{
-				auto pt = args->GetCurrentPoint(_panel)->Position;
-				_scriptManager->PointerMoved(_timer->Delta, _timer->Total, pt.X, pt.Y);
+				MovePointer(args, _panel);
 			}
 
 			void Direct3DPanelProxy::PointerReleasedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
 			{
-				auto pt = args->GetCurrentPoint(_panel)->Position;
+				ReleasePointer(args, _panel);
+			}
+
+			void Direct3DPanelProxy::PressPointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args, ::Windows::UI::Xaml::UIElement^ relativeTo)
+			{
+				auto pt = args->GetCurrentPoint(relativeTo)->Position;
+				_scriptManager->PointerPressed(_timer->Delta, _timer->Total, pt.X, pt.Y);
+			}
+
+			void Direct3DPanelProxy::MovePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args, ::Windows::UI::Xaml::UIElement^ relativeTo)
+			{
+				auto pt = args->GetCurrentPoint(relativeTo)->Position;
+				_scriptManager->PointerMoved(_timer->Delta, _timer->Total, pt.X, pt.Y);
+			}
+
+			void Direct3DPanelProxy::ReleasePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args, ::Windows::UI::Xaml::UIElement^ relativeTo)
+			{
+				auto pt = args->GetCurrentPoint(relativeTo)->Position;
 				_scriptManager->PointerReleased(_timer->Delta, _timer->Total, pt.X, pt.Y);
-			}
-
-			void Direct3DPanelProxy::PressPointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
-			{
-			}
-
-			void Direct3DPanelProxy::MovePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
-			{
-			}
-
-			void Direct3DPanelProxy::ReleasePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args)
-			{
 			}
 
 			void Direct3DPanelProxy::CreateDevice()
@@ -158,7 +168,7 @@ namespace Capstone
 				_context->RSSetViewports(1, &vp);
 			}
 
-			void Direct3DPanelProxy::SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel)
+			void Direct3DPanelProxy::SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel, bool bindEvents)
 			{
 				if (_panel != nullptr)
 				{
@@ -178,9 +188,8 @@ namespace Capstone
 					DX::ThrowIfFailed(nativePanel->SetSwapChain(_swapChain.Get()));
 				}
 
-				_pressedToken = _panel->PointerPressed::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerPressedHandler));
-				_movedToken = _panel->PointerMoved::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerMovedHandler));
-				_releasedToken = _panel->PointerReleased::add(ref new ::Windows::UI::Xaml::Input::PointerEventHandler(this, &Direct3DPanelProxy::PointerReleasedHandler));
+				if (bindEvents)
+					BindPointerEvents();
 			}
 
 			void Direct3DPanelProxy::RenderingHandler(Object^ sender, Object^ args)

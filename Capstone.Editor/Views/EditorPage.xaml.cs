@@ -11,8 +11,11 @@ namespace Capstone.Editor.Views
             get { return (EditorViewModel)DataContext; }
         }
 
+        private bool _ready;
+
         public EditorPage()
         {
+            _ready = false;
             InitializeComponent();
             DataContext = new EditorViewModel();
         }
@@ -20,9 +23,10 @@ namespace Capstone.Editor.Views
         private void HandleLoaded(object sender, RoutedEventArgs e)
         {
             var proxy = App.CurrentApp.Direct3D;
-            proxy.SetPanel(swapPanel);
+            proxy.SetPanel(swapPanel, false);
 
             VM.PopulateObjectList();
+            _ready = true;
         }
 
         private void OpenBuildMode(object sender, RoutedEventArgs e)
@@ -37,11 +41,6 @@ namespace Capstone.Editor.Views
         private void ChangeToolPan(object sender, RoutedEventArgs e)
         {
             VM.Tool = EditorTool.Pan;
-        }
-
-        private void swapPanel_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            VM.HandleClick(e.GetCurrentPoint(swapPanel).Position);
         }
 
         private void ToggleEventEditor(object sender, RoutedEventArgs e)
@@ -60,6 +59,27 @@ namespace Capstone.Editor.Views
 
         public async Task HandleNavigationFrom()
         {
+        }
+
+        private void GameAreaReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (_ready)
+            {
+                VM.HandleClick(e.GetCurrentPoint(swapPanel).Position);
+                App.CurrentApp.Direct3D.ReleasePointer(e, swapPanel);
+            }
+        }
+
+        private void GameAreaMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (_ready)
+                App.CurrentApp.Direct3D.MovePointer(e, swapPanel);
+        }
+
+        private void GameAreaPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (_ready)
+                App.CurrentApp.Direct3D.PressPointer(e, swapPanel);
         }
     }
 }

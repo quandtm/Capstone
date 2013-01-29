@@ -31,14 +31,10 @@ namespace Capstone
 				void Clear();
 				void Present();
 
+				void BindPointerEvents();
 				void PointerPressedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
 				void PointerMovedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
 				void PointerReleasedHandler(Platform::Object^ sender, ::Windows::UI::Xaml::Input::PointerRoutedEventArgs ^ args);
-
-				// TODO: Need to write these and make the C++ event binding optional, then re-bind to a panel in the C# code and call these
-				void PressPointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args);
-				void MovePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args);
-				void ReleasePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args);
 
 				void SizeChangedHandler(::Windows::UI::Core::CoreWindow^ window, ::Windows::UI::Core::WindowSizeChangedEventArgs^ args);
 
@@ -53,7 +49,12 @@ namespace Capstone
 
 			public:
 				Direct3DPanelProxy(void);
-				void SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel);
+				void SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel, bool bindEvents);
+
+				void PressPointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args, ::Windows::UI::Xaml::UIElement^ relativeTo);
+				void MovePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args, ::Windows::UI::Xaml::UIElement^ relativeTo);
+				void ReleasePointer(::Windows::UI::Xaml::Input::PointerRoutedEventArgs^ args, ::Windows::UI::Xaml::UIElement^ relativeTo);
+
 				property bool IsInitialised
 				{
 					bool get() { return _swapChain.Get() != nullptr; }
