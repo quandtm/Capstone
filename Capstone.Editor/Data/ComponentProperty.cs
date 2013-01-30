@@ -27,7 +27,29 @@ namespace Capstone.Editor.Data
             set
             {
                 if (_data != null && _data.Equals(value)) return;
-                _data = value;
+                if (!(_data is string) && value is string)
+                {
+                    var s = (string)value;
+                    switch (_type)
+                    {
+                        case ComponentPropertyType.Float:
+                            _data = float.Parse(s);
+                            break;
+
+                        case ComponentPropertyType.Int:
+                            _data = int.Parse(s);
+                            break;
+
+                        case ComponentPropertyType.Double:
+                            _data = double.Parse(s);
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else
+                    _data = value;
             }
         }
 

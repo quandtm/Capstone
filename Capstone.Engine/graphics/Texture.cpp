@@ -83,7 +83,7 @@ namespace Capstone
 			{
 				if (_isLoaded && IsVisible)
 				{
-					DirectX::XMFLOAT2 pos(Entity->Translation->X, Entity->Translation->Y);
+					DirectX::XMFLOAT2 pos(Entity->Translation->X + OffsetX, Entity->Translation->Y + OffsetY);
 					DirectX::XMFLOAT2 origin(0, 0);
 					// Calculate the origin, the default is top left so don't handle that
 					switch (Origin)

@@ -89,6 +89,11 @@ namespace Capstone
 					void set(int val) { _srcRect.bottom = _srcRect.top + val; }
 				}
 				
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="X Offset")]
+				property float OffsetX;
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Y Offset")]
+				property float OffsetY;
+
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="Visible")]
 				property bool IsVisible;
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="Origin")]

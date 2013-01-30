@@ -31,6 +31,7 @@ namespace Capstone.Editor.Data
         public async Task Load()
         {
             if (Loaded) return;
+            Loaded = true;
             var folder = ApplicationData.Current.LocalFolder;
             var file = await folder.GetFileAsync("entitytemplates");
 
@@ -46,7 +47,6 @@ namespace Capstone.Editor.Data
                     Entities.Add(e);
                 }
             }
-            Loaded = true;
         }
 
         internal async Task Save()
