@@ -84,7 +84,7 @@ namespace Capstone.Editor.ViewModels
 
         private void RegisterObjectives()
         {
-            ObjectiveManager.AddObjective("AddPlayer", "Add a Player Object", 10);
+            ObjectiveManager.AddObjective("AddPlayer", "Add an Entity with a PlayerController", 10);
         }
 
         private void SetupCamera()
@@ -124,8 +124,23 @@ namespace Capstone.Editor.ViewModels
                         ((Camera)_cam.GetComponent("camera")).ScreenToWorld(screen, instance.Entity.Translation);
                         instance.Entity.Name = string.Format("entity_{0:000}", ++_entityCounter);
                         Instances.Add(instance);
+                        ProcessBuildObjectives(_selectedTemplate);
                     }
                     break;
+            }
+        }
+
+        private void ProcessBuildObjectives(EntityTemplate template)
+        {
+            foreach (var c in template.Components)
+            {
+                var cTypeName = c.TemplateName;
+                switch (cTypeName)
+                {
+                    case "PlayerController":
+                        ObjectiveManager.CompleteObjective("AddPlayer");
+                        break;
+                }
             }
         }
     }

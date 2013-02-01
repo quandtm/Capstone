@@ -125,6 +125,7 @@
     <Compile Include="Data\ComponentTemplateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\EditorCameraScript.cs" />
+    <Compile Include="Scripts\PlayerController.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="Data\EntityInstance.cs" />
     <Compile Include="ViewModels\ObjectEditorViewModel.cs" />
