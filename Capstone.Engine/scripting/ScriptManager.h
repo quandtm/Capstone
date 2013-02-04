@@ -25,6 +25,8 @@ namespace Capstone
 					}
 				}
 
+				property bool IsRunning;
+
 				void RegisterScript(IScript^ script);
 				void RemoveScript(IScript^ script);
 				void ClearAllScripts();

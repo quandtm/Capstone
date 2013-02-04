@@ -11,6 +11,7 @@ namespace Capstone
 
 			ScriptManager::ScriptManager()
 			{
+				IsRunning = true;
 			}
 
 			void ScriptManager::RegisterScript(IScript^ script)
@@ -42,32 +43,47 @@ namespace Capstone
 
 			void ScriptManager::Update(float deltaTime, float totalTime)
 			{
-				for (auto s : _scripts)
-					s->Update(deltaTime, totalTime);
+				if (IsRunning)
+				{
+					for (auto s : _scripts)
+						s->Update(deltaTime, totalTime);
+				}
 			}
 
 			void ScriptManager::PreDrawUpdate(float deltaTime, float totalTime)
 			{
-				for (auto s : _scripts)
-					s->PreDrawUpdate(deltaTime, totalTime);
+				if (IsRunning)
+				{
+					for (auto s : _scripts)
+						s->PreDrawUpdate(deltaTime, totalTime);
+				}
 			}
 
 			void ScriptManager::PointerPressed(float deltaTime, float totalTime, float x, float y)
 			{
-				for (auto s : _scripts)
-					s->PointerPressed(deltaTime, totalTime, x, y);
+				if (IsRunning)
+				{
+					for (auto s : _scripts)
+						s->PointerPressed(deltaTime, totalTime, x, y);
+				}
 			}
 
 			void ScriptManager::PointerReleased(float deltaTime, float totalTime, float x, float y)
 			{
-				for (auto s : _scripts)
-					s->PointerReleased(deltaTime, totalTime, x, y);
+				if (IsRunning)
+				{
+					for (auto s : _scripts)
+						s->PointerReleased(deltaTime, totalTime, x, y);
+				}
 			}
 
 			void ScriptManager::PointerMoved(float deltaTime, float totalTime, float x, float y)
 			{
-				for (auto s : _scripts)
-					s->PointerMoved(deltaTime, totalTime, x, y);
+				if (IsRunning)
+				{
+					for (auto s : _scripts)
+						s->PointerMoved(deltaTime, totalTime, x, y);
+				}
 			}
 		}
 	}

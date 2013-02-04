@@ -3,6 +3,7 @@ using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Editor.Scripts;
 using Capstone.Engine.Graphics;
+using Capstone.Engine.Scripting;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.Foundation;
@@ -80,6 +81,8 @@ namespace Capstone.Editor.ViewModels
 
             Tool = EditorTool.Select;
             EventEditorVisible = false;
+
+            ScriptManager.Instance.IsRunning = false;
         }
 
         private void RegisterObjectives()
