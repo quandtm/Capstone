@@ -22,6 +22,7 @@ namespace Capstone.Editor.ViewModels
         private int _entityCounter;
         private Point _prevPoint;
         private Entity _cam;
+        private bool _pointerDown;
 
         public int Money { get; private set; }
 
@@ -83,6 +84,8 @@ namespace Capstone.Editor.ViewModels
             EventEditorVisible = false;
 
             ScriptManager.Instance.IsRunning = false;
+
+            _pointerDown = false;
         }
 
         private void RegisterObjectives()
@@ -101,13 +104,6 @@ namespace Capstone.Editor.ViewModels
             c.Setup();
             CameraManager.Instance.MakeActive("camera");
             _cam.AddComponent(c);
-
-            var cscript = new EditorCameraScript(this)
-                {
-                    Name = "controlscript"
-                };
-            cscript.Setup();
-            _cam.AddComponent(cscript);
         }
 
         public void PopulateObjectList()
@@ -115,7 +111,7 @@ namespace Capstone.Editor.ViewModels
             EntityTemplateCache.Instance.Load();
         }
 
-        internal void HandleClick(Windows.Foundation.Point point)
+        internal void HandleReleased(Point point)
         {
             switch (Tool)
             {
@@ -131,6 +127,36 @@ namespace Capstone.Editor.ViewModels
                     }
                     break;
             }
+            _pointerDown = false;
+        }
+
+        internal void HandlePointerMove(Point point)
+        {
+            switch (Tool)
+            {
+                case EditorTool.Pan:
+                    if (_pointerDown)
+                    {
+                        var dx = point.X - _prevPoint.X;
+                        var dy = point.Y - _prevPoint.Y;
+                        _cam.Translation.X -= (float)dx;
+                        _cam.Translation.Y -= (float)dy;
+
+                        _prevPoint = point;
+                    }
+                    break;
+            }
+        }
+
+        internal void HandlePointerPressed(Point point)
+        {
+            switch (Tool)
+            {
+                case EditorTool.Pan:
+                    _prevPoint = point;
+                    break;
+            }
+            _pointerDown = true;
         }
 
         private void ProcessBuildObjectives(EntityTemplate template)

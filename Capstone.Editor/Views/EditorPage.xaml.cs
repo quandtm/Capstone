@@ -65,7 +65,7 @@ namespace Capstone.Editor.Views
         {
             if (_ready)
             {
-                VM.HandleClick(e.GetCurrentPoint(swapPanel).Position);
+                VM.HandleReleased(e.GetCurrentPoint(swapPanel).Position);
                 App.CurrentApp.Direct3D.ReleasePointer(e, swapPanel);
             }
         }
@@ -73,13 +73,19 @@ namespace Capstone.Editor.Views
         private void GameAreaMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             if (_ready)
+            {
+                VM.HandlePointerMove(e.GetCurrentPoint(swapPanel).Position);
                 App.CurrentApp.Direct3D.MovePointer(e, swapPanel);
+            }
         }
 
         private void GameAreaPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             if (_ready)
+            {
+                VM.HandlePointerPressed(e.GetCurrentPoint(swapPanel).Position);
                 App.CurrentApp.Direct3D.PressPointer(e, swapPanel);
+            }
         }
 
         private void DeleteEntity(object sender, RoutedEventArgs e)
