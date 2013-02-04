@@ -21,6 +21,11 @@ namespace Capstone
 				CameraManager::Instance->AddCamera(Name, this);
 			}
 
+			void Camera::Destroy()
+			{
+				CameraManager::Instance->RemoveCamera(Name);
+			}
+
 			void Camera::UpdateMatrices()
 			{
 				_view = XMMatrixTranslation(-Entity->Translation->X, -Entity->Translation->Y, 0);

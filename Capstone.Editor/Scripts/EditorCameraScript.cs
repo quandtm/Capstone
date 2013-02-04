@@ -27,6 +27,11 @@ namespace Capstone.Editor.Scripts
             ScriptManager.Instance.RegisterScript(this);
         }
 
+        public void Destroy()
+        {
+            ScriptManager.Instance.RemoveScript(this);
+        }
+
         public bool IsInitialised { get; private set; }
 
         public void PointerMoved(float deltaTime, float totalTime, float x, float y)

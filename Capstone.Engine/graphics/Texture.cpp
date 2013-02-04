@@ -53,6 +53,11 @@ namespace Capstone
 				SpriteRenderer::Instance->RegisterTexture(this);
 			}
 
+			void Texture::Destroy()
+			{
+				SpriteRenderer::Instance->RemoveTexture(this);
+			}
+
 			void Texture::Load(std::shared_ptr<ResourceManager> resources)
 			{
 				if (_loading || _path == nullptr) return;
@@ -100,7 +105,7 @@ namespace Capstone
 					case OriginPoint::BottomLeft:
 						origin.y = SourceRectHeight;
 						break;
-						
+
 					case OriginPoint::BottomRight:
 						origin.x = SourceRectWidth;
 						origin.y = SourceRectHeight;

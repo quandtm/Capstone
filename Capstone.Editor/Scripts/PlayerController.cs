@@ -51,5 +51,9 @@ namespace Capstone.Editor.Scripts
         public void Setup()
         {
         }
+
+        public void Destroy()
+        {
+        }
     }
 }

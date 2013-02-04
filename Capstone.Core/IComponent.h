@@ -13,6 +13,7 @@ namespace Capstone
 			property Entity^ Entity;
 			property Platform::String^ Name;
 			void Setup();
+			void Destroy();
 		};
 	}
 }

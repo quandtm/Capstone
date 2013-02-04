@@ -23,6 +23,7 @@ namespace Capstone
 			void AddComponent(IComponent^ component);
 			IComponent^ GetComponent(Platform::String^ key);
 			void RemoveComponent(Platform::String^ key);
+			void DestroyComponents();
 		};
 	}
 }

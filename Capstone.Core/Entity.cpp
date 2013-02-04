@@ -40,5 +40,12 @@ namespace Capstone
 				}
 			}
 		}
+
+		void Entity::DestroyComponents()
+		{
+			for(auto c : _components)
+				c.second->Destroy();
+			_components.clear();
+		}
 	}
 }
