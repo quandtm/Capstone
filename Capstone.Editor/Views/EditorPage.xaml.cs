@@ -81,5 +81,10 @@ namespace Capstone.Editor.Views
             if (_ready)
                 App.CurrentApp.Direct3D.PressPointer(e, swapPanel);
         }
+
+        private void DeleteEntity(object sender, RoutedEventArgs e)
+        {
+            VM.DeleteSelectedEntity();
+        }
     }
 }

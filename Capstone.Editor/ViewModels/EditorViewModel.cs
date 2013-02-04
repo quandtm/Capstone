@@ -143,5 +143,13 @@ namespace Capstone.Editor.ViewModels
                 }
             }
         }
+
+        public void DeleteSelectedEntity()
+        {
+            var inst = SelectedInstance;
+            inst.Entity.DestroyComponents();
+            Instances.Remove(inst);
+            SelectedInstance = null;
+        }
     }
 }
