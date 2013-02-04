@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTK_Windows8", "external\dxtk\DirectXTK_Windows8.vcxproj", "{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Capstone.Engine", "Capstone.Engine\Capstone.Engine.vcxproj", "{8FB3F0AD-A832-4125-94CE-545FB5CC91EC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E} = {E0B52AE7-E160-4D32-BF3F-910B785E5A8E}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Capstone.Core", "Capstone.Core\Capstone.Core.vcxproj", "{9E76EB0D-B292-44FB-AF5F-2D6E569059A3}"
 EndProject
