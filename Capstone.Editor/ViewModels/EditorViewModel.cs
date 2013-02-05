@@ -167,7 +167,8 @@ namespace Capstone.Editor.ViewModels
 
         public void ZoomDelta(float p)
         {
-            _cam.Depth += p / 1000f;
+            if (Tool == EditorTool.Pan)
+                _cam.Depth += p / 1000f;
         }
 
         internal void ResetCamera()
