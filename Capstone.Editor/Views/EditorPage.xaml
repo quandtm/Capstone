@@ -69,6 +69,7 @@
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     		<Button x:Name="btnPan" Content="Pan" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}" Width="80" Margin="10,0,0,0" Height="80"/>
+    		<Button Content="Reset" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Width="80" Height="80" Click="ResetCam"/>
     	</Grid>
     	<Grid x:Name="inspectorPanel" Margin="0" Grid.Row="2">
     		<Grid.Background>
@@ -117,7 +118,7 @@
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     	</Grid>
-    	<Grid x:Name="clickPanel" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" PointerPressed="GameAreaPressed" PointerReleased="GameAreaReleased" PointerMoved="GameAreaMoved" Background="#00000000">
+    	<Grid x:Name="clickPanel" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" PointerPressed="GameAreaPressed" PointerReleased="GameAreaReleased" PointerMoved="GameAreaMoved" Background="#00000000" PointerWheelChanged="GameAreaZooming">
     		<ListView x:Name="objectives" HorizontalAlignment="Left" Width="300" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}" Margin="0"/>
     	</Grid>
     </SwapChainBackgroundPanel>

@@ -186,5 +186,17 @@ namespace Capstone.Editor.ViewModels
             Instances.Remove(inst);
             SelectedInstance = null;
         }
+
+        public void ZoomDelta(float p)
+        {
+            _cam.Depth += p / 1000f;
+        }
+
+        internal void ResetCamera()
+        {
+            _cam.Translation.X = 0;
+            _cam.Translation.Y = 0;
+            _cam.Depth = 1;
+        }
     }
 }

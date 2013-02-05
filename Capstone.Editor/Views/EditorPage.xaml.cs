@@ -92,5 +92,15 @@ namespace Capstone.Editor.Views
         {
             VM.DeleteSelectedEntity();
         }
+
+        private void GameAreaZooming(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            VM.ZoomDelta(e.GetCurrentPoint(swapPanel).Properties.MouseWheelDelta);
+        }
+
+        private void ResetCam(object sender, RoutedEventArgs e)
+        {
+            VM.ResetCamera();
+        }
     }
 }
