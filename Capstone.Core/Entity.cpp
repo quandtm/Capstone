@@ -20,6 +20,7 @@ namespace Capstone
 			{
 				_components[key] = component;
 				component->Entity = this;
+				component->Install();
 			}
 		}
 
@@ -28,27 +29,17 @@ namespace Capstone
 			return _components[key];
 		}
 
-		void Entity::RemoveComponent(Platform::String^ key)
-		{
-			if (!key->IsEmpty())
-			{
-				auto item = _components[key];
-				if (item != nullptr)
-				{
-					_components.erase(key);
-					item->Entity = nullptr;
-				}
-			}
-		}
-
 		void Entity::DestroyComponent(Platform::String^ key)
 		{
 			if (!key->IsEmpty())
 			{
 				auto component = _components[key];
-				component->Uninstall();
-				component->Entity = nullptr;
-				_components.erase(key);
+				if (component != nullptr)
+				{
+					component->Uninstall();
+					component->Entity = nullptr;
+					_components.erase(key);
+				}
 			}
 		}
 
