@@ -9,6 +9,7 @@
     d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:ObjectEditorViewModel}"
     mc:Ignorable="d">
 	<common:LayoutAwarePage.Resources>
+		<common:InvertNullBoolean x:Key="InvertNullBoolean"/>
 		<common:IntBoolean x:Key="IntBoolean"/>
 		<common:NullVisibility x:Key="NullVisibility"/>
 		<DataTemplate x:Key="StringEditTemplate">
@@ -118,9 +119,10 @@
                 </ListView.ItemTemplateSelector>
             </ListView>
         </Grid>
-    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="760,25,0,0" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}"/>
-    	<TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedEntity.Name, Mode=TwoWay}" VerticalAlignment="Top" Grid.Column="1" Margin="760,52,0,0" Width="210"/>
+    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="720,5,0,0" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}" Grid.Row="1"/>
+    	<TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedEntity.Name, Mode=TwoWay}" VerticalAlignment="Top" Grid.Column="1" Margin="810,3,0,0" Width="270" IsEnabled="{Binding SelectedEntity, Converter={StaticResource InvertNullBoolean}}" Grid.Row="1"/>
     	<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="320,52,0,0" VerticalAlignment="Top" Width="280" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity, Mode=TwoWay}" IsEnabled="{Binding Entities.Count, Converter={StaticResource IntBoolean}, Mode=OneWay}" ItemTemplate="{StaticResource EntityNameDataTemplate}"/>
-    	<Button Content="Create New" Grid.Column="1" HorizontalAlignment="Left" Margin="605,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,-0.132" Click="CreateNewEntity"/>
+    	<Button Content="Create" Grid.Column="1" HorizontalAlignment="Left" Margin="620,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,-0.132" Click="CreateNewEntity"/>
+    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="320,25,0,0" TextWrapping="Wrap" Text="Entties" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
     </Grid>
 </common:LayoutAwarePage>

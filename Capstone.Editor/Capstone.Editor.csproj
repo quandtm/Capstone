@@ -110,6 +110,7 @@
     <Compile Include="Common\ComponentPropertyTemplateSelector.cs" />
     <Compile Include="Common\IntBoolean.cs" />
     <Compile Include="Common\Inverter.cs" />
+    <Compile Include="Common\InvertNullBoolean.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\InvertBoolVisibility.cs" />
     <Compile Include="Common\NullBoolean.cs" />
