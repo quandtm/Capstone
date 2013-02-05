@@ -55,6 +55,7 @@ namespace Capstone.Editor.Views
 
         public void HandleNavigationTo()
         {
+            VM.RebuildInstances();
             VM.ProcessTemplateObjectives();
         }
 

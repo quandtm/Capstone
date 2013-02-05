@@ -185,6 +185,12 @@ namespace Capstone.Editor.ViewModels
             SelectedInstance = null;
         }
 
+        public void RebuildInstances()
+        {
+            foreach (var e in Instances)
+                e.Rebuild();
+        }
+
         private void ProcessBuildObjectives(EntityTemplate template)
         {
             if (!ObjectiveManager.Get("AddPlayer").IsComplete)

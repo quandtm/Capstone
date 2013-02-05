@@ -16,6 +16,8 @@ namespace Capstone.Editor.Data
             }
         }
 
+        private EntityTemplate _template;
+
         private EntityInstance()
         {
         }
@@ -24,7 +26,21 @@ namespace Capstone.Editor.Data
         {
             var instance = new EntityInstance();
             instance.Entity = template.BuildAndSetupEntity();
+            instance._template = template;
             return instance;
+        }
+
+        public void Rebuild()
+        {
+            Entity.DestroyComponents();
+            var newEntity = _template.BuildAndSetupEntity();
+            newEntity.Name = Entity.Name;
+            newEntity.Translation.X = Entity.Translation.X;
+            newEntity.Translation.Y = Entity.Translation.Y;
+            newEntity.Depth = Entity.Depth;
+            newEntity.Scale = Entity.Scale;
+            newEntity.Rotation = Entity.Rotation;
+            Entity = newEntity;
         }
     }
 }
