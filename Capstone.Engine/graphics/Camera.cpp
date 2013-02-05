@@ -16,12 +16,12 @@ namespace Capstone
 				_view = XMMatrixIdentity();
 			}
 
-			void Camera::Setup()
+			void Camera::Install()
 			{
 				CameraManager::Instance->AddCamera(Name, this);
 			}
 
-			void Camera::Destroy()
+			void Camera::Uninstall()
 			{
 				CameraManager::Instance->RemoveCamera(Name);
 			}

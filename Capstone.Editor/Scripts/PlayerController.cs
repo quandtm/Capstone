@@ -48,11 +48,11 @@ namespace Capstone.Editor.Scripts
 
         public string Name { get; set; }
 
-        public void Setup()
+        public void Install()
         {
         }
 
-        public void Destroy()
+        public void Uninstall()
         {
         }
     }

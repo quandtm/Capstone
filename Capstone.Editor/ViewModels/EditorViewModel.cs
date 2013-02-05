@@ -101,7 +101,7 @@ namespace Capstone.Editor.ViewModels
                 {
                     Name = "camera"
                 };
-            c.Setup();
+            c.Install();
             CameraManager.Instance.MakeActive("camera");
             _cam.AddComponent(c);
         }

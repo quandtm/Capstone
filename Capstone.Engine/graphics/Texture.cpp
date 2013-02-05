@@ -48,12 +48,12 @@ namespace Capstone
 				Origin = OriginPoint::TopLeft;
 			}
 
-			void Texture::Setup()
+			void Texture::Install()
 			{
 				SpriteRenderer::Instance->RegisterTexture(this);
 			}
 
-			void Texture::Destroy()
+			void Texture::Uninstall()
 			{
 				SpriteRenderer::Instance->RemoveTexture(this);
 			}

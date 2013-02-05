@@ -12,8 +12,8 @@ namespace Capstone
 		public:
 			property Entity^ Entity;
 			property Platform::String^ Name;
-			void Setup();
-			void Destroy();
+			void Install();
+			void Uninstall();
 		};
 	}
 }

@@ -25,7 +25,7 @@ namespace Capstone.Editor.Data
             {
                 var obj = (IComponent)c.CreateInstance();
                 e.AddComponent(obj);
-                obj.Setup();
+                obj.Install();
             }
             return e;
         }

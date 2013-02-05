@@ -21,8 +21,8 @@ namespace Capstone
 
 				virtual property Capstone::Core::Entity^ Entity;
 				virtual property Platform::String^ Name;
-				virtual void Setup();
-				virtual void Destroy();
+				virtual void Install();
+				virtual void Uninstall();
 
 				void ScreenToWorld(Capstone::Core::Vector2^ screen, Capstone::Core::Vector2^ world);
 			};
