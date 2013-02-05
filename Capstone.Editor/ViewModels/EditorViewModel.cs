@@ -1,7 +1,6 @@
 ﻿using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
-using Capstone.Editor.Scripts;
 using Capstone.Engine.Graphics;
 using Capstone.Engine.Scripting;
 using System.Collections.Generic;
@@ -90,7 +89,7 @@ namespace Capstone.Editor.ViewModels
 
         private void RegisterObjectives()
         {
-            ObjectiveManager.AddObjective("AddPlayer", "Add an Entity with a PlayerController", 10);
+            ObjectiveManager.AddObjective("AddPlayerComponent", "Create an Entity with a PlayerController", 10);
         }
 
         private void SetupCamera()
@@ -106,9 +105,10 @@ namespace Capstone.Editor.ViewModels
             _cam.AddComponent(c);
         }
 
-        public void PopulateObjectList()
+        public async void PopulateObjectList()
         {
-            EntityTemplateCache.Instance.Load();
+            await EntityTemplateCache.Instance.Load();
+            ProcessTemplateObjectives();
         }
 
         internal void HandleReleased(Point point)
@@ -165,28 +165,6 @@ namespace Capstone.Editor.ViewModels
             _pointerDown = true;
         }
 
-        private void ProcessBuildObjectives(EntityTemplate template)
-        {
-            foreach (var c in template.Components)
-            {
-                var cTypeName = c.TemplateName;
-                switch (cTypeName)
-                {
-                    case "PlayerController":
-                        ObjectiveManager.CompleteObjective("AddPlayer");
-                        break;
-                }
-            }
-        }
-
-        public void DeleteSelectedEntity()
-        {
-            var inst = SelectedInstance;
-            inst.Entity.DestroyComponents();
-            Instances.Remove(inst);
-            SelectedInstance = null;
-        }
-
         public void ZoomDelta(float p)
         {
             _cam.Depth += p / 1000f;
@@ -197,6 +175,46 @@ namespace Capstone.Editor.ViewModels
             _cam.Translation.X = 0;
             _cam.Translation.Y = 0;
             _cam.Depth = 1;
+        }
+
+        public void DeleteSelectedEntity()
+        {
+            var inst = SelectedInstance;
+            inst.Entity.DestroyComponents();
+            Instances.Remove(inst);
+            SelectedInstance = null;
+        }
+
+        private void ProcessBuildObjectives(EntityTemplate template)
+        {
+            if (!ObjectiveManager.Get("AddPlayer").IsComplete)
+            {
+                if (template == ObjectiveManager.Get("AddPlayer").Data)
+                    ObjectiveManager.CompleteObjective("AddPlayer");
+            }
+        }
+
+        public void ProcessTemplateObjectives()
+        {
+            if (!ObjectiveManager.Get("AddPlayerComponent").IsComplete)
+            {
+                bool found = false;
+                foreach (var template in EntityTemplates)
+                {
+                    foreach (var c in template.Components)
+                    {
+                        if (c.TemplateName == "PlayerController")
+                        {
+                            found = true;
+                            ObjectiveManager.CompleteObjective("AddPlayerComponent");
+                            ObjectiveManager.AddObjective("AddPlayer", string.Format("Add a {0}", template.Name), 10, data: template);
+                            break;
+                        }
+                        if (found)
+                            break;
+                    }
+                }
+            }
         }
     }
 }

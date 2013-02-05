@@ -17,9 +17,9 @@ namespace Capstone.Editor.Data
             _lookup = new Dictionary<string, Objective>();
         }
 
-        public void AddObjective(string name, string description, int score, Action completeCallback = null, int totalToComplete = 1)
+        public void AddObjective(string name, string description, int score, Action completeCallback = null, int totalToComplete = 1, object data = null)
         {
-            var obj = new Objective(description, totalToComplete);
+            var obj = new Objective(description, totalToComplete, data);
             obj.Score = score;
             if (completeCallback != null)
                 obj.Completed += completeCallback;
@@ -34,7 +34,18 @@ namespace Capstone.Editor.Data
             {
                 obj.CompleteItem();
                 TotalScore = TotalScore + obj.Score;
+                if (obj.IsComplete)
+                    Objectives.Remove(obj);
             }
+        }
+
+        public Objective Get(string name)
+        {
+            Objective result;
+            if (_lookup.TryGetValue(name, out result))
+                return result;
+            else
+                return null;
         }
     }
 }
