@@ -111,7 +111,7 @@ namespace Capstone
 						origin.y = SourceRectHeight;
 						break;
 					}
-					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, origin, Entity->Scale);
+					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, origin, Entity->Scale, DirectX::SpriteEffects_None, Entity->Depth);
 				}
 			}
 		}
