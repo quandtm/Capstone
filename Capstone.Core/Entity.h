@@ -17,6 +17,7 @@ namespace Capstone
 
 			property Platform::String^ Name;
 			property Vector2^ Translation { Vector2^ get() { return %_trans; } };
+			property float Depth;
 			property float Scale;
 			property float Rotation;
 

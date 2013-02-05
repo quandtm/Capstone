@@ -28,7 +28,7 @@ namespace Capstone
 
 			void Camera::UpdateMatrices()
 			{
-				_view = XMMatrixTranslation(-Entity->Translation->X, -Entity->Translation->Y, 0);
+				_view = XMMatrixScaling(Entity->Depth, Entity->Depth, 1) * XMMatrixTranslation(-Entity->Translation->X, -Entity->Translation->Y, 0);
 			}
 
 			void Camera::ScreenToWorld(Vector2^ screen, Vector2^ world)

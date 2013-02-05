@@ -11,6 +11,7 @@ namespace Capstone
 			_trans.Y = 0;
 			Scale = 1;
 			Rotation = 0;
+			Depth = 0;
 		}
 
 		void Entity::AddComponent(IComponent^ component)
