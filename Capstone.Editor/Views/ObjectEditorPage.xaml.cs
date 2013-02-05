@@ -54,10 +54,5 @@ namespace Capstone.Editor.Views
         {
             return VM.Save();
         }
-
-        private void DeleteEntity(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            VM.DeleteEntity();
-        }
     }
 }
