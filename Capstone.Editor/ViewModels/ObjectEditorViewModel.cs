@@ -28,13 +28,13 @@ namespace Capstone.Editor.ViewModels
         internal void AddComponent(ComponentTemplate component)
         {
             if (SelectedEntity != null)
-                SelectedEntity.Components.Add(component.Clone());
+                SelectedEntity.AddComponent(component.Clone());
         }
 
         internal void RemoveComponent(ComponentTemplate component)
         {
             if (SelectedEntity != null)
-                SelectedEntity.Components.Remove(component);
+                SelectedEntity.RemoveComponent(component);
         }
 
         internal void CreateNewEntity()

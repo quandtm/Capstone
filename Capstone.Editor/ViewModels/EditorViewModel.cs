@@ -124,10 +124,16 @@ namespace Capstone.Editor.ViewModels
                         instance.Entity.Name = string.Format("entity_{0:000}", ++_entityCounter);
                         Instances.Add(instance);
                         ProcessBuildObjectives(_selectedTemplate);
+                        ProcessCost(_selectedTemplate);
                     }
                     break;
             }
             _pointerDown = false;
+        }
+
+        private void ProcessCost(EntityTemplate _selectedTemplate)
+        {
+            Money = Money - _selectedTemplate.Cost;
         }
 
         internal void HandlePointerMove(Point point)

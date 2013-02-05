@@ -11,11 +11,36 @@ namespace Capstone.Editor.Data
     {
         public string Name { get; set; }
         public ObservableCollection<ComponentTemplate> Components { get; private set; }
+        public int Cost { get; private set; }
 
         public EntityTemplate()
         {
             Name = string.Empty;
             Components = new ObservableCollection<ComponentTemplate>();
+        }
+
+        public void AddComponent(ComponentTemplate template)
+        {
+            Components.Add(template);
+            Cost = Cost + DetermineCost(template);
+        }
+
+        public void RemoveComponent(ComponentTemplate template)
+        {
+            Components.Remove(template);
+            Cost = Cost - DetermineCost(template);
+        }
+
+        private int DetermineCost(ComponentTemplate template)
+        {
+            switch (template.TemplateName)
+            {
+                case "Texture":
+                    return 1;
+
+                default:
+                    return 0;
+            }
         }
 
         public Entity BuildAndSetupEntity()
