@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Capstone.Editor.ViewModels;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.Storage.Pickers;
 
@@ -69,7 +70,9 @@ namespace Capstone.Editor.Views
         {
             if (_ready)
             {
-                VM.HandleReleased(e.GetCurrentPoint(swapPanel).Position);
+                var pt = e.GetCurrentPoint(swapPanel);
+                if (pt.Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonReleased)
+                    VM.HandleReleased(pt.Position);
                 App.CurrentApp.Direct3D.ReleasePointer(e, swapPanel);
             }
         }
@@ -78,7 +81,9 @@ namespace Capstone.Editor.Views
         {
             if (_ready)
             {
-                VM.HandlePointerMove(e.GetCurrentPoint(swapPanel).Position);
+                var pt = e.GetCurrentPoint(swapPanel);
+                if (pt.Properties.IsLeftButtonPressed)
+                    VM.HandlePointerMove(e.GetCurrentPoint(swapPanel).Position);
                 App.CurrentApp.Direct3D.MovePointer(e, swapPanel);
             }
         }
@@ -87,7 +92,9 @@ namespace Capstone.Editor.Views
         {
             if (_ready)
             {
-                VM.HandlePointerPressed(e.GetCurrentPoint(swapPanel).Position);
+                var pt = e.GetCurrentPoint(swapPanel);
+                if (pt.Properties.IsLeftButtonPressed)
+                    VM.HandlePointerPressed(e.GetCurrentPoint(swapPanel).Position);
                 App.CurrentApp.Direct3D.PressPointer(e, swapPanel);
             }
         }
