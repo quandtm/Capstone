@@ -52,8 +52,9 @@ namespace Capstone.Editor.Data
             return list;
         }
 
-        internal static bool Load(StorageFile file, ref IList<EntityInstance> instances, ref IList<EntityTemplate> entityTemplates)
+        internal static bool LoadForEdit(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates)
         {
+            // This should load the level in, but not replace any entity templates as those will have been loaded with the editor already.
             return false;
         }
     }

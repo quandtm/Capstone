@@ -233,7 +233,10 @@ namespace Capstone.Editor.ViewModels
 
         internal bool LoadLevel(StorageFile file)
         {
-            return LevelSerializer.Load(file, ref Instances, ref EntityTemplates);
+            foreach (var e in Instances)
+                e.Entity.DestroyComponents();
+            Instances.Clear();
+            return LevelSerializer.LoadForEdit(file, Instances, EntityTemplates);
         }
     }
 }

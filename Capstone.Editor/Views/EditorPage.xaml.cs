@@ -56,9 +56,13 @@ namespace Capstone.Editor.Views
             App.CurrentApp.Navigate<ObjectEditorPage>();
         }
 
-        public void HandleNavigationTo()
+        public void HandleNavigationTo(object parameter)
         {
-            VM.RebuildInstances();
+            if (parameter != null && parameter is Windows.Storage.StorageFile)
+            {
+                var result = VM.LoadLevel((Windows.Storage.StorageFile)parameter);
+            }
+            VM.RebuildInstances(); // TODO: Check order in which things load, might need to adjust things to ensure templates are loaded first
             VM.ProcessTemplateObjectives();
         }
 

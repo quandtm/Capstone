@@ -25,7 +25,7 @@ namespace Capstone.Editor.Views
 
         }
 
-        public void HandleNavigationTo()
+        public void HandleNavigationTo(object parameter)
         {
         }
 
