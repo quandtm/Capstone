@@ -223,5 +223,10 @@ namespace Capstone.Editor.ViewModels
                 }
             }
         }
+
+        internal void SaveLevel(Windows.Storage.StorageFile file)
+        {
+            LevelSerializer.Save(file, "The Level", Instances, EntityTemplates);
+        }
     }
 }

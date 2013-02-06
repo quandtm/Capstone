@@ -13,17 +13,15 @@
 		<common:InvertBoolVisibility x:Key="InverseBoolVisibility"/>
         <common:BoolVisibility x:Key="BoolVisibility" />
 		<DataTemplate x:Key="ObjectiveItemTemplate">
-			<Grid Background="#19000000" IsHitTestVisible="False" Visibility="{Binding IsComplete, Converter={StaticResource InverseBoolVisibility}, Mode=OneWay}">
-				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="5,2" IsHitTestVisible="False">
-					<Run Text="-"/>
-					<Run Text="{Binding Description}"/>
-					<Run Text="("/>
-					<Run Text="{Binding Count}"/>
-					<Run Text="/"/>
-					<Run Text="{Binding Total}"/>
-					<Run Text=")"/>
-				</TextBlock>
-			</Grid>
+			<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" IsHitTestVisible="False">
+				<Run Text="-"/>
+				<Run Text="{Binding Description}"/>
+				<Run Text="("/>
+				<Run Text="{Binding Count}"/>
+				<Run Text="/"/>
+				<Run Text="{Binding Total}"/>
+				<Run Text=")"/>
+			</TextBlock>
 		</DataTemplate>
 		<DataTemplate x:Key="EntityInstanceTemplate">
 			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="20,0"/>
@@ -39,7 +37,7 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel Orientation="Horizontal"/>
 				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-					<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource SaveAppBarButtonStyle}"/>
+					<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource SaveAppBarButtonStyle}" Click="SaveLevel"/>
 				</StackPanel>
 			</Grid>
 		</AppBar>

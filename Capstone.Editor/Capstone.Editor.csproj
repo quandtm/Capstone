@@ -128,6 +128,7 @@
     <Compile Include="Scripts\PlayerController.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="Data\EntityInstance.cs" />
+    <Compile Include="Data\LevelSerializer.cs" />
     <Compile Include="ViewModels\ObjectEditorViewModel.cs" />
     <Compile Include="Views\EditorPage.xaml.cs">
       <DependentUpon>EditorPage.xaml</DependentUpon>

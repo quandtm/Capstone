@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Capstone.Editor.ViewModels;
 using Windows.UI.Xaml;
+using Windows.Storage.Pickers;
 
 namespace Capstone.Editor.Views
 {
@@ -103,6 +105,17 @@ namespace Capstone.Editor.Views
         private void ResetCam(object sender, RoutedEventArgs e)
         {
             VM.ResetCamera();
+        }
+
+        private async void SaveLevel(object sender, RoutedEventArgs e)
+        {
+            var sfd = new FileSavePicker();
+            sfd.DefaultFileExtension = ".level";
+            sfd.FileTypeChoices.Add("Level", new[] { ".level" });
+            sfd.SuggestedStartLocation = PickerLocationId.Desktop;
+            var file = await sfd.PickSaveFileAsync();
+            if (file != null)
+                VM.SaveLevel(file);
         }
     }
 }

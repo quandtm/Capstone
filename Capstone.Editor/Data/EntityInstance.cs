@@ -1,5 +1,6 @@
 ﻿using Capstone.Core;
 using Capstone.Editor.Common;
+using Windows.Storage.Streams;
 
 namespace Capstone.Editor.Data
 {
@@ -17,6 +18,10 @@ namespace Capstone.Editor.Data
         }
 
         private EntityTemplate _template;
+        public EntityTemplate Template
+        {
+            get { return _template; }
+        }
 
         private EntityInstance()
         {
@@ -41,6 +46,16 @@ namespace Capstone.Editor.Data
             newEntity.Scale = Entity.Scale;
             newEntity.Rotation = Entity.Rotation;
             Entity = newEntity;
+        }
+
+        internal void Save(DataWriter dw)
+        {
+            dw.WriteStringEx(Name);
+            dw.WriteSingle(Entity.Translation.X);
+            dw.WriteSingle(Entity.Translation.Y);
+            dw.WriteSingle(Entity.Depth);
+            dw.WriteSingle(Entity.Scale);
+            dw.WriteSingle(Entity.Rotation);
         }
     }
 }
