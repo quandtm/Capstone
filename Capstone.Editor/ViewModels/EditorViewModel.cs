@@ -1,4 +1,5 @@
-﻿using Capstone.Core;
+﻿using System.Threading.Tasks;
+using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Engine.Graphics;
@@ -6,6 +7,7 @@ using Capstone.Engine.Scripting;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.Foundation;
+using Windows.Storage;
 
 namespace Capstone.Editor.ViewModels
 {
@@ -224,9 +226,14 @@ namespace Capstone.Editor.ViewModels
             }
         }
 
-        internal void SaveLevel(Windows.Storage.StorageFile file)
+        internal void SaveLevel(StorageFile file)
         {
             LevelSerializer.Save(file, "The Level", Instances, EntityTemplates);
+        }
+
+        internal bool LoadLevel(StorageFile file)
+        {
+            return LevelSerializer.Load(file, ref Instances, ref EntityTemplates);
         }
     }
 }

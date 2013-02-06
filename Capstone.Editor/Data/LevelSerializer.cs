@@ -1,4 +1,5 @@
-﻿using Capstone.Editor.Common;
+﻿using System.Threading.Tasks;
+using Capstone.Editor.Common;
 using System;
 using System.Collections.Generic;
 using Windows.Storage;
@@ -49,6 +50,11 @@ namespace Capstone.Editor.Data
                 }
             }
             return list;
+        }
+
+        internal static bool Load(StorageFile file, ref IList<EntityInstance> instances, ref IList<EntityTemplate> entityTemplates)
+        {
+            return false;
         }
     }
 }
