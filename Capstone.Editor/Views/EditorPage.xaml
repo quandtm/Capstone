@@ -60,13 +60,12 @@
     			<Run Text="resources"/>
     		</TextBlock>
     		<Button Content="Entity Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0" Click="OpenEntityEditor"/>
-    		<Button Content="Toggle Event Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,150,0" Click="ToggleEventEditor"/>
     	</Grid>
     	<Grid x:Name="toolPanel" Grid.Row="1">
     		<Grid.Background>
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
-    		<Button x:Name="btnPan" Content="Camera" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}" Width="80" Margin="10,0,0,0" Height="80"/>
+    		<Button x:Name="btnPan" Content="Cam" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ChangeToolPan" IsEnabled="{Binding IsPanTool, Converter={StaticResource Inverter}, Mode=OneWay}" Width="80" Margin="10,0,0,0" Height="80"/>
     		<Button Content="Reset" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Width="80" Height="80" Click="ResetCam"/>
     	</Grid>
     	<Grid x:Name="inspectorPanel" Margin="0" Grid.Row="2">
@@ -88,34 +87,16 @@
     		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entities" VerticalAlignment="Top" Margin="20,0,0,0" Style="{StaticResource GroupHeaderTextStyle}"/>
     		<ListView Grid.Row="1" ItemsSource="{Binding Instances}" ItemTemplate="{StaticResource EntityInstanceTemplate}" SelectedItem="{Binding SelectedInstance, Mode=TwoWay}"/>
     	</Grid>
-    	<Grid x:Name="constructionPanel" Margin="0" Grid.Column="2" Grid.Row="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource InverseBoolVisibility}}">
-    		<Grid.RowDefinitions>
-    			<RowDefinition Height="40"/>
-    			<RowDefinition/>
-    		</Grid.RowDefinitions>
-    		<Grid.Background>
-    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
-    		</Grid.Background>
-    		<Button x:Name="btnBuildMenu" Content="Entities" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Click="OpenBuildMode"/>
-    		<Button x:Name="btnLandscapeMenu" Content="Landscape" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Margin="100,0,0,0" Click="OpenLandscapeMode"/>
-    		<Grid Grid.Row="1">
-                <ListView ItemsSource="{Binding EntityTemplates}" SelectedItem="{Binding SelectedTemplate, Mode=TwoWay}" >
-                	<ListView.Resources>
-                		<DataTemplate x:Key="EntityTemplate">
-                			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="10,0"/>
-                		</DataTemplate>
-                	</ListView.Resources>
-                	<ListView.ItemTemplate>
-                		<StaticResource ResourceKey="EntityTemplate"/>
-                	</ListView.ItemTemplate>
-                </ListView>
-    		</Grid>
-    	</Grid>
-    	<Grid x:Name="eventPanel" Grid.Column="2" Margin="0" Grid.Row="1" Grid.RowSpan="2" Visibility="{Binding EventEditorVisible, Converter={StaticResource BoolVisibility}}">
-    		<Grid.Background>
-    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
-    		</Grid.Background>
-    	</Grid>
+    	<ListView x:Name="constructionList" ItemsSource="{Binding EntityTemplates}" SelectedItem="{Binding SelectedTemplate, Mode=TwoWay}" Margin="0" Grid.Row="2" Grid.Column="2" >
+    		<ListView.Resources>
+    			<DataTemplate x:Key="EntityTemplate">
+    				<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="10,0"/>
+    			</DataTemplate>
+    		</ListView.Resources>
+    		<ListView.ItemTemplate>
+    			<StaticResource ResourceKey="EntityTemplate"/>
+    		</ListView.ItemTemplate>
+    	</ListView>
     	<Grid x:Name="clickPanel" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" PointerPressed="GameAreaPressed" PointerReleased="GameAreaReleased" PointerMoved="GameAreaMoved" Background="#00000000" PointerWheelChanged="GameAreaZooming">
     		<ListView x:Name="objectives" HorizontalAlignment="Left" Width="300" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}" Margin="0"/>
     	</Grid>

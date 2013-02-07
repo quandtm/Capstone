@@ -53,7 +53,6 @@ namespace Capstone.Editor.ViewModels
         {
             get { return Tool == EditorTool.Select; }
         }
-        public bool EventEditorVisible { get; set; }
 
         public ObservableCollection<EntityTemplate> EntityTemplates { get; private set; }
         private EntityTemplate _selectedTemplate;
@@ -82,7 +81,6 @@ namespace Capstone.Editor.ViewModels
             RegisterObjectives();
 
             Tool = EditorTool.Select;
-            EventEditorVisible = false;
 
             ScriptManager.Instance.IsRunning = false;
 

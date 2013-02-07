@@ -32,23 +32,9 @@ namespace Capstone.Editor.Views
             _ready = true;
         }
 
-        private void OpenBuildMode(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void OpenLandscapeMode(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ChangeToolPan(object sender, RoutedEventArgs e)
         {
             VM.Tool = EditorTool.Pan;
-        }
-
-        private void ToggleEventEditor(object sender, RoutedEventArgs e)
-        {
-            VM.EventEditorVisible = !VM.EventEditorVisible;
         }
 
         private void OpenEntityEditor(object sender, RoutedEventArgs e)
