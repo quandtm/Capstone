@@ -33,20 +33,24 @@ namespace Capstone.Editor.Data
             if (Loaded) return;
             Loaded = true;
             var folder = ApplicationData.Current.LocalFolder;
-            var file = await folder.GetFileAsync("entitytemplates");
-
-            using (var f = await file.OpenSequentialReadAsync())
-            using (var dr = new DataReader(f))
+            try
             {
-                await dr.LoadAsync(sizeof(int));
-                var entityCount = dr.ReadInt32();
-                for (int i = 0; i < entityCount; i++)
+                var file = await folder.GetFileAsync("entitytemplates");
+
+                using (var f = await file.OpenSequentialReadAsync())
+                using (var dr = new DataReader(f))
                 {
-                    var e = new EntityTemplate();
-                    await e.Load(dr);
-                    Entities.Add(e);
+                    await dr.LoadAsync(sizeof(int));
+                    var entityCount = dr.ReadInt32();
+                    for (int i = 0; i < entityCount; i++)
+                    {
+                        var e = new EntityTemplate();
+                        await e.Load(dr);
+                        Entities.Add(e);
+                    }
                 }
             }
+            catch (System.IO.FileNotFoundException) { } // We jus tneed to stop loading gracefully if the entity templates do not exist
         }
 
         internal async Task Save()
