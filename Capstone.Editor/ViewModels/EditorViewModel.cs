@@ -139,7 +139,7 @@ namespace Capstone.Editor.ViewModels
         }
 
         // Reset the viewmodel for a new map or new load
-        public void Reset()
+        private void Reset()
         {
             foreach (var e in Instances)
                 e.Entity.DestroyComponents();
@@ -174,6 +174,11 @@ namespace Capstone.Editor.ViewModels
                 CheckBuildObjectives();
             }
             return result;
+        }
+
+        public void NewLevel()
+        {
+            Reset();
         }
 
         public void HandleReleased(Point point)

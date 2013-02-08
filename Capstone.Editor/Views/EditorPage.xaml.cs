@@ -113,12 +113,11 @@ namespace Capstone.Editor.Views
 
         public void NewLevel()
         {
-            VM.Reset();
+            VM.NewLevel();
         }
 
         public void LoadLevel(StorageFile file)
         {
-            VM.Reset();
             if (!VM.LoadLevel(file))
             {
                 var md = new MessageDialog("Level loading failed.");
