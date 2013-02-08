@@ -1,5 +1,7 @@
 ﻿using Capstone.Core;
 using Capstone.Editor.Common;
+using System;
+using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
 namespace Capstone.Editor.Data
@@ -56,6 +58,17 @@ namespace Capstone.Editor.Data
             dw.WriteSingle(Entity.Depth);
             dw.WriteSingle(Entity.Scale);
             dw.WriteSingle(Entity.Rotation);
+        }
+
+        internal async Task Load(DataReader dr)
+        {
+            Name = await dr.ReadStringEx();
+            await dr.LoadAsync(sizeof(float) * 5);
+            Entity.Translation.X = dr.ReadSingle();
+            Entity.Translation.Y = dr.ReadSingle();
+            Entity.Depth = dr.ReadSingle();
+            Entity.Scale = dr.ReadSingle();
+            Entity.Rotation = dr.ReadSingle();
         }
     }
 }

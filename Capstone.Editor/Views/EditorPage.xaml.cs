@@ -116,9 +116,9 @@ namespace Capstone.Editor.Views
             VM.NewLevel();
         }
 
-        public void LoadLevel(StorageFile file)
+        public async void LoadLevel(StorageFile file)
         {
-            if (!VM.LoadLevel(file))
+            if (!(await VM.LoadLevel(file)))
             {
                 var md = new MessageDialog("Failed to load level");
                 md.ShowAsync();

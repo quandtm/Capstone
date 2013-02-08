@@ -164,10 +164,10 @@ namespace Capstone.Editor.ViewModels
             LevelSerializer.Save(file, "The Level", Instances, EntityTemplates, ObjectiveManager);
         }
 
-        public bool LoadLevel(StorageFile file)
+        public async Task<bool> LoadLevel(StorageFile file)
         {
             Reset();
-            var result = LevelSerializer.LoadForEdit(file, Instances, EntityTemplates, ObjectiveManager);
+            var result = await LevelSerializer.LoadForEdit(file, Instances, EntityTemplates, ObjectiveManager);
             if (result)
             {
                 CheckTemplateObjectives();

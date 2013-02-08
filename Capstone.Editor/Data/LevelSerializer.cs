@@ -1,6 +1,7 @@
 ﻿using Capstone.Editor.Common;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -23,14 +24,23 @@ namespace Capstone.Editor.Data
                 dw.WriteInt32(1); // Version
                 dw.WriteStringEx(levelName);
                 dw.WriteInt32(objectives.CompletedObjectives.Count);
-                foreach (var obj in objectives.CompletedObjectives)
-                    dw.WriteStringEx(obj.Name);
                 dw.WriteInt32(usedTemplates.Count);
                 dw.WriteInt32(instances.Count);
+
+                foreach (var obj in objectives.CompletedObjectives)
+                {
+                    dw.WriteStringEx(obj.Name);
+                    dw.WriteInt32(obj.Count);
+                }
+
                 foreach (var template in usedTemplates)
                     template.Save(dw);
+
                 foreach (var instance in instances)
+                {
+                    dw.WriteStringEx(instance.Template.Name);
                     instance.Save(dw);
+                }
 
                 await dw.StoreAsync();
                 await stream.CommitAsync();
@@ -54,15 +64,66 @@ namespace Capstone.Editor.Data
             return list;
         }
 
-        internal static bool LoadForEdit(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
+        internal static async Task<bool> LoadForEdit(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
         {
-            if (file == null) throw new ArgumentNullException("file");
-            if (instances == null) throw new ArgumentNullException("instances");
-            if (entityTemplates == null) throw new ArgumentNullException("entityTemplates");
+            try
+            {
+                if (file == null) throw new ArgumentNullException("file");
+                if (instances == null) throw new ArgumentNullException("instances");
+                if (entityTemplates == null) throw new ArgumentNullException("entityTemplates");
 
+                using (var stream = await file.OpenSequentialReadAsync())
+                using (var dr = new DataReader(stream))
+                {
+                    await dr.LoadAsync(sizeof(Int32));
+                    var fileVersion = dr.ReadInt32();
+                    var levelName = await dr.ReadStringEx();
 
+                    // Load objectives
+                    await dr.LoadAsync(sizeof(Int32) * 3);
+                    var numCompletedObjectives = dr.ReadInt32();
+                    var numUsedTemplates = dr.ReadInt32();
+                    var numInstances = dr.ReadInt32();
 
-            return false;
+                    for (int i = 0; i < numCompletedObjectives; i++)
+                    {
+                        var name = await dr.ReadStringEx();
+                        await dr.LoadAsync(sizeof(Int32));
+                        var count = dr.ReadInt32();
+                        for (int j = 0; j < count; j++)
+                            objectives.CompleteObjective(name);
+                    }
+
+                    var lut = new Dictionary<string, EntityTemplate>();
+                    foreach (var t in entityTemplates)
+                        lut.Add(t.Name, t);
+
+                    for (int i = 0; i < numUsedTemplates; i++)
+                    {
+                        var template = new EntityTemplate();
+                        await template.Load(dr);
+                        if (!lut.ContainsKey(template.Name))
+                        {
+                            entityTemplates.Add(template);
+                            lut.Add(template.Name, template);
+                        }
+                    }
+
+                    for (int i = 0; i < numInstances; i++)
+                    {
+                        var name = await dr.ReadStringEx();
+                        var instance = EntityInstance.Create(lut[name]);
+                        await instance.Load(dr);
+                        instances.Add(instance);
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
