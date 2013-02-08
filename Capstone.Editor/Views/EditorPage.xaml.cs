@@ -120,7 +120,7 @@ namespace Capstone.Editor.Views
         {
             if (!VM.LoadLevel(file))
             {
-                var md = new MessageDialog("Level loading failed.");
+                var md = new MessageDialog("Failed to load level");
                 md.ShowAsync();
                 App.CurrentApp.GoBack();
             }

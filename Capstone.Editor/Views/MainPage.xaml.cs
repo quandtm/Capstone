@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 
 namespace Capstone.Editor.Views
@@ -20,9 +22,15 @@ namespace Capstone.Editor.Views
             App.CurrentApp.Navigate<EditorPage>().NewLevel();
         }
 
-        private void LoadMap(object sender, RoutedEventArgs e)
+        private async void LoadMap(object sender, RoutedEventArgs e)
         {
-
+            var ofd = new FileOpenPicker();
+            ofd.FileTypeFilter.Add(".level");
+            ofd.CommitButtonText = "Load";
+            ofd.SuggestedStartLocation = PickerLocationId.Desktop;
+            var file = await ofd.PickSingleFileAsync();
+            if (file != null)
+                App.CurrentApp.Navigate<EditorPage>().LoadLevel(file);
         }
 
         public void HandleNavigationTo(object parameter)
