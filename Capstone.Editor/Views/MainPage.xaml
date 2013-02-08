@@ -11,7 +11,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="100,60,0,0" TextWrapping="Wrap" Text="Capstone Prototype" VerticalAlignment="Top" Style="{StaticResource PageHeaderTextStyle}"/>
         <Button Click="OpenGame" Margin="160,160,0,570" VerticalAlignment="Top" Content="Play Map" IsEnabled="False" Template="{StaticResource MainMenuButton}"/>
         <Button Content="New Map" HorizontalAlignment="Left" Margin="160,220,0,0" VerticalAlignment="Top" Click="NewMap" Template="{StaticResource MainMenuButton}"/>
-        <Button Content="Edit Map" HorizontalAlignment="Left" Margin="160,280,0,0" VerticalAlignment="Top" Click="LoadMap" IsEnabled="False" Template="{StaticResource MainMenuButton}"/>
+        <Button Content="Edit Map" HorizontalAlignment="Left" Margin="160,280,0,0" VerticalAlignment="Top" Click="LoadMap" Template="{StaticResource MainMenuButton}"/>
     </Grid>
     
 </common:LayoutAwarePage>

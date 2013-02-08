@@ -17,7 +17,7 @@ namespace Capstone.Editor.Views
 
         private void NewMap(object sender, RoutedEventArgs e)
         {
-            App.CurrentApp.Navigate<EditorPage>();
+            App.CurrentApp.Navigate<EditorPage>().NewLevel();
         }
 
         private void LoadMap(object sender, RoutedEventArgs e)

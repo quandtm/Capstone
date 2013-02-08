@@ -47,7 +47,7 @@
     	<SwapChainBackgroundPanel.ColumnDefinitions>
     		<ColumnDefinition Width="200"/>
     		<ColumnDefinition/>
-    		<ColumnDefinition Width="326"/>
+    		<ColumnDefinition Width="330"/>
     	</SwapChainBackgroundPanel.ColumnDefinitions>
     	<SwapChainBackgroundPanel.RowDefinitions>
     		<RowDefinition Height="40"/>
@@ -59,7 +59,7 @@
     			<Run Text="{Binding Money}"/>
     			<Run Text="resources"/>
     		</TextBlock>
-    		<Button Content="Entity Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0" Click="OpenEntityEditor"/>
+    		<Button Content="Open Template Editor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0" Click="OpenEntityEditor"/>
     	</Grid>
     	<Grid x:Name="toolPanel" Grid.Row="1">
     		<Grid.Background>
@@ -81,24 +81,34 @@
     			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     		</Grid.Background>
     		<Grid.RowDefinitions>
+    			<RowDefinition Height="40"/>
     			<RowDefinition/>
-    			<RowDefinition Height="8*"/>
     		</Grid.RowDefinitions>
-    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entities" VerticalAlignment="Top" Margin="20,0,0,0" Style="{StaticResource GroupHeaderTextStyle}"/>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Scene" VerticalAlignment="Top" Margin="20,0,0,0" Style="{StaticResource GroupHeaderTextStyle}"/>
     		<ListView Grid.Row="1" ItemsSource="{Binding Instances}" ItemTemplate="{StaticResource EntityInstanceTemplate}" SelectedItem="{Binding SelectedInstance, Mode=TwoWay}"/>
     	</Grid>
-    	<ListView x:Name="constructionList" ItemsSource="{Binding EntityTemplates}" SelectedItem="{Binding SelectedTemplate, Mode=TwoWay}" Margin="0" Grid.Row="2" Grid.Column="2" >
-    		<ListView.Resources>
-    			<DataTemplate x:Key="EntityTemplate">
-    				<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="10,0"/>
-    			</DataTemplate>
-    		</ListView.Resources>
-    		<ListView.ItemTemplate>
-    			<StaticResource ResourceKey="EntityTemplate"/>
-    		</ListView.ItemTemplate>
-    	</ListView>
+    	<Grid x:Name="constructionPanel" Grid.Row="2" Grid.Column="2">
+    		<Grid.Background>
+    			<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
+    		</Grid.Background>
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="40"/>
+    			<RowDefinition/>
+    		</Grid.RowDefinitions>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entity Templates" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="26.667" Margin="20,0,0,0" FontWeight="Light"/>
+    		<ListView x:Name="constructionList" ItemsSource="{Binding EntityTemplates}" SelectedItem="{Binding SelectedTemplate, Mode=TwoWay}" Margin="0" Grid.Row="1" >
+    			<ListView.Resources>
+    				<DataTemplate x:Key="EntityTemplate">
+    					<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="10,0"/>
+    				</DataTemplate>
+    			</ListView.Resources>
+    			<ListView.ItemTemplate>
+    				<StaticResource ResourceKey="EntityTemplate"/>
+    			</ListView.ItemTemplate>
+    		</ListView>
+    	</Grid>
     	<Grid x:Name="clickPanel" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" PointerPressed="GameAreaPressed" PointerReleased="GameAreaReleased" PointerMoved="GameAreaMoved" Background="#00000000" PointerWheelChanged="GameAreaZooming">
-    		<ListView x:Name="objectives" HorizontalAlignment="Left" Width="300" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}" Margin="0"/>
+    		<ListView x:Name="objectives" IsHitTestVisible="False" SelectionMode="None" IsSwipeEnabled="False" ManipulationMode="None" ItemTemplate="{StaticResource ObjectiveItemTemplate}" ItemsSource="{Binding ObjectiveManager.Objectives}" Margin="0"/>
     	</Grid>
     </SwapChainBackgroundPanel>
 

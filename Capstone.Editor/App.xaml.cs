@@ -51,7 +51,7 @@ namespace Capstone.Editor
             Window.Current.Activate();
         }
 
-        public void Navigate<T>(object parameter = null) where T : Page, new()
+        public T Navigate<T>(object parameter = null) where T : Page, new()
         {
             Page p = null;
             if (!_pages.TryGetValue(typeof(T), out p))
@@ -66,6 +66,7 @@ namespace Capstone.Editor
             Window.Current.Content = p;
             if (p is IView)
                 ((IView)p).HandleNavigationTo(parameter);
+            return (T)p;
         }
 
         public void GoBack()

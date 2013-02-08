@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Capstone.Editor.ViewModels;
+using System;
 using System.Threading.Tasks;
-using Capstone.Editor.ViewModels;
-using Windows.UI.Input;
-using Windows.UI.Xaml;
+using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Input;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace Capstone.Editor.Views
 {
@@ -27,8 +29,6 @@ namespace Capstone.Editor.Views
         {
             var proxy = App.CurrentApp.Direct3D;
             proxy.SetPanel(swapPanel, false);
-
-            VM.PopulateObjectList();
             _ready = true;
         }
 
@@ -42,14 +42,10 @@ namespace Capstone.Editor.Views
             App.CurrentApp.Navigate<ObjectEditorPage>();
         }
 
-        public void HandleNavigationTo(object parameter)
+        public async void HandleNavigationTo(object parameter)
         {
-            if (parameter != null && parameter is Windows.Storage.StorageFile)
-            {
-                var result = VM.LoadLevel((Windows.Storage.StorageFile)parameter);
-            }
-            VM.RebuildInstances(); // TODO: Check order in which things load, might need to adjust things to ensure templates are loaded first
-            VM.ProcessTemplateObjectives();
+            await VM.PopulateTemplates();
+            VM.RebuildInstances(); //This runs to propagate changes
         }
 
         public async Task HandleNavigationFrom()
@@ -113,6 +109,22 @@ namespace Capstone.Editor.Views
             var file = await sfd.PickSaveFileAsync();
             if (file != null)
                 VM.SaveLevel(file);
+        }
+
+        public void NewLevel()
+        {
+            VM.Reset();
+        }
+
+        public void LoadLevel(StorageFile file)
+        {
+            VM.Reset();
+            if (!VM.LoadLevel(file))
+            {
+                var md = new MessageDialog("Level loading failed.");
+                md.ShowAsync();
+                App.CurrentApp.GoBack();
+            }
         }
     }
 }

@@ -8,23 +8,30 @@ namespace Capstone.Editor.Data
     public class ObjectiveManager : BindableBase
     {
         public ObservableCollection<Objective> Objectives { get; private set; }
+        public List<Objective> CompletedObjectives { get; private set; }
         private readonly Dictionary<string, Objective> _lookup;
-        public int TotalScore { get; private set; }
 
         public ObjectiveManager()
         {
             Objectives = new ObservableCollection<Objective>();
+            CompletedObjectives = new List<Objective>();
             _lookup = new Dictionary<string, Objective>();
         }
 
-        public void AddObjective(string name, string description, int score, Action completeCallback = null, int totalToComplete = 1, object data = null)
+        public void AddObjective(string name, string description, Action completeCallback = null, int totalToComplete = 1, object data = null)
         {
             var obj = new Objective(description, totalToComplete, data);
-            obj.Score = score;
+            obj.Name = name;
             if (completeCallback != null)
                 obj.Completed += completeCallback;
             _lookup.Add(name, obj);
-            Objectives.Add(obj);
+        }
+
+        public void DisplayObjective(string name)
+        {
+            Objective o;
+            if (_lookup.TryGetValue(name, out o) && !o.IsComplete)
+                Objectives.Add(o);
         }
 
         public void CompleteObjective(string name)
@@ -33,10 +40,25 @@ namespace Capstone.Editor.Data
             if (_lookup.TryGetValue(name, out obj))
             {
                 obj.CompleteItem();
-                TotalScore = TotalScore + obj.Score;
                 if (obj.IsComplete)
+                {
                     Objectives.Remove(obj);
+                    CompletedObjectives.Add(obj);
+                }
             }
+        }
+
+        public void ClearObjectives()
+        {
+            _lookup.Clear();
+            Objectives.Clear();
+            CompletedObjectives.Clear();
+        }
+
+        public void ResetObjectives()
+        {
+            Objectives.Clear();
+            CompletedObjectives.Clear();
         }
 
         public Objective Get(string name)

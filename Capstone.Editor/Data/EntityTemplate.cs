@@ -73,5 +73,15 @@ namespace Capstone.Editor.Data
                 Components.Add(c);
             }
         }
+
+        public bool HasComponent(string name)
+        {
+            foreach (var componentTemplate in Components)
+            {
+                if (componentTemplate.TemplateName == name)
+                    return true;
+            }
+            return false;
+        }
     }
 }

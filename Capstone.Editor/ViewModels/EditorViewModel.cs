@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using Capstone.Core;
+﻿using Capstone.Core;
 using Capstone.Editor.Common;
 using Capstone.Editor.Data;
 using Capstone.Engine.Graphics;
 using Capstone.Engine.Scripting;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
 
@@ -31,7 +30,6 @@ namespace Capstone.Editor.ViewModels
         public EntityInstance SelectedInstance { get; set; }
 
         public ObjectiveManager ObjectiveManager { get; private set; }
-        private readonly Dictionary<string, Objective> _objectiveLookup;
 
         private EditorTool _tool;
         public EditorTool Tool
@@ -76,42 +74,102 @@ namespace Capstone.Editor.ViewModels
 
             _entityCounter = 0;
             Money = 500;
+            Tool = EditorTool.Select;
+            // Disable the script manager from running for the editor
+            ScriptManager.Instance.IsRunning = false;
+            _pointerDown = false;
 
             SetupCamera();
-            RegisterObjectives();
-
-            Tool = EditorTool.Select;
-
-            ScriptManager.Instance.IsRunning = false;
-
-            _pointerDown = false;
+            RegisterAllObjectives();
         }
 
-        private void RegisterObjectives()
+        private void RegisterAllObjectives()
         {
-            ObjectiveManager.AddObjective("AddPlayerComponent", "Create an Entity with a PlayerController", 10);
+            ObjectiveManager.ClearObjectives();
+            ObjectiveManager.AddObjective("AddPlayerComponent", "Create an Entity with a PlayerController");
+            ObjectiveManager.AddObjective("AddPlayer", "Create a Player Entity");
         }
 
-        private void SetupCamera()
+        private void ResetObjectives()
         {
-            _cam = new Entity();
+            ObjectiveManager.ResetObjectives();
+            ObjectiveManager.DisplayObjective("AddPlayerComponent");
+        }
 
-            var c = new Camera()
+        private void CheckBuildObjectives()
+        {
+            foreach (var entityInstance in Instances)
+                CheckSingleBuildObjective(entityInstance);
+        }
+
+        private void CheckSingleBuildObjective(EntityInstance instance)
+        {
+            // Check if the instance completes any incomplete instance objectives
+        }
+
+        private void CheckTemplateObjectives()
+        {
+            foreach (var entityTemplate in EntityTemplates)
+                CheckSingleTemplateObjective(entityTemplate);
+        }
+
+        private void CheckSingleTemplateObjective(EntityTemplate template)
+        {
+            if (template.HasComponent("PlayerController"))
+            {
+                var playerObj = ObjectiveManager.Get("AddPlayerComponent");
+                if (playerObj != null && !playerObj.IsComplete)
                 {
-                    Name = "camera"
-                };
-            c.Install();
-            CameraManager.Instance.MakeActive("camera");
-            _cam.AddComponent(c);
+                    ObjectiveManager.CompleteObjective("AddPlayerComponent");
+                    var o = ObjectiveManager.Get("AddPlayer");
+                    if (o != null && !o.IsComplete)
+                    {
+                        o.Description = string.Format("Build a {0}", template.Name);
+                        ObjectiveManager.DisplayObjective("AddPlayer");
+                    }
+                }
+            }
         }
 
-        public async void PopulateObjectList()
+        // Reset the viewmodel for a new map or new load
+        public void Reset()
+        {
+            foreach (var e in Instances)
+                e.Entity.DestroyComponents();
+            Instances.Clear();
+            ResetObjectives();
+        }
+
+        public async Task PopulateTemplates()
         {
             await EntityTemplateCache.Instance.Load();
-            ProcessTemplateObjectives();
+            CheckTemplateObjectives();
         }
 
-        internal void HandleReleased(Point point)
+        public void RebuildInstances()
+        {
+            foreach (var e in Instances)
+                e.Rebuild();
+        }
+
+        public void SaveLevel(StorageFile file)
+        {
+            LevelSerializer.Save(file, "The Level", Instances, EntityTemplates, ObjectiveManager);
+        }
+
+        public bool LoadLevel(StorageFile file)
+        {
+            Reset();
+            var result = LevelSerializer.LoadForEdit(file, Instances, EntityTemplates, ObjectiveManager);
+            if (result)
+            {
+                CheckTemplateObjectives();
+                CheckBuildObjectives();
+            }
+            return result;
+        }
+
+        public void HandleReleased(Point point)
         {
             switch (Tool)
             {
@@ -123,20 +181,14 @@ namespace Capstone.Editor.ViewModels
                         ((Camera)_cam.GetComponent("camera")).ScreenToWorld(screen, instance.Entity.Translation);
                         instance.Entity.Name = string.Format("entity_{0:000}", ++_entityCounter);
                         Instances.Add(instance);
-                        ProcessBuildObjectives(_selectedTemplate);
-                        ProcessCost(_selectedTemplate);
+                        CheckSingleBuildObjective(instance);
                     }
                     break;
             }
             _pointerDown = false;
         }
 
-        private void ProcessCost(EntityTemplate _selectedTemplate)
-        {
-            Money = Money - _selectedTemplate.Cost;
-        }
-
-        internal void HandlePointerMove(Point point)
+        public void HandlePointerMove(Point point)
         {
             switch (Tool)
             {
@@ -154,7 +206,7 @@ namespace Capstone.Editor.ViewModels
             }
         }
 
-        internal void HandlePointerPressed(Point point)
+        public void HandlePointerPressed(Point point)
         {
             switch (Tool)
             {
@@ -171,7 +223,7 @@ namespace Capstone.Editor.ViewModels
                 _cam.Depth += p / 1000f;
         }
 
-        internal void ResetCamera()
+        public void ResetCamera()
         {
             _cam.Translation.X = 0;
             _cam.Translation.Y = 0;
@@ -186,55 +238,17 @@ namespace Capstone.Editor.ViewModels
             SelectedInstance = null;
         }
 
-        public void RebuildInstances()
+        private void SetupCamera()
         {
-            foreach (var e in Instances)
-                e.Rebuild();
-        }
+            _cam = new Entity();
 
-        private void ProcessBuildObjectives(EntityTemplate template)
-        {
-            if (!ObjectiveManager.Get("AddPlayer").IsComplete)
+            var c = new Camera()
             {
-                if (template == ObjectiveManager.Get("AddPlayer").Data)
-                    ObjectiveManager.CompleteObjective("AddPlayer");
-            }
-        }
-
-        public void ProcessTemplateObjectives()
-        {
-            if (!ObjectiveManager.Get("AddPlayerComponent").IsComplete)
-            {
-                bool found = false;
-                foreach (var template in EntityTemplates)
-                {
-                    foreach (var c in template.Components)
-                    {
-                        if (c.TemplateName == "PlayerController")
-                        {
-                            found = true;
-                            ObjectiveManager.CompleteObjective("AddPlayerComponent");
-                            ObjectiveManager.AddObjective("AddPlayer", string.Format("Add a {0}", template.Name), 10, data: template);
-                            break;
-                        }
-                        if (found)
-                            break;
-                    }
-                }
-            }
-        }
-
-        internal void SaveLevel(StorageFile file)
-        {
-            LevelSerializer.Save(file, "The Level", Instances, EntityTemplates);
-        }
-
-        internal bool LoadLevel(StorageFile file)
-        {
-            foreach (var e in Instances)
-                e.Entity.DestroyComponents();
-            Instances.Clear();
-            return LevelSerializer.LoadForEdit(file, Instances, EntityTemplates);
+                Name = "camera"
+            };
+            c.Install();
+            CameraManager.Instance.MakeActive("camera");
+            _cam.AddComponent(c);
         }
     }
 }

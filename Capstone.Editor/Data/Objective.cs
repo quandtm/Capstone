@@ -5,13 +5,13 @@ namespace Capstone.Editor.Data
 {
     public class Objective : BindableBase
     {
+        public string Name { get; set; }
         public string Description { get; set; }
         public bool IsComplete { get; private set; }
         public object Data { get; set; }
 
         public int Count { get; set; }
         public int Total { get; set; }
-        public int Score { get; set; }
 
         public event Action Completed;
 

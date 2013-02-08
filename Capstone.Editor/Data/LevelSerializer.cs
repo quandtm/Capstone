@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Capstone.Editor.Common;
+﻿using Capstone.Editor.Common;
 using System;
 using System.Collections.Generic;
 using Windows.Storage;
@@ -9,7 +8,7 @@ namespace Capstone.Editor.Data
 {
     internal static class LevelSerializer
     {
-        internal static async void Save(StorageFile file, string levelName, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates)
+        internal static async void Save(StorageFile file, string levelName, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
         {
             if (file == null) throw new ArgumentNullException("file");
             if (string.IsNullOrWhiteSpace(levelName)) throw new ArgumentNullException("levelName");
@@ -23,6 +22,9 @@ namespace Capstone.Editor.Data
             {
                 dw.WriteInt32(1); // Version
                 dw.WriteStringEx(levelName);
+                dw.WriteInt32(objectives.CompletedObjectives.Count);
+                foreach (var obj in objectives.CompletedObjectives)
+                    dw.WriteStringEx(obj.Name);
                 dw.WriteInt32(usedTemplates.Count);
                 dw.WriteInt32(instances.Count);
                 foreach (var template in usedTemplates)
@@ -52,7 +54,7 @@ namespace Capstone.Editor.Data
             return list;
         }
 
-        internal static bool LoadForEdit(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates)
+        internal static bool LoadForEdit(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
         {
             if (file == null) throw new ArgumentNullException("file");
             if (instances == null) throw new ArgumentNullException("instances");
