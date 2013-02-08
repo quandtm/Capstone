@@ -105,6 +105,12 @@ namespace Capstone.Editor.ViewModels
         private void CheckSingleBuildObjective(EntityInstance instance)
         {
             // Check if the instance completes any incomplete instance objectives
+            var plrObj = ObjectiveManager.Get("AddPlayer");
+            if (plrObj != null && !plrObj.IsComplete)
+            {
+                if (plrObj.Data == instance.Template)
+                    ObjectiveManager.CompleteObjective("AddPlayer");
+            }
         }
 
         private void CheckTemplateObjectives()
@@ -125,6 +131,7 @@ namespace Capstone.Editor.ViewModels
                     if (o != null && !o.IsComplete)
                     {
                         o.Description = string.Format("Build a {0}", template.Name);
+                        o.Data = template;
                         ObjectiveManager.DisplayObjective("AddPlayer");
                     }
                 }

@@ -8,13 +8,13 @@ namespace Capstone.Editor.Data
     public class ObjectiveManager : BindableBase
     {
         public ObservableCollection<Objective> Objectives { get; private set; }
-        public List<Objective> CompletedObjectives { get; private set; }
+        public ObservableCollection<Objective> CompletedObjectives { get; private set; }
         private readonly Dictionary<string, Objective> _lookup;
 
         public ObjectiveManager()
         {
             Objectives = new ObservableCollection<Objective>();
-            CompletedObjectives = new List<Objective>();
+            CompletedObjectives = new ObservableCollection<Objective>();
             _lookup = new Dictionary<string, Objective>();
         }
 
@@ -30,7 +30,7 @@ namespace Capstone.Editor.Data
         public void DisplayObjective(string name)
         {
             Objective o;
-            if (_lookup.TryGetValue(name, out o) && !o.IsComplete)
+            if (_lookup.TryGetValue(name, out o) && !o.IsComplete && !Objectives.Contains(o))
                 Objectives.Add(o);
         }
 
