@@ -46,6 +46,10 @@ namespace Capstone
 			{
 				IsVisible = true;
 				Origin = OriginPoint::TopLeft;
+				TintRed = 1.0f;
+				TintGreen = 1.0f;
+				TintBlue = 1.0f;
+				TintAlpha = 1.0f;
 			}
 
 			void Texture::Install()
@@ -111,7 +115,11 @@ namespace Capstone
 						origin.y = SourceRectHeight;
 						break;
 					}
-					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, DirectX::Colors::White, Entity->Rotation, origin, Entity->Scale, DirectX::SpriteEffects_None, Entity->Depth);
+
+					auto tintCol = DirectX::XMFLOAT4(TintRed, TintGreen, TintBlue, TintAlpha);
+					auto tintVec = DirectX::XMLoadFloat4(&tintCol);
+
+					batch->Draw(_tex->_srv.Get(), pos, &_srcRect, tintVec, Entity->Rotation, origin, Entity->Scale, DirectX::SpriteEffects_None, Entity->Depth);
 				}
 			}
 		}

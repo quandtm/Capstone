@@ -63,6 +63,8 @@ namespace Capstone.Editor.ViewModels
                 _selectedTemplate = value;
                 if (_selectedTemplate != null)
                     Tool = EditorTool.Build;
+                else
+                    Tool = EditorTool.Select;
             }
         }
 

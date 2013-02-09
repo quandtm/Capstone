@@ -39,7 +39,7 @@ namespace Capstone
 				Platform::String^ _path;
 
 				volatile bool _isLoaded;
-			    volatile bool _loading;
+				volatile bool _loading;
 
 			internal:
 				inline void Draw(std::shared_ptr<DirectX::SpriteBatch> batch);
@@ -89,7 +89,7 @@ namespace Capstone
 					int get() { return _srcRect.bottom - _srcRect.top; }
 					void set(int val) { _srcRect.bottom = _srcRect.top + val; }
 				}
-				
+
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="X Offset")]
 				property float OffsetX;
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="Y Offset")]
@@ -99,6 +99,15 @@ namespace Capstone
 				property bool IsVisible;
 				[Capstone::Core::ComponentParameterAttribute(DisplayName="Origin")]
 				property OriginPoint Origin;
+
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Red Tint Amount (0-1)")]
+				property float TintRed;
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Green Tint Amount (0-1)")]
+				property float TintGreen;
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Blue Tint Amount (0-1)")]
+				property float TintBlue;
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Alpha Tint Amount (0-1)")]
+				property float TintAlpha;
 			};
 		}
 	}
