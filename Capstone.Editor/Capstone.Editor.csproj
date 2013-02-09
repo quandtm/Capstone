@@ -195,6 +195,10 @@
       <Project>{8fb3f0ad-a832-4125-94ce-545fb5cc91ec}</Project>
       <Name>Capstone.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Capstone.Scripts\Capstone.Scripts.vcxproj">
+      <Project>{920bbf7d-8096-4022-bd15-a02e82c67ca9}</Project>
+      <Name>Capstone.Scripts</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

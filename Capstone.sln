@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{481895
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Capstone.Scripts", "Capstone.Scripts\Capstone.Scripts.vcxproj", "{920BBF7D-8096-4022-BD15-A02E82C67CA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -89,6 +91,18 @@ Global
 		{4D7A3431-0128-4CDD-A6AC-8EDA4796906E}.Release|x64.ActiveCfg = Release|x64
 		{4D7A3431-0128-4CDD-A6AC-8EDA4796906E}.Release|x64.Build.0 = Release|x64
 		{4D7A3431-0128-4CDD-A6AC-8EDA4796906E}.Release|x64.Deploy.0 = Release|x64
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Debug|ARM.ActiveCfg = Debug|ARM
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Debug|ARM.Build.0 = Debug|ARM
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Debug|Win32.Build.0 = Debug|Win32
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Debug|x64.ActiveCfg = Debug|x64
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Debug|x64.Build.0 = Debug|x64
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Release|ARM.ActiveCfg = Release|ARM
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Release|ARM.Build.0 = Release|ARM
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Release|Win32.ActiveCfg = Release|Win32
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Release|Win32.Build.0 = Release|Win32
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Release|x64.ActiveCfg = Release|x64
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +112,6 @@ Global
 		{9E76EB0D-B292-44FB-AF5F-2D6E569059A3} = {377DDADF-CD53-4C85-AC90-A3EDD199F243}
 		{8FB3F0AD-A832-4125-94CE-545FB5CC91EC} = {377DDADF-CD53-4C85-AC90-A3EDD199F243}
 		{4D7A3431-0128-4CDD-A6AC-8EDA4796906E} = {AD880068-4F2F-4483-82E8-E1610CF08EBF}
+		{920BBF7D-8096-4022-BD15-A02E82C67CA9} = {AD880068-4F2F-4483-82E8-E1610CF08EBF}
 	EndGlobalSection
 EndGlobal
