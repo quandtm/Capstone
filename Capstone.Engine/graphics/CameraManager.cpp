@@ -33,10 +33,10 @@ namespace Capstone
 					_active = cam;
 			}
 
-			void CameraManager::Update()
+			void CameraManager::Update(float screenWidth, float screenHeight)
 			{
 				if (ActiveCamera != nullptr)
-					ActiveCamera->UpdateMatrices();
+					ActiveCamera->UpdateMatrices(screenWidth, screenHeight);
 			}
 		}
 	}

@@ -203,7 +203,7 @@ namespace Capstone
 				auto view = _rtv.Get();
 				_context->OMSetRenderTargets(1, &view, nullptr);
 
-				CameraManager::Instance->Update();
+				CameraManager::Instance->Update(_windowBounds.Width, _windowBounds.Height);
 				_scriptManager->PreDrawUpdate(_timer->Delta, _timer->Total);
 
 				Clear();

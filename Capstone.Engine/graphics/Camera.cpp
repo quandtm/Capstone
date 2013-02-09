@@ -26,9 +26,18 @@ namespace Capstone
 				CameraManager::Instance->RemoveCamera(Name);
 			}
 
-			void Camera::UpdateMatrices()
+			void Camera::UpdateMatrices(float screenWidth, float screenHeight)
 			{
-				_view = XMMatrixMultiply(XMMatrixTranslation(-Entity->Translation->X, -Entity->Translation->Y, 0), XMMatrixScaling(Entity->Depth, Entity->Depth, 1));
+				float offsetX = 0.0f;
+				float offsetY = 0.0f;
+
+				if (CenterOnEntity)
+				{
+					offsetX = screenWidth / 2.0f;
+					offsetY = screenHeight / 2.0f;
+				}
+
+				_view = XMMatrixMultiply(XMMatrixTranslation(-Entity->Translation->X + offsetX, -Entity->Translation->Y + offsetY, 0), XMMatrixScaling(Entity->Depth, Entity->Depth, 1));
 			}
 
 			void Camera::ScreenToWorld(Vector2^ screen, Vector2^ world)

@@ -12,7 +12,7 @@ namespace Capstone
 				_declspec(align(16)) DirectX::XMMATRIX _view;
 
 			internal:
-				void UpdateMatrices();
+				void UpdateMatrices(float screenWidth, float screenHeight);
 
 				DirectX::XMMATRIX* GetView() { return &_view; };
 

@@ -34,7 +34,7 @@ namespace Capstone
 				void RemoveCamera(Platform::String^ name);
 				void MakeActive(Platform::String^ name);
 
-				void Update();
+				void Update(float screenWidth, float screenHeight);
 			};
 		}
 	}
