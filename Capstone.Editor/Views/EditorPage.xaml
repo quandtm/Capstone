@@ -45,7 +45,7 @@
 
     <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="HandleLoaded">
     	<SwapChainBackgroundPanel.ColumnDefinitions>
-    		<ColumnDefinition Width="200"/>
+    		<ColumnDefinition Width="240"/>
     		<ColumnDefinition/>
     		<ColumnDefinition Width="330"/>
     	</SwapChainBackgroundPanel.ColumnDefinitions>
@@ -74,7 +74,15 @@
     		</Grid.Background>
     		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entity Name" VerticalAlignment="Top" Style="{StaticResource ItemTextStyle}" Margin="10,0,0,0"/>
     		<TextBox TextWrapping="Wrap" Text="{Binding SelectedInstance.Name, Mode=TwoWay}" VerticalAlignment="Top" Margin="10,30,10,0"/>
-    		<Button Content="Delete" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Click="DeleteEntity"/>
+    		<Button Content="Delete" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Click="DeleteEntity"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="36,125,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+    		<TextBox HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" MaxWidth="64" MaxHeight="32" InputScope="Number" Text="{Binding SelectedInstance.TranslationX, Mode=TwoWay}"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="112,125,0,0" TextWrapping="Wrap" Text="Y" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+    		<TextBox HorizontalAlignment="Left" Margin="85,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" MaxWidth="64" MaxHeight="32" InputScope="Number" Text="{Binding SelectedInstance.TranslationY, Mode=TwoWay}"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="175,125,0,0" TextWrapping="Wrap" Text="Depth" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+    		<TextBox HorizontalAlignment="Left" Margin="160,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" MaxWidth="64" MaxHeight="32" InputScope="Number" Text="{Binding SelectedInstance.Depth, Mode=TwoWay}"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="15,190,0,0" TextWrapping="Wrap" Text="Rotation" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
+    		<TextBox HorizontalAlignment="Left" Margin="10,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxWidth="64" MaxHeight="32" InputScope="Number" Text="{Binding SelectedInstance.Rotation, Mode=TwoWay}"/>
     	</Grid>
     	<Grid x:Name="entityInstances" Grid.Row="1" Grid.Column="2">
     		<Grid.Background>

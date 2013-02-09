@@ -19,6 +19,46 @@ namespace Capstone.Editor.Data
             }
         }
 
+        public float TranslationX
+        {
+            get { return Entity.Translation.X; }
+            set
+            {
+                if (Entity.Translation.X == value) return;
+                Entity.Translation.X = value;
+            }
+        }
+
+        public float TranslationY
+        {
+            get { return Entity.Translation.Y; }
+            set
+            {
+                if (Entity.Translation.Y == value) return;
+                Entity.Translation.Y = value;
+            }
+        }
+
+        public float Depth
+        {
+            get { return Entity.Depth; }
+            set
+            {
+                if (Entity.Depth == value) return;
+                Entity.Depth = value;
+            }
+        }
+
+        public float Rotation
+        {
+            get { return Entity.Rotation; }
+            set
+            {
+                if (Entity.Rotation == value) return;
+                Entity.Rotation = value;
+            }
+        }
+
         private EntityTemplate _template;
         public EntityTemplate Template
         {
