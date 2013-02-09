@@ -1,4 +1,5 @@
 ﻿using Capstone.Engine.Graphics;
+using Capstone.Scripts;
 using System.Collections.ObjectModel;
 
 namespace Capstone.Editor.Data
@@ -28,6 +29,7 @@ namespace Capstone.Editor.Data
         {
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Camera)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Texture)));
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof(PlayerController)));
         }
     }
 }
