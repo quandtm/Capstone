@@ -30,6 +30,16 @@ namespace Capstone
 			return _components[key];
 		}
 
+		IComponent^ Entity::GetComponentFromType(Platform::String^ typeName)
+		{
+			for (auto c : _components)
+			{
+				if (c.second->GetType()->FullName == typeName)
+					return c.second;
+			}
+			return nullptr;
+		}
+
 		void Entity::DestroyComponent(Platform::String^ key)
 		{
 			if (!key->IsEmpty())

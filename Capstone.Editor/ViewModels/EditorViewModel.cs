@@ -27,7 +27,24 @@ namespace Capstone.Editor.ViewModels
         public int Money { get; private set; }
 
         public ObservableCollection<EntityInstance> Instances { get; private set; }
-        public EntityInstance SelectedInstance { get; set; }
+        private EntityInstance _selectedInstance;
+
+        public EntityInstance SelectedInstance
+        {
+            get { return _selectedInstance; }
+            set
+            {
+                if (_selectedInstance == value) return;
+
+                // Clear selection tint from previous entity by rebuilding it (resets selection tint)
+                if (_selectedInstance != null)
+                    _selectedInstance.Rebuild();
+
+                SetProperty(ref _selectedInstance, value);
+
+                HighlightEntity(_selectedInstance);
+            }
+        }
 
         public ObjectiveManager ObjectiveManager { get; private set; }
 
@@ -285,6 +302,22 @@ namespace Capstone.Editor.ViewModels
             c.Install();
             CameraManager.Instance.MakeActive("camera");
             _cam.AddComponent(c);
+        }
+
+        private void HighlightEntity(EntityInstance highlight)
+        {
+            if (highlight != null)
+            {
+                var texLookup = highlight.Entity.GetComponentFromType(typeof(Texture).FullName);
+                if (texLookup != null)
+                {
+                    var tex = (Texture)texLookup;
+                    tex.TintRed = 0.5f;
+                    tex.TintGreen = 0.5f;
+                    tex.TintBlue = 0.5f;
+                    tex.TintAlpha = 0.75f;
+                }
+            }
         }
     }
 }
