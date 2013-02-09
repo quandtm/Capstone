@@ -25,6 +25,7 @@ namespace Capstone.Editor.Views
 
         public void Load(Windows.Storage.StorageFile file)
         {
+
         }
     }
 }
