@@ -14,6 +14,7 @@ namespace Capstone
 		void PlayerController::Install()
 		{
 			ScriptManager::Instance->RegisterScript(this);
+
 		}
 
 		void PlayerController::Uninstall()

@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:Capstone.Editor.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="using:Capstone.Editor.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:GameViewModel, IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
     
     <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="swapPanel_Loaded">
