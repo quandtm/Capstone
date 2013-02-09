@@ -12,9 +12,15 @@ namespace Capstone.Editor.Views
             InitializeComponent();
         }
 
-        private void OpenGame(object sender, RoutedEventArgs e)
+        private async void OpenGame(object sender, RoutedEventArgs e)
         {
-            App.CurrentApp.Navigate<GamePage>();
+            var ofd = new FileOpenPicker();
+            ofd.FileTypeFilter.Add(".level");
+            ofd.CommitButtonText = "Load";
+            ofd.SuggestedStartLocation = PickerLocationId.Desktop;
+            var file = await ofd.PickSingleFileAsync();
+            if (file != null)
+                (await App.CurrentApp.Navigate<GamePage>()).Load(file);
         }
 
         private async void NewMap(object sender, RoutedEventArgs e)
