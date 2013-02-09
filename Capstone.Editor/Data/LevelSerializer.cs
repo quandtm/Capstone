@@ -69,8 +69,6 @@ namespace Capstone.Editor.Data
             try
             {
                 if (file == null) throw new ArgumentNullException("file");
-                if (instances == null) throw new ArgumentNullException("instances");
-                if (entityTemplates == null) throw new ArgumentNullException("entityTemplates");
 
                 using (var stream = await file.OpenSequentialReadAsync())
                 using (var dr = new DataReader(stream))
@@ -90,13 +88,19 @@ namespace Capstone.Editor.Data
                         var name = await dr.ReadStringEx();
                         await dr.LoadAsync(sizeof(Int32));
                         var count = dr.ReadInt32();
-                        for (int j = 0; j < count; j++)
-                            objectives.CompleteObjective(name);
+                        if (objectives != null)
+                        {
+                            for (int j = 0; j < count; j++)
+                                objectives.CompleteObjective(name);
+                        }
                     }
 
                     var lut = new Dictionary<string, EntityTemplate>();
-                    foreach (var t in entityTemplates)
-                        lut.Add(t.Name, t);
+                    if (entityTemplates != null)
+                    {
+                        foreach (var t in entityTemplates)
+                            lut.Add(t.Name, t);
+                    }
 
                     for (int i = 0; i < numUsedTemplates; i++)
                     {
@@ -104,7 +108,8 @@ namespace Capstone.Editor.Data
                         await template.Load(dr);
                         if (!lut.ContainsKey(template.Name))
                         {
-                            entityTemplates.Add(template);
+                            if (entityTemplates != null)
+                                entityTemplates.Add(template);
                             lut.Add(template.Name, template);
                         }
                     }
@@ -114,7 +119,8 @@ namespace Capstone.Editor.Data
                         var name = await dr.ReadStringEx();
                         var instance = EntityInstance.Create(lut[name]);
                         await instance.Load(dr);
-                        instances.Add(instance);
+                        if (instances != null)
+                            instances.Add(instance);
                     }
                 }
 
