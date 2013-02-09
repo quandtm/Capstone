@@ -12,8 +12,17 @@ namespace Capstone
 		{
 		private:
 			bool _isInitialised;
+			DirectX::XMFLOAT2 _dest;
+			bool _moving;
 
 		public:
+			PlayerController();
+
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Stopping Radius")]
+			property float StopRadius;
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Speed")]
+			property float Speed;
+
 			// Properties
 			virtual property Entity^ Entity;
 			virtual property String^ Name;
