@@ -23,7 +23,7 @@ namespace Capstone.Editor.Views
             proxy.SetPanel(swapPanel, true);
         }
 
-        public void HandleNavigationTo(object parameter)
+        public async Task HandleNavigationTo(object parameter)
         {
         }
 

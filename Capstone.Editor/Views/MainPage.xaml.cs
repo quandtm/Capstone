@@ -17,9 +17,9 @@ namespace Capstone.Editor.Views
             App.CurrentApp.Navigate<GamePage>();
         }
 
-        private void NewMap(object sender, RoutedEventArgs e)
+        private async void NewMap(object sender, RoutedEventArgs e)
         {
-            App.CurrentApp.Navigate<EditorPage>().NewLevel();
+            (await App.CurrentApp.Navigate<EditorPage>()).NewLevel();
         }
 
         private async void LoadMap(object sender, RoutedEventArgs e)
@@ -30,10 +30,10 @@ namespace Capstone.Editor.Views
             ofd.SuggestedStartLocation = PickerLocationId.Desktop;
             var file = await ofd.PickSingleFileAsync();
             if (file != null)
-                App.CurrentApp.Navigate<EditorPage>().LoadLevel(file);
+                (await App.CurrentApp.Navigate<EditorPage>()).LoadLevel(file);
         }
 
-        public void HandleNavigationTo(object parameter)
+        public async Task HandleNavigationTo(object parameter)
         {
         }
 

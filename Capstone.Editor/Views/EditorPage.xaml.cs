@@ -42,7 +42,7 @@ namespace Capstone.Editor.Views
             App.CurrentApp.Navigate<ObjectEditorPage>();
         }
 
-        public async void HandleNavigationTo(object parameter)
+        public async Task HandleNavigationTo(object parameter)
         {
             await VM.PopulateTemplates();
             VM.RebuildInstances(); //This runs to propagate changes

@@ -1,4 +1,5 @@
-﻿using Capstone.Editor.Views;
+﻿using System.Threading.Tasks;
+using Capstone.Editor.Views;
 using Capstone.Engine.Windows;
 using System;
 using System.Collections.Generic;
@@ -45,13 +46,13 @@ namespace Capstone.Editor
             deferral.Complete();
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Navigate<MainPage>();
+            await Navigate<MainPage>();
             Window.Current.Activate();
         }
 
-        public T Navigate<T>(object parameter = null) where T : Page, new()
+        public async Task<T> Navigate<T>(object parameter = null) where T : Page, new()
         {
             Page p = null;
             if (!_pages.TryGetValue(typeof(T), out p))
@@ -62,10 +63,10 @@ namespace Capstone.Editor
             _backStack.Push((Page)Window.Current.Content);
 
             if (Window.Current.Content != null && Window.Current.Content is IView)
-                ((IView)Window.Current.Content).HandleNavigationFrom();
+                await ((IView)Window.Current.Content).HandleNavigationFrom();
             Window.Current.Content = p;
             if (p is IView)
-                ((IView)p).HandleNavigationTo(parameter);
+                await ((IView)p).HandleNavigationTo(parameter);
             return (T)p;
         }
 

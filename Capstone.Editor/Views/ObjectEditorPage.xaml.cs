@@ -46,7 +46,7 @@ namespace Capstone.Editor.Views
             VM.CreateNewEntity();
         }
 
-        public void HandleNavigationTo(object parameter)
+        public async Task HandleNavigationTo(object parameter)
         {
         }
 
