@@ -59,6 +59,8 @@ namespace Capstone.Editor.Data
         {
             Objectives.Clear();
             CompletedObjectives.Clear();
+            foreach (var objective in _lookup)
+                objective.Value.Reset();
         }
 
         public Objective Get(string name)

@@ -35,5 +35,11 @@ namespace Capstone.Editor.Data
                     Completed();
             }
         }
+
+        public void Reset()
+        {
+            IsComplete = false;
+            Count = 0;
+        }
     }
 }
