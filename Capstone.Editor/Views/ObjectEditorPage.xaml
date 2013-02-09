@@ -52,7 +52,7 @@
     	</Grid.Background>
     	<Button Content="Button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle}" Click="GoBack"/>
     	<TextBlock TextWrapping="Wrap" Text="Entity Editor" VerticalAlignment="Bottom" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
-    	<Grid Grid.Row="1" Width="400" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+    	<Grid Grid.Row="1" Width="400" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0,0,0,50">
     		<Grid.RowDefinitions>
     			<RowDefinition/>
     		</Grid.RowDefinitions>
@@ -74,7 +74,7 @@
     			</ListView.Background>
     		</ListView>
     	</Grid>
-    	<Grid HorizontalAlignment="Left" Grid.Row="1" Width="400" Margin="300,0,0,0" Grid.Column="1">
+    	<Grid HorizontalAlignment="Left" Grid.Row="1" Width="400" Margin="300,0,0,50" Grid.Column="1">
     		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" Text="Added" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"/>
     		<ListView Margin="0,40,0,0" ItemsSource="{Binding SelectedEntity.Components}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
     			<ListView.Resources>
@@ -98,7 +98,7 @@
     			</ListView.Background>
     		</ListView>
     	</Grid>
-    	<Grid HorizontalAlignment="Left" Width="400" Grid.Row="1" Margin="720,40,0,0" Visibility="{Binding SelectedComponent, Converter={StaticResource NullVisibility}}" Grid.Column="1">
+    	<Grid HorizontalAlignment="Left" Width="400" Grid.Row="1" Margin="720,40,0,50" Visibility="{Binding SelectedComponent, Converter={StaticResource NullVisibility}}" Grid.Column="1">
     		<Grid.RowDefinitions>
     			<RowDefinition Height="120"/>
     			<RowDefinition/>
@@ -109,7 +109,7 @@
     		<TextBlock Margin="20,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Text="{Binding SelectedComponent.TemplateName, Mode=OneWay}"/>
     		<TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" TextWrapping="Wrap" Text="Instance Name" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
     		<TextBox Text="{Binding SelectedComponent.InstanceName, Mode=TwoWay}" VerticalAlignment="Top" Margin="20,70,40,0"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding SelectedComponent.Properties}" SelectionMode="None" Margin="20,0,20,0" IsSwipeEnabled="False">
+            <ListView Grid.Row="1" ItemsSource="{Binding SelectedComponent.Properties}" SelectionMode="None" Margin="20,0,20,10" IsSwipeEnabled="False">
                 <ListView.ItemTemplateSelector>
                     <common:ComponentPropertyTemplateSelector 
                         StringTemplate="{StaticResource StringEditTemplate}"
