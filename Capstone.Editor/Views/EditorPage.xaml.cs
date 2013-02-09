@@ -131,5 +131,10 @@ namespace Capstone.Editor.Views
                 App.CurrentApp.GoBack();
             }
         }
+
+        private void GotoMainMenu(object sender, RoutedEventArgs e)
+        {
+            App.CurrentApp.GoBack();
+        }
     }
 }

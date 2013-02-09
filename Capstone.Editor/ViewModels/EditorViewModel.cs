@@ -180,6 +180,7 @@ namespace Capstone.Editor.ViewModels
                 e.Entity.DestroyComponents();
             Instances.Clear();
             ResetObjectives();
+            ResetCamera();
         }
 
         public async Task PopulateTemplates()

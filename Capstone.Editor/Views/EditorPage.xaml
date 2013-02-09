@@ -27,6 +27,17 @@
 			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" Margin="20,0"/>
 		</DataTemplate>
 	</common:LayoutAwarePage.Resources>
+	<common:LayoutAwarePage.TopAppBar>
+		<AppBar>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource AppBarButtonStyle}" AutomationProperties.Name="Main Menu" Content="&#57557;" Click="GotoMainMenu" />
+			</Grid>
+		</AppBar>
+	</common:LayoutAwarePage.TopAppBar>
     
 	<common:LayoutAwarePage.BottomAppBar>
 		<AppBar>
