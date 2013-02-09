@@ -66,6 +66,19 @@ namespace Capstone.Editor.ViewModels
             }
         }
 
+        private string _levelName;
+        public string LevelName
+        {
+            get { return _levelName; }
+            set
+            {
+                if (_levelName == value) return;
+                SetProperty(ref _levelName, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                    ObjectiveManager.CompleteObjective("SetLevelName");
+            }
+        }
+
         public EditorViewModel()
         {
             Instances = new ObservableCollection<EntityInstance>();
@@ -88,12 +101,14 @@ namespace Capstone.Editor.ViewModels
             ObjectiveManager.ClearObjectives();
             ObjectiveManager.AddObjective("AddPlayerComponent", "Create an Entity with a PlayerController");
             ObjectiveManager.AddObjective("AddPlayer", "Create a Player Entity");
+            ObjectiveManager.AddObjective("SetLevelName", "Give the level a name");
         }
 
         private void ResetObjectives()
         {
             ObjectiveManager.ResetObjectives();
             ObjectiveManager.DisplayObjective("AddPlayerComponent");
+            ObjectiveManager.DisplayObjective("SetLevelName");
         }
 
         private void CheckBuildObjectives()
@@ -141,6 +156,7 @@ namespace Capstone.Editor.ViewModels
         // Reset the viewmodel for a new map or new load
         private void Reset()
         {
+            LevelName = string.Empty;
             foreach (var e in Instances)
                 e.Entity.DestroyComponents();
             Instances.Clear();
@@ -159,21 +175,27 @@ namespace Capstone.Editor.ViewModels
                 e.Rebuild();
         }
 
-        public void SaveLevel(StorageFile file)
+        public async Task<bool> SaveLevel(StorageFile file)
         {
-            LevelSerializer.Save(file, "The Level", Instances, EntityTemplates, ObjectiveManager);
+            if (!string.IsNullOrWhiteSpace(LevelName))
+            {
+                await LevelSerializer.Save(file, LevelName, Instances, EntityTemplates, ObjectiveManager);
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> LoadLevel(StorageFile file)
         {
             Reset();
-            var result = await LevelSerializer.Load(file, Instances, EntityTemplates, ObjectiveManager);
-            if (result)
+            var levelName = await LevelSerializer.Load(file, Instances, EntityTemplates, ObjectiveManager);
+            if (levelName != null)
             {
                 CheckTemplateObjectives();
                 CheckBuildObjectives();
+                LevelName = levelName;
             }
-            return result;
+            return levelName != null;
         }
 
         public void NewLevel()

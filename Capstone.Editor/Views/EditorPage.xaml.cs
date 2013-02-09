@@ -108,7 +108,13 @@ namespace Capstone.Editor.Views
             sfd.SuggestedStartLocation = PickerLocationId.Desktop;
             var file = await sfd.PickSaveFileAsync();
             if (file != null)
-                VM.SaveLevel(file);
+            {
+                if (!(await VM.SaveLevel(file)))
+                {
+                    var md = new MessageDialog("Saving failed, please ensure your level has a name.");
+                    md.ShowAsync();
+                }
+            }
         }
 
         public void NewLevel()

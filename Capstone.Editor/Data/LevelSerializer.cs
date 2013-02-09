@@ -9,7 +9,7 @@ namespace Capstone.Editor.Data
 {
     internal static class LevelSerializer
     {
-        internal static async void Save(StorageFile file, string levelName, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
+        internal static async Task Save(StorageFile file, string levelName, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
         {
             if (file == null) throw new ArgumentNullException("file");
             if (string.IsNullOrWhiteSpace(levelName)) throw new ArgumentNullException("levelName");
@@ -64,7 +64,7 @@ namespace Capstone.Editor.Data
             return list;
         }
 
-        internal static async Task<bool> Load(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates = null, ObjectiveManager objectives = null)
+        internal static async Task<string> Load(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates = null, ObjectiveManager objectives = null)
         {
             try
             {
@@ -122,13 +122,12 @@ namespace Capstone.Editor.Data
                         if (instances != null)
                             instances.Add(instance);
                     }
+                    return levelName;
                 }
-
-                return true;
             }
             catch
             {
-                return false;
+                return null;
             }
         }
     }
