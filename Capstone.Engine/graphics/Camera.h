@@ -17,6 +17,9 @@ namespace Capstone
 				DirectX::XMMATRIX* GetView() { return &_view; };
 
 			public:
+				[Capstone::Core::ComponentParameterAttribute(DisplayName="Center on Entity")]
+				property bool CenterOnEntity;
+
 				Camera(void);
 
 				virtual property Capstone::Core::Entity^ Entity;
