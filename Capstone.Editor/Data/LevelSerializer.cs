@@ -64,7 +64,7 @@ namespace Capstone.Editor.Data
             return list;
         }
 
-        internal static async Task<bool> Load(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates, ObjectiveManager objectives)
+        internal static async Task<bool> Load(StorageFile file, IList<EntityInstance> instances, IList<EntityTemplate> entityTemplates = null, ObjectiveManager objectives = null)
         {
             try
             {
