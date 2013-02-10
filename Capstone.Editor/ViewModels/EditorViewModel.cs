@@ -237,10 +237,16 @@ namespace Capstone.Editor.ViewModels
                         instance.Entity.Name = string.Format("entity_{0:000}", ++_entityCounter);
                         Instances.Add(instance);
                         CheckSingleBuildObjective(instance);
+                        ApplyCost(instance);
                     }
                     break;
             }
             _pointerDown = false;
+        }
+
+        private void ApplyCost(EntityInstance instance)
+        {
+            Money = Money - instance.Template.Cost;
         }
 
         public void HandlePointerMove(Point point)
