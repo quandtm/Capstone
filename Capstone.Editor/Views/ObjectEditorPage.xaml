@@ -50,7 +50,7 @@
     	<Grid.Background>
     		<SolidColorBrush Color="{StaticResource DarkGreyBackground}"/>
     	</Grid.Background>
-    	<Button Content="Button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle}" Click="GoBack"/>
+        <Button Content="Button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource BackButtonStyle}" Click="ReturnToEditor"/>
     	<TextBlock TextWrapping="Wrap" Text="Entity Editor" VerticalAlignment="Bottom" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
     	<Grid Grid.Row="1" Width="400" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0,0,0,50">
     		<Grid.RowDefinitions>

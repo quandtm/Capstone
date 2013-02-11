@@ -60,7 +60,7 @@ namespace Capstone.Editor.Data
 
         public List<Enum> EnumOptions { get; private set; }
 
-        protected ComponentProperty(string name, Type dataType)
+        private ComponentProperty(string name, Type dataType)
         {
             Name = name;
             DataType = dataType;

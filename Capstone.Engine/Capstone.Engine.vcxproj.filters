@@ -26,6 +26,12 @@
     <ClCompile Include="graphics\CameraManager.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="collision\CollisionManager.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="collision\BoxCollider.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -66,6 +72,12 @@
     <ClInclude Include="graphics\CameraManager.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="collision\BoxCollider.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="collision\CollisionManager.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -85,6 +97,9 @@
     </Filter>
     <Filter Include="Scripting">
       <UniqueIdentifier>{1189ef49-3258-4b11-b24d-2a26ed62c155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{add85899-5255-4e6f-8537-25f1ae12e3bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

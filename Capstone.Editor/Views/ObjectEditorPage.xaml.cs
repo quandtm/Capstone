@@ -18,7 +18,7 @@ namespace Capstone.Editor.Views
             DataContext = new ObjectEditorViewModel();
         }
 
-        private void GoBack(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void ReturnToEditor(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             App.CurrentApp.GoBack();
         }
