@@ -18,14 +18,13 @@ namespace Capstone
 				CollisionManager::Instance->RemoveCollider(this);
 			}
 
-			bool BoxCollider::IsCollidingWith(BoxCollider^ other)
+			bool BoxCollider::Intersects(BoxCollider^ other)
 			{
-				return false;
-			}
+				if (!CollideWithParent && other->Entity == Entity) return false;
 
-			bool BoxCollider::IsPointInCollider(float x, float y)
-			{
-				return true;
+				// TODO
+
+				return false;
 			}
 		}
 	}
