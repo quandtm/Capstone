@@ -172,12 +172,13 @@ namespace Capstone
 
 			void Direct3DPanelProxy::SetPanel(::Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel, bool bindEvents)
 			{
-				if (_panel != nullptr)
+				if (_panel != nullptr) return; // Only one instance of SwapChainBackgroundPanel per app
+				/*if (_panel != nullptr)
 				{
 					_panel->PointerPressed::remove(_pressedToken);
 					_panel->PointerMoved::remove(_movedToken);
 					_panel->PointerReleased::remove(_releasedToken);
-				}
+				}*/
 
 				_panel = panel;
 
