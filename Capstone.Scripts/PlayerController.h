@@ -14,6 +14,7 @@ namespace Capstone
 			bool _isInitialised;
 			DirectX::XMFLOAT2 _dest;
 			bool _moving;
+			int _health;
 
 		public:
 			PlayerController();
@@ -22,6 +23,17 @@ namespace Capstone
 			property float StopRadius;
 			[Capstone::Core::ComponentParameterAttribute(DisplayName="Speed")]
 			property float Speed;
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Health")]
+			property int HP
+			{
+				int get() { return _health; }
+				void set(int val)
+				{
+					if (_health == val) return;
+					_health = val;
+					HealthChanged(this, ref new Windows::UI::Xaml::Data::PropertyChangedEventArgs("HP"));
+				}
+			}
 
 			// Properties
 			virtual property Entity^ Entity;
@@ -43,6 +55,8 @@ namespace Capstone
 			virtual void PointerPressed(float deltaTime, float totalTime, float x, float y);
 			virtual void PointerMoved(float deltaTime, float totalTime, float x, float y);
 			virtual void PointerReleased(float deltaTime, float totalTime, float x, float y);
+
+			event Windows::UI::Xaml::Data::PropertyChangedEventHandler^ HealthChanged;
 		};
 	}
 }
