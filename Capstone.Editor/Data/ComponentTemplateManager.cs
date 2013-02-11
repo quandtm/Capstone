@@ -30,6 +30,7 @@ namespace Capstone.Editor.Data
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Camera)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Texture)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(PlayerController)));
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof (EnemyController)));
         }
     }
 }

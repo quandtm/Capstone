@@ -34,7 +34,7 @@ namespace Capstone.Editor.Data
                 Objectives.Add(o);
         }
 
-        public void CompleteObjective(string name)
+        public bool CompleteObjective(string name)
         {
             Objective obj;
             if (_lookup.TryGetValue(name, out obj))
@@ -44,8 +44,10 @@ namespace Capstone.Editor.Data
                 {
                     Objectives.Remove(obj);
                     CompletedObjectives.Add(obj);
+                    return true;
                 }
             }
+            return false;
         }
 
         public void ClearObjectives()

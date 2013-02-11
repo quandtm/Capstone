@@ -70,7 +70,7 @@ namespace Capstone.Editor.Data
             for (int i = 0; i < count; i++)
             {
                 var c = await ComponentTemplate.Load(dr);
-                Components.Add(c);
+                AddComponent(c);
             }
         }
 

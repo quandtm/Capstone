@@ -43,6 +43,8 @@ namespace Capstone.Editor.ViewModels
                 SetProperty(ref _selectedInstance, value);
 
                 HighlightEntity(_selectedInstance);
+
+                Tool = EditorTool.Select;
             }
         }
 
@@ -58,6 +60,8 @@ namespace Capstone.Editor.ViewModels
                 _tool = value;
                 if (_tool != EditorTool.Build)
                     SelectedTemplate = null;
+                if (_tool != EditorTool.Select)
+                    SelectedInstance = null;
             }
         }
         public bool IsPanTool
@@ -117,16 +121,19 @@ namespace Capstone.Editor.ViewModels
         private void RegisterAllObjectives()
         {
             ObjectiveManager.ClearObjectives();
-            ObjectiveManager.AddObjective("AddPlayerComponent", "Create an Entity with a PlayerController");
-            ObjectiveManager.AddObjective("AddPlayer", "Create a Player Entity");
+            ObjectiveManager.AddObjective("AddPlayerComponent", "Create a template with a PlayerController");
+            ObjectiveManager.AddObjective("AddPlayer", "Build a {0}");
             ObjectiveManager.AddObjective("SetLevelName", "Give the level a name");
             ObjectiveManager.AddObjective("AddMainCam", "Create an Entity with a Camera named \"maincamera\"");
+            ObjectiveManager.AddObjective("AddEnemyComponent", "Create a template with an EnemyController");
+            ObjectiveManager.AddObjective("AddEnemy", "Build a {0}");
         }
 
         private void ResetObjectives()
         {
             ObjectiveManager.ResetObjectives();
             ObjectiveManager.DisplayObjective("AddPlayerComponent");
+            ObjectiveManager.DisplayObjective("AddEnemyComponent");
             ObjectiveManager.DisplayObjective("AddMainCam");
             ObjectiveManager.DisplayObjective("SetLevelName");
         }
@@ -146,6 +153,13 @@ namespace Capstone.Editor.ViewModels
                 if (plrObj.Data == instance.Template)
                     ObjectiveManager.CompleteObjective("AddPlayer");
             }
+
+            var enemyObj = ObjectiveManager.Get("AddEnemy");
+            if (enemyObj != null && !enemyObj.IsComplete)
+            {
+                if (enemyObj.Data == instance.Template)
+                    ObjectiveManager.CompleteObjective("AddEnemy");
+            }
         }
 
         private void CheckTemplateObjectives()
@@ -156,26 +170,37 @@ namespace Capstone.Editor.ViewModels
 
         private void CheckSingleTemplateObjective(EntityTemplate template)
         {
+            ComponentTemplate component = null;
+
             if (template.HasComponent("PlayerController"))
             {
-                var playerObj = ObjectiveManager.Get("AddPlayerComponent");
-                if (playerObj != null && !playerObj.IsComplete)
+                if (ObjectiveManager.CompleteObjective("AddPlayerComponent"))
                 {
-                    ObjectiveManager.CompleteObjective("AddPlayerComponent");
                     var o = ObjectiveManager.Get("AddPlayer");
                     if (o != null && !o.IsComplete)
                     {
-                        o.Description = string.Format("Build a {0}", template.Name);
+                        o.Description = string.Format(o.Description, template.Name);
                         o.Data = template;
                         ObjectiveManager.DisplayObjective("AddPlayer");
                     }
                 }
             }
 
-            { // Scope to allow reuse of 'c'
-                ComponentTemplate c;
-                if (template.TryGetComponent("Camera", out c) && c.InstanceName.Equals("maincamera"))
-                    ObjectiveManager.CompleteObjective("AddMainCam");
+            if (template.TryGetComponent("Camera", out component) && component.InstanceName.Equals("maincamera"))
+                ObjectiveManager.CompleteObjective("AddMainCam");
+
+            if (template.HasComponent("EnemyController"))
+            {
+                if (ObjectiveManager.CompleteObjective("AddEnemyComponent"))
+                {
+                    var o = ObjectiveManager.Get("AddEnemy");
+                    if (o != null && !o.IsComplete)
+                    {
+                        o.Description = string.Format(o.Description, template.Name);
+                        o.Data = template;
+                        ObjectiveManager.DisplayObjective("AddEnemy");
+                    }
+                }
             }
         }
 
@@ -248,7 +273,7 @@ namespace Capstone.Editor.ViewModels
                     {
                         var instance = EntityInstance.Create(_selectedTemplate);
                         Vector2 screen = new Vector2((float)point.X, (float)point.Y);
-                        ((Camera)_cam.GetComponent("camera")).ScreenToWorld(screen, instance.Entity.Translation);
+                        ((Camera)_cam.GetComponent("edcam")).ScreenToWorld(screen, instance.Entity.Translation);
                         instance.Entity.Name = string.Format("entity_{0:000}", ++_entityCounter);
                         Instances.Add(instance);
                         CheckSingleBuildObjective(instance);

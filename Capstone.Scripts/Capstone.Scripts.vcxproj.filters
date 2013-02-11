@@ -3,9 +3,11 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="EnemyController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="EnemyController.h" />
   </ItemGroup>
 </Project>
