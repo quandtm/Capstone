@@ -7,11 +7,16 @@ namespace Capstone
 		using namespace Platform;
 		using namespace Capstone::Core;
 		using namespace Capstone::Engine::Scripting;
+		using namespace Capstone::Engine::Collision;
 
 		public ref class EnemyController sealed : public Capstone::Engine::Scripting::IScript
 		{
 		private:
 			bool _isInitialised;
+			DistanceCollider^ _huntCollider;
+			DistanceCollider^ _attackCollider;
+			bool _hunting;
+			Entity^ _target;
 
 		public:
 			EnemyController();
@@ -22,6 +27,8 @@ namespace Capstone
 			property float Speed;
 			[Capstone::Core::ComponentParameterAttribute(DisplayName="Hunt Range")]
 			property float HuntRange;
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Weapon DPS")]
+			property float WeaponDPS;
 
 			// Properties
 			virtual property Entity^ Entity;

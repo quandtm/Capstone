@@ -83,5 +83,10 @@ namespace Capstone
 			_dest.y = world->Y;
 			_moving = true;
 		}
+
+		void PlayerController::TakeDamage(float damage)
+		{
+			HP = HP - damage;
+		}
 	}
 }

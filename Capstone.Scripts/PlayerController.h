@@ -14,7 +14,9 @@ namespace Capstone
 			bool _isInitialised;
 			DirectX::XMFLOAT2 _dest;
 			bool _moving;
-			int _health;
+			float _health;
+
+			bool IsAlive() { return _health > 0; }
 
 		public:
 			PlayerController();
@@ -24,10 +26,10 @@ namespace Capstone
 			[Capstone::Core::ComponentParameterAttribute(DisplayName="Speed")]
 			property float Speed;
 			[Capstone::Core::ComponentParameterAttribute(DisplayName="Health")]
-			property int HP
+			property float HP
 			{
-				int get() { return _health; }
-				void set(int val)
+				float get() { return _health; }
+				void set(float val)
 				{
 					if (_health == val) return;
 					_health = val;
@@ -57,6 +59,8 @@ namespace Capstone
 			virtual void PointerReleased(float deltaTime, float totalTime, float x, float y);
 
 			event Windows::UI::Xaml::Data::PropertyChangedEventHandler^ HealthChanged;
+
+			void TakeDamage(float damage);
 		};
 	}
 }

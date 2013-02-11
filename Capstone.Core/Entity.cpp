@@ -34,6 +34,7 @@ namespace Capstone
 		{
 			for (auto c : _components)
 			{
+				auto name = c.second->GetType()->FullName;
 				if (c.second->GetType()->FullName == typeName)
 					return c.second;
 			}

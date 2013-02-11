@@ -39,7 +39,7 @@ namespace Capstone
 			{
 				for (auto c : _colliders)
 				{
-					if (c != collider)
+					if (c != collider && c->Entity != collider->Entity)
 					{
 						if (collider->Intersects(c))
 							return c->Entity;

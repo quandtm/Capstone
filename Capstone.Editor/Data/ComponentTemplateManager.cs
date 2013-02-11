@@ -32,7 +32,7 @@ namespace Capstone.Editor.Data
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Texture)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(PlayerController)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(EnemyController)));
-            AvailableTemplates.Add(ComponentTemplate.Create(typeof(BoxCollider)));
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof(DistanceCollider)));
         }
     }
 }

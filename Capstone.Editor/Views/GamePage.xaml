@@ -9,6 +9,7 @@
     mc:Ignorable="d">
     
     <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="swapPanel_Loaded">
+        <TextBlock Margin="50 50 0 0" Text="{Binding Health}" />
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>
