@@ -26,6 +26,7 @@ namespace Capstone
 				}
 
 				void AddCollider(BoxCollider^ collider);
+				void RemoveCollider(BoxCollider^ collider);
 			};
 		}
 	}

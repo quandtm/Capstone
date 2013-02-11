@@ -15,6 +15,7 @@ namespace Capstone
 
 			void BoxCollider::Uninstall()
 			{
+				CollisionManager::Instance->RemoveCollider(this);
 			}
 		}
 	}

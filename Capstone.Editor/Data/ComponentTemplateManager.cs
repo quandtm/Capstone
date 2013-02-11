@@ -1,4 +1,5 @@
-﻿using Capstone.Engine.Graphics;
+﻿using Capstone.Engine.Collision;
+using Capstone.Engine.Graphics;
 using Capstone.Scripts;
 using System.Collections.ObjectModel;
 
@@ -30,7 +31,8 @@ namespace Capstone.Editor.Data
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Camera)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(Texture)));
             AvailableTemplates.Add(ComponentTemplate.Create(typeof(PlayerController)));
-            AvailableTemplates.Add(ComponentTemplate.Create(typeof (EnemyController)));
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof(EnemyController)));
+            AvailableTemplates.Add(ComponentTemplate.Create(typeof(BoxCollider)));
         }
     }
 }
