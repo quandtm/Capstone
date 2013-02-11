@@ -48,6 +48,17 @@ namespace Capstone
 				XMStoreFloat2(&delta, dir);
 				Entity->Translation->X = Entity->Translation->X + delta.x;
 				Entity->Translation->Y = Entity->Translation->Y + delta.y;
+
+				// Determine if we need to stop
+				curPos.x = Entity->Translation->X;
+				curPos.y = Entity->Translation->Y;
+				curVec = XMLoadFloat2(&curPos);
+				auto distVec = dVec - curVec;
+				auto distResult = XMVector2Length(distVec);
+				float dist = 0;
+				XMStoreFloat(&dist, distResult);
+				if(dist <= StopRadius)
+					_moving = false;
 			}
 		}
 
