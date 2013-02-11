@@ -111,7 +111,6 @@ namespace Capstone.Editor.ViewModels
             ScriptManager.Instance.IsRunning = false;
             _pointerDown = false;
 
-            SetupCamera();
             RegisterAllObjectives();
         }
 
@@ -189,6 +188,7 @@ namespace Capstone.Editor.ViewModels
             Instances.Clear();
             ResetObjectives();
             CheckTemplateObjectives();
+            SetupCamera();
             ResetCamera();
         }
 
@@ -326,7 +326,7 @@ namespace Capstone.Editor.ViewModels
                     };
                 _cam.AddComponent(c);
             }
-            CameraManager.Instance.MakeActive("camera");
+            CameraManager.Instance.MakeActive("edcam");
         }
 
         private void HighlightEntity(EntityInstance highlight)
