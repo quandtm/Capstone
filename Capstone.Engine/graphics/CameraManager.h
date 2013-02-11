@@ -33,6 +33,7 @@ namespace Capstone
 				void AddCamera(Platform::String^ name, Camera^ cam);
 				void RemoveCamera(Platform::String^ name);
 				void MakeActive(Platform::String^ name);
+				Camera^ GetCamera(Platform::String^ name);
 
 				void Update(float screenWidth, float screenHeight);
 			};

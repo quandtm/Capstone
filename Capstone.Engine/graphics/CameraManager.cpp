@@ -33,6 +33,11 @@ namespace Capstone
 					_active = cam;
 			}
 
+			Camera^ CameraManager::GetCamera(Platform::String^ name)
+			{
+				return _cameras[name];
+			}
+
 			void CameraManager::Update(float screenWidth, float screenHeight)
 			{
 				if (ActiveCamera != nullptr)

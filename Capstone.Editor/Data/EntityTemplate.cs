@@ -74,13 +74,27 @@ namespace Capstone.Editor.Data
             }
         }
 
-        public bool HasComponent(string name)
+        public bool HasComponent(string typeName)
         {
             foreach (var componentTemplate in Components)
             {
-                if (componentTemplate.TemplateName == name)
+                if (componentTemplate.TemplateName == typeName)
                     return true;
             }
+            return false;
+        }
+
+        public bool TryGetComponent(string typeName, out ComponentTemplate component)
+        {
+            foreach (var c in Components)
+            {
+                if (c.TemplateName.Equals(typeName))
+                {
+                    component = c;
+                    return true;
+                }
+            }
+            component = null;
             return false;
         }
     }

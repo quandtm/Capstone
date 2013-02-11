@@ -134,6 +134,7 @@ namespace Capstone.Editor.Views
 
         private void GotoMainMenu(object sender, RoutedEventArgs e)
         {
+            VM.Cleanup();
             App.CurrentApp.GoBack();
         }
     }

@@ -121,12 +121,14 @@ namespace Capstone.Editor.ViewModels
             ObjectiveManager.AddObjective("AddPlayerComponent", "Create an Entity with a PlayerController");
             ObjectiveManager.AddObjective("AddPlayer", "Create a Player Entity");
             ObjectiveManager.AddObjective("SetLevelName", "Give the level a name");
+            ObjectiveManager.AddObjective("AddMainCam", "Create an Entity with a Camera named \"maincamera\"");
         }
 
         private void ResetObjectives()
         {
             ObjectiveManager.ResetObjectives();
             ObjectiveManager.DisplayObjective("AddPlayerComponent");
+            ObjectiveManager.DisplayObjective("AddMainCam");
             ObjectiveManager.DisplayObjective("SetLevelName");
         }
 
@@ -170,6 +172,12 @@ namespace Capstone.Editor.ViewModels
                     }
                 }
             }
+
+            { // Scope to allow reuse of 'c'
+                ComponentTemplate c;
+                if (template.TryGetComponent("Camera", out c) && c.InstanceName.Equals("maincamera"))
+                    ObjectiveManager.CompleteObjective("AddMainCam");
+            }
         }
 
         // Reset the viewmodel for a new map or new load
@@ -182,6 +190,13 @@ namespace Capstone.Editor.ViewModels
             ResetObjectives();
             CheckTemplateObjectives();
             ResetCamera();
+        }
+
+        public void Cleanup()
+        {
+            foreach (var e in Instances)
+                e.Entity.DestroyComponents();
+            Instances.Clear();
         }
 
         public async Task PopulateTemplates()
@@ -301,15 +316,17 @@ namespace Capstone.Editor.ViewModels
 
         private void SetupCamera()
         {
-            _cam = new Entity();
-
-            var c = new Camera()
+            if (CameraManager.Instance.GetCamera("edcam") == null)
             {
-                Name = "camera"
-            };
-            c.Install();
+                _cam = new Entity();
+
+                var c = new Camera()
+                    {
+                        Name = "edcam"
+                    };
+                _cam.AddComponent(c);
+            }
             CameraManager.Instance.MakeActive("camera");
-            _cam.AddComponent(c);
         }
 
         private void HighlightEntity(EntityInstance highlight)
