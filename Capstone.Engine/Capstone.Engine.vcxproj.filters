@@ -32,6 +32,9 @@
     <ClCompile Include="collision\BoxCollider.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
+    <ClCompile Include="collision\DistanceCollider.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -76,6 +79,9 @@
       <Filter>Collision</Filter>
     </ClInclude>
     <ClInclude Include="collision\CollisionManager.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="collision\DistanceCollider.h">
       <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>

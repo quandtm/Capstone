@@ -231,6 +231,7 @@
   <ItemGroup>
     <ClInclude Include="collision\BoxCollider.h" />
     <ClInclude Include="collision\CollisionManager.h" />
+    <ClInclude Include="collision\DistanceCollider.h" />
     <ClInclude Include="commonpch.h" />
     <ClInclude Include="common\BasicTimer.h" />
     <ClInclude Include="common\DirectXHelper.h" />
@@ -249,6 +250,7 @@
   <ItemGroup>
     <ClCompile Include="collision\BoxCollider.cpp" />
     <ClCompile Include="collision\CollisionManager.cpp" />
+    <ClCompile Include="collision\DistanceCollider.cpp" />
     <ClCompile Include="graphics\Camera.cpp" />
     <ClCompile Include="graphics\CameraManager.cpp" />
     <ClCompile Include="graphics\SpriteRenderer.cpp" />

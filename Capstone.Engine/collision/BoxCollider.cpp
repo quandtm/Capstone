@@ -10,12 +10,12 @@ namespace Capstone
 		{
 			void BoxCollider::Install()
 			{
-				CollisionManager::Instance->AddCollider(this);
+				//CollisionManager::Instance->AddCollider(this);
 			}
 
 			void BoxCollider::Uninstall()
 			{
-				CollisionManager::Instance->RemoveCollider(this);
+				//CollisionManager::Instance->RemoveCollider(this);
 			}
 
 			bool BoxCollider::Intersects(BoxCollider^ other)

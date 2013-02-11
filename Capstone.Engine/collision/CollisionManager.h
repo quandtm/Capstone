@@ -1,5 +1,5 @@
 #pragma once
-#include "BoxCollider.h"
+#include "DistanceCollider.h"
 
 namespace Capstone
 {
@@ -10,7 +10,7 @@ namespace Capstone
 			public ref class CollisionManager sealed
 			{
 			private:
-				std::vector<BoxCollider^> _colliders;
+				std::vector<DistanceCollider^> _colliders;
 
 				static CollisionManager^ _inst;
 				CollisionManager();
@@ -25,8 +25,10 @@ namespace Capstone
 					}
 				}
 
-				void AddCollider(BoxCollider^ collider);
-				void RemoveCollider(BoxCollider^ collider);
+				void AddCollider(DistanceCollider^ collider);
+				void RemoveCollider(DistanceCollider^ collider);
+
+				Entity^ Collide(DistanceCollider^ collider);
 			};
 		}
 	}

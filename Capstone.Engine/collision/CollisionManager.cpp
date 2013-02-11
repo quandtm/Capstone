@@ -13,14 +13,14 @@ namespace Capstone
 			{
 			}
 
-			void CollisionManager::AddCollider(BoxCollider^ collider)
+			void CollisionManager::AddCollider(DistanceCollider^ collider)
 			{
 				_colliders.push_back(collider);
 			}
 
-			void CollisionManager::RemoveCollider(BoxCollider^ collider)
+			void CollisionManager::RemoveCollider(DistanceCollider^ collider)
 			{
-				std::vector<BoxCollider^>::iterator target;
+				std::vector<DistanceCollider^>::iterator target;
 				bool found = false;
 				for (auto it = _colliders.begin(); it != _colliders.end(); ++it)
 				{
@@ -33,6 +33,19 @@ namespace Capstone
 				}
 				if (found)
 					_colliders.erase(target);
+			}
+
+			Entity^ CollisionManager::Collide(DistanceCollider^ collider)
+			{
+				for (auto c : _colliders)
+				{
+					if (c != collider)
+					{
+						if (collider->Intersects(c))
+							return c->Entity;
+					}
+				}
+				return nullptr;
 			}
 		}
 	}
