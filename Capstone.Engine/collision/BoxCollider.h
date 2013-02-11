@@ -25,6 +25,9 @@ namespace Capstone
 
 				virtual void Install();
 				virtual void Uninstall();
+
+				bool IsCollidingWith(BoxCollider^ other);
+				bool IsPointInCollider(float x, float y);
 			};
 		}
 	}

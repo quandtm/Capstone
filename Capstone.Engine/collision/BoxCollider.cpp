@@ -17,6 +17,16 @@ namespace Capstone
 			{
 				CollisionManager::Instance->RemoveCollider(this);
 			}
+
+			bool BoxCollider::IsCollidingWith(BoxCollider^ other)
+			{
+				return false;
+			}
+
+			bool BoxCollider::IsPointInCollider(float x, float y)
+			{
+				return true;
+			}
 		}
 	}
 }
