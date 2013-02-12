@@ -255,6 +255,8 @@ namespace Capstone.Editor.ViewModels
                 CheckTemplateObjectives();
                 CheckBuildObjectives();
                 LevelName = levelName;
+                foreach (var inst in Instances)
+                    ApplyCost(inst);
             }
             return levelName != null;
         }
