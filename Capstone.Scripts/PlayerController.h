@@ -36,6 +36,12 @@ namespace Capstone
 					HealthChanged(this, ref new Windows::UI::Xaml::Data::PropertyChangedEventArgs("HP"));
 				}
 			}
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Melee Range")]
+			property float CloseAttackRange;
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Melee Damage")]
+			property float CloseAttackDamage;
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Melee Cooldown (seconds)")]
+			property float CloseAttackCooldown;
 
 			// Properties
 			virtual property Entity^ Entity;

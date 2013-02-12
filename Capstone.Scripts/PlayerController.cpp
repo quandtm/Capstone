@@ -7,6 +7,8 @@ namespace Capstone
 {
 	namespace Scripts
 	{
+		using namespace Capstone::Engine::Collision;
+
 		PlayerController::PlayerController()
 		{
 		}
@@ -79,9 +81,27 @@ namespace Capstone
 			auto scr = ref new Vector2(x, y);
 			auto world = ref new Vector2(x, y);
 			Capstone::Engine::Graphics::CameraManager::Instance->ActiveCamera->ScreenToWorld(scr, world);
-			_dest.x = world->X;
-			_dest.y = world->Y;
-			_moving = true;
+
+			auto clicked = CollisionManager::Instance->PointInCollider(world->X, world->Y);
+			if (clicked == nullptr)
+			{
+				_dest.x = world->X;
+				_dest.y = world->Y;
+				_moving = true;
+			}
+			else
+			{
+				auto ec = clicked->GetComponentFromType("Capstone.Scripts.EnemyController");
+				if (ec != nullptr)
+				{
+					// This is an enemy, attack it
+					auto dist = Entity->Translation->DistanceTo(clicked->Translation);
+					if (dist < CloseAttackRange)
+					{
+						// TODO: Check cooldown then attack
+					}
+				}
+			}
 		}
 
 		void PlayerController::TakeDamage(float damage)

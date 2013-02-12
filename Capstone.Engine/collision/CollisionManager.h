@@ -29,6 +29,7 @@ namespace Capstone
 				void RemoveCollider(DistanceCollider^ collider);
 
 				Entity^ Collide(DistanceCollider^ collider);
+				Entity^ PointInCollider(float x, float y);
 			};
 		}
 	}

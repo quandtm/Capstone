@@ -47,6 +47,16 @@ namespace Capstone
 				}
 				return nullptr;
 			}
+
+			Entity^ CollisionManager::PointInCollider(float x, float y)
+			{
+				for (auto c : _colliders)
+				{
+					if (c->Contains(x, y))
+						return c->Entity;
+				}
+				return nullptr;
+			}
 		}
 	}
 }

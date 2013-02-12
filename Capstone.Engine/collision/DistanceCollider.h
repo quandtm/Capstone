@@ -26,6 +26,7 @@ namespace Capstone
 
 				bool Intersects(DistanceCollider^ other);
 				Capstone::Core::Entity^ CollidesAgainst();
+				bool Contains(float x, float y);
 			};
 		}
 	}

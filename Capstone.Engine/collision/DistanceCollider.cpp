@@ -40,6 +40,19 @@ namespace Capstone
 			{
 				return CollisionManager::Instance->Collide(this);
 			}
+
+			bool DistanceCollider::Contains(float x, float y)
+			{
+				auto posF = XMFLOAT2(Entity->Translation->X + OffsetX, Entity->Translation->Y + OffsetY);
+				auto ptF = XMFLOAT2(x, y);
+				auto pos = XMLoadFloat2(&posF);
+				auto pt = XMLoadFloat2(&ptF);
+				auto v = pt - pos;
+				auto distVec = XMVector2LengthSq(v);
+				float dist;
+				XMStoreFloat(&dist, distVec);
+				return dist < (Distance * Distance);
+			}
 		}
 	}
 }
