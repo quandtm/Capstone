@@ -334,9 +334,9 @@ namespace Capstone.Editor.ViewModels
         public void DeleteSelectedEntity()
         {
             var inst = SelectedInstance;
+            SelectedInstance = null;
             inst.Entity.DestroyComponents();
             Instances.Remove(inst);
-            SelectedInstance = null;
         }
 
         private void SetupCamera()
