@@ -33,15 +33,24 @@ namespace Capstone.Editor.Data
                     switch (_type)
                     {
                         case ComponentPropertyType.Float:
-                            _data = float.Parse(s);
+                            if (string.IsNullOrWhiteSpace(s))
+                                _data = 0.0f;
+                            else
+                                _data = float.Parse(s);
                             break;
 
                         case ComponentPropertyType.Int:
-                            _data = int.Parse(s);
+                            if (string.IsNullOrWhiteSpace(s))
+                                _data = 0;
+                            else
+                                _data = int.Parse(s);
                             break;
 
                         case ComponentPropertyType.Double:
-                            _data = double.Parse(s);
+                            if (string.IsNullOrWhiteSpace(s))
+                                _data = 0.0F;
+                            else
+                                _data = double.Parse(s);
                             break;
 
                         default:
