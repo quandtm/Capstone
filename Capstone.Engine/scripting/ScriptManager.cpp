@@ -45,8 +45,8 @@ namespace Capstone
 			{
 				if (IsRunning)
 				{
-					for (auto s : _scripts)
-						s->Update(deltaTime, totalTime);
+					for (auto it = _scripts.begin(); it != _scripts.end(); ++it)
+						(*it)->Update(deltaTime, totalTime);
 				}
 			}
 
@@ -54,8 +54,8 @@ namespace Capstone
 			{
 				if (IsRunning)
 				{
-					for (auto s : _scripts)
-						s->PreDrawUpdate(deltaTime, totalTime);
+					for (auto it = _scripts.begin(); it != _scripts.end(); ++it)
+						(*it)->PreDrawUpdate(deltaTime, totalTime);
 				}
 			}
 
@@ -63,8 +63,8 @@ namespace Capstone
 			{
 				if (IsRunning)
 				{
-					for (auto s : _scripts)
-						s->PointerPressed(deltaTime, totalTime, x, y);
+					for (auto it = _scripts.begin(); it != _scripts.end(); ++it)
+						(*it)->PointerPressed(deltaTime, totalTime, x, y);
 				}
 			}
 
@@ -72,8 +72,8 @@ namespace Capstone
 			{
 				if (IsRunning)
 				{
-					for (auto s : _scripts)
-						s->PointerReleased(deltaTime, totalTime, x, y);
+					for (auto it = _scripts.begin(); it != _scripts.end(); ++it)
+						(*it)->PointerReleased(deltaTime, totalTime, x, y);
 				}
 			}
 
@@ -81,8 +81,8 @@ namespace Capstone
 			{
 				if (IsRunning)
 				{
-					for (auto s : _scripts)
-						s->PointerMoved(deltaTime, totalTime, x, y);
+					for (auto it = _scripts.begin(); it != _scripts.end(); ++it)
+						(*it)->PointerMoved(deltaTime, totalTime, x, y);
 				}
 			}
 		}

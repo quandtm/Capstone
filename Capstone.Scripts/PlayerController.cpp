@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "PlayerController.h"
+#include "EnemyController.h"
 
 using namespace DirectX;
 
@@ -28,6 +29,11 @@ namespace Capstone
 		{
 			_moving = false;
 			_dest = XMFLOAT2(0, 0);
+			_timeSinceCloseAttack = 0;
+			_closeAttackCollider = ref new DistanceCollider();
+			_closeAttackCollider->Entity = Entity;
+			_closeAttackCollider->Name = "closeAttackCollider";
+			_closeAttackCollider->Distance = CloseAttackRange;
 
 			_isInitialised = true;
 		}
@@ -38,29 +44,36 @@ namespace Capstone
 
 		void PlayerController::Update(float deltaTime, float totalTime)
 		{
-			if (_moving)
+			if (IsAlive())
 			{
-				auto curPos = XMFLOAT2(Entity->Translation->X, Entity->Translation->Y);
-				auto dVec = XMLoadFloat2(&_dest);
-				auto curVec = XMLoadFloat2(&curPos);
-				auto dir = dVec - curVec;
-				auto dirNorm = XMVector2Normalize(dir);
-				dir = dirNorm * (Speed * deltaTime);
-				XMFLOAT2 delta;
-				XMStoreFloat2(&delta, dir);
-				Entity->Translation->X = Entity->Translation->X + delta.x;
-				Entity->Translation->Y = Entity->Translation->Y + delta.y;
+				// Always increase cooldown timers - but only while below the limit so we avoid an overflow
+				if (_timeSinceCloseAttack < CloseAttackCooldown)
+					_timeSinceCloseAttack += deltaTime;
 
-				// Determine if we need to stop
-				curPos.x = Entity->Translation->X;
-				curPos.y = Entity->Translation->Y;
-				curVec = XMLoadFloat2(&curPos);
-				auto distVec = dVec - curVec;
-				auto distResult = XMVector2Length(distVec);
-				float dist = 0;
-				XMStoreFloat(&dist, distResult);
-				if(dist <= StopRadius)
-					_moving = false;
+				if (_moving)
+				{
+					auto curPos = XMFLOAT2(Entity->Translation->X, Entity->Translation->Y);
+					auto dVec = XMLoadFloat2(&_dest);
+					auto curVec = XMLoadFloat2(&curPos);
+					auto dir = dVec - curVec;
+					auto dirNorm = XMVector2Normalize(dir);
+					dir = dirNorm * (Speed * deltaTime);
+					XMFLOAT2 delta;
+					XMStoreFloat2(&delta, dir);
+					Entity->Translation->X = Entity->Translation->X + delta.x;
+					Entity->Translation->Y = Entity->Translation->Y + delta.y;
+
+					// Determine if we need to stop
+					curPos.x = Entity->Translation->X;
+					curPos.y = Entity->Translation->Y;
+					curVec = XMLoadFloat2(&curPos);
+					auto distVec = dVec - curVec;
+					auto distResult = XMVector2Length(distVec);
+					float dist = 0;
+					XMStoreFloat(&dist, distResult);
+					if(dist <= StopRadius)
+						_moving = false;
+				}
 			}
 		}
 
@@ -78,27 +91,34 @@ namespace Capstone
 
 		void PlayerController::PointerReleased(float deltaTime, float totalTime, float x, float y)
 		{
-			auto scr = ref new Vector2(x, y);
-			auto world = ref new Vector2(x, y);
-			Capstone::Engine::Graphics::CameraManager::Instance->ActiveCamera->ScreenToWorld(scr, world);
+			if (IsAlive())
+			{
+				auto scr = ref new Vector2(x, y);
+				auto world = ref new Vector2(x, y);
+				Capstone::Engine::Graphics::CameraManager::Instance->ActiveCamera->ScreenToWorld(scr, world);
 
-			auto clicked = CollisionManager::Instance->PointInCollider(world->X, world->Y);
-			if (clicked == nullptr)
-			{
-				_dest.x = world->X;
-				_dest.y = world->Y;
-				_moving = true;
-			}
-			else
-			{
-				auto ec = clicked->GetComponentFromType("Capstone.Scripts.EnemyController");
-				if (ec != nullptr)
+				auto clicked = CollisionManager::Instance->PointInCollider(world->X, world->Y);
+				if (clicked == nullptr)
 				{
-					// This is an enemy, attack it
-					auto dist = Entity->Translation->DistanceTo(clicked->Translation);
-					if (dist < CloseAttackRange)
+					_dest.x = world->X;
+					_dest.y = world->Y;
+					_moving = true;
+				}
+				else
+				{
+					auto ec = clicked->GetComponentFromType("Capstone.Scripts.EnemyController");
+					if (ec != nullptr)
 					{
-						// TODO: Check cooldown then attack
+						// This is an enemy, attack it
+						auto enemyCollider = clicked->GetComponentFromType("Capstone.Engine.Collision.DistanceCollider");
+						if (((DistanceCollider^)enemyCollider)->Intersects(_closeAttackCollider))
+						{
+							if (_timeSinceCloseAttack >= CloseAttackCooldown)
+							{
+								_timeSinceCloseAttack = 0;
+								((EnemyController^)ec)->TakeDamage(CloseAttackDamage);
+							}
+						}
 					}
 				}
 			}

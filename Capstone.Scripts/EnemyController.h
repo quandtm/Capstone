@@ -18,6 +18,8 @@ namespace Capstone
 			bool _hunting;
 			Entity^ _target;
 
+			__forceinline bool IsAlive() { return HP > 0; }
+
 		public:
 			EnemyController();
 
@@ -29,6 +31,8 @@ namespace Capstone
 			property float HuntRange;
 			[Capstone::Core::ComponentParameterAttribute(DisplayName="Weapon DPS")]
 			property float WeaponDPS;
+			[Capstone::Core::ComponentParameterAttribute(DisplayName="Health")]
+			property float HP;
 
 			// Properties
 			virtual property Entity^ Entity;
@@ -50,6 +54,8 @@ namespace Capstone
 			virtual void PointerPressed(float deltaTime, float totalTime, float x, float y);
 			virtual void PointerMoved(float deltaTime, float totalTime, float x, float y);
 			virtual void PointerReleased(float deltaTime, float totalTime, float x, float y);
+
+			void TakeDamage(float damage);
 		};
 	}
 }

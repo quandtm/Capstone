@@ -15,8 +15,11 @@ namespace Capstone
 			DirectX::XMFLOAT2 _dest;
 			bool _moving;
 			float _health;
+			float _timeSinceCloseAttack;
 
-			bool IsAlive() { return _health > 0; }
+			Capstone::Engine::Collision::DistanceCollider^ _closeAttackCollider;
+
+			__forceinline bool IsAlive() { return _health > 0; }
 
 		public:
 			PlayerController();
