@@ -27,12 +27,12 @@ namespace Capstone
 			_huntCollider = ref new DistanceCollider();
 			_huntCollider->Name = "huntCollider";
 			_huntCollider->Distance = HuntRange;
+			_huntCollider->Entity = Entity;
+
 			_attackCollider = ref new DistanceCollider();
 			_attackCollider->Name = "attackCollider";
 			_attackCollider->Distance = WeaponRange;
-
-			Entity->AddComponent(_huntCollider);
-			Entity->AddComponent(_attackCollider);
+			_attackCollider->Entity = Entity;
 
 			_hunting = false;
 
@@ -41,8 +41,6 @@ namespace Capstone
 
 		void EnemyController::Unload()
 		{
-			Entity->DestroyComponent("huntCollider");
-			Entity->DestroyComponent("attackCollider");
 		}
 
 		void EnemyController::Update(float deltaTime, float totalTime)
