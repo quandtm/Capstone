@@ -12,7 +12,7 @@ namespace Capstone.Editor.ViewModels
     {
         private readonly List<Entity> _entities;
 
-        public float Health { get; private set; }
+        public int Health { get; private set; }
 
         public GameViewModel()
         {
@@ -39,8 +39,8 @@ namespace Capstone.Editor.ViewModels
             if (playerController != null)
             {
                 var pcCast = (PlayerController)playerController;
-                Health = pcCast.HP;
-                pcCast.HealthChanged += (s, e) => Health = pcCast.HP;
+                Health = (int)pcCast.HP;
+                pcCast.HealthChanged += (s, e) => Health = (int)pcCast.HP;
             }
         }
     }

@@ -9,7 +9,14 @@
     mc:Ignorable="d">
     
     <SwapChainBackgroundPanel x:Name="swapPanel" Loaded="swapPanel_Loaded">
-        <TextBlock Margin="50 50 0 0" Text="{Binding Health}" />
+        <TextBlock Margin="0,50,48,0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="High Tower Text" Foreground="#FF2E2E2E">
+        	<Run Text="{Binding Health}" FontSize="50"/>
+        	<Run Text=" HP" FontSize="18"/>
+        </TextBlock>
+        <TextBlock Margin="0,50,50,0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="High Tower Text">
+        	<Run Text="{Binding Health}" FontSize="48"/>
+        	<Run Text=" HP" Foreground="#FFE4E4E4" FontSize="16"/>
+        </TextBlock>
     </SwapChainBackgroundPanel>
 
 </common:LayoutAwarePage>
