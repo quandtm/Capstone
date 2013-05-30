@@ -8,10 +8,32 @@
     mc:Ignorable="d">
     
     <SwapChainBackgroundPanel x:Name="bgPanel">
-    	<Grid Opacity="0.75">
+    	<Grid x:Name="editorPanel">
+    		<Grid x:Name="EdControlPanel" HorizontalAlignment="Left" Width="120" Background="Black">
+    			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Camera" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="0,10,0,0"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,60,0,0" ToolTipService.ToolTip="Pan View" Content="Move"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,150,0,0" ToolTipService.ToolTip="Reset View" Content="Reset"/>
+    			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Interact" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="0,250,0,0"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,300,0,0" ToolTipService.ToolTip="Select Entity" Content="Select"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,390,0,0" ToolTipService.ToolTip="Move Entity" Content="Move"/>
+    		</Grid>
+    		<Grid x:Name="EdToolPanel" HorizontalAlignment="Right" Width="200" Background="Black"/>
+    		<Border x:Name="EdObjectiveControl" HorizontalAlignment="Left" Height="40" Margin="140,20,0,0" VerticalAlignment="Top" Background="Black" Padding="10,5" Tapped="ToggleEditorObjectives">
+    			<TextBlock TextWrapping="Wrap" Text="Objectives" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" Margin="50,0,0,0" FontFamily="Segoe UI" FontWeight="Light"/>
+    		</Border>
+    		<Grid x:Name="EdObjectivePanel" HorizontalAlignment="Left" Width="300" Margin="140,70,0,20" Background="Black"/>
+    	</Grid>
+        
+    	<Grid x:Name="mainMenuPanel" Opacity="0.75" d:IsHidden="True">
     		<Grid.Background>
     			<SolidColorBrush x:Name="GreyBGBrush" Color="Black"/>
     		</Grid.Background>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Editor" VerticalAlignment="Top" Style="{StaticResource HeaderTextStyle}" Margin="160,180,0,0"/>
+        
+    		<Button Content="Load" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,310,0,0" IsEnabled="False" Click="OpenEditorLoad"/>
+    		<Button Content="New" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,260,0,0" Click="OpenEditorNew"/>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Game" VerticalAlignment="Top" Style="{StaticResource HeaderTextStyle}" Margin="160,380,0,0"/>
+    		<Button Content="Load Map" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,460,0,0" IsEnabled="False"/>
     	</Grid>
         
     </SwapChainBackgroundPanel>
