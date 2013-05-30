@@ -7,11 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     
-    <Grid Style="{StaticResource LayoutRootStyle}">
-        <TextBlock HorizontalAlignment="Left" Margin="100,60,0,0" TextWrapping="Wrap" Text="Capstone Prototype" VerticalAlignment="Top" Style="{StaticResource PageHeaderTextStyle}"/>
-        <Button IsEnabled="{Binding WasInGame}" Click="OpenGame" Margin="160,160,0,0" VerticalAlignment="Top" Content="Play Map" Template="{StaticResource MainMenuButton}" Width="160"/>
-        <Button IsEnabled="{Binding WasInEditor}" Content="New Map" HorizontalAlignment="Left" Margin="160,220,0,0" VerticalAlignment="Top" Click="NewMap" Template="{StaticResource MainMenuButton}" Width="160"/>
-        <Button IsEnabled="{Binding WasInEditor}" Content="Edit Map" HorizontalAlignment="Left" Margin="160,280,0,0" VerticalAlignment="Top" Click="LoadMap" Template="{StaticResource MainMenuButton}" Width="160"/>
-    </Grid>
+    <SwapChainBackgroundPanel x:Name="bgPanel">
+        
+    </SwapChainBackgroundPanel>
     
 </common:LayoutAwarePage>
