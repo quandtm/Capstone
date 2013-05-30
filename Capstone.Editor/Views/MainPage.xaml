@@ -11,17 +11,28 @@
     	<Grid x:Name="editorPanel">
     		<Grid x:Name="EdControlPanel" HorizontalAlignment="Left" Width="120" Background="Black">
     			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Camera" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="0,10,0,0"/>
-    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,60,0,0" ToolTipService.ToolTip="Pan View" Content="Move"/>
-    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,150,0,0" ToolTipService.ToolTip="Reset View" Content="Reset"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,60,0,0" ToolTipService.ToolTip="Pan View" Content="Move" IsEnabled="False"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,150,0,0" ToolTipService.ToolTip="Reset View" Content="Reset" IsEnabled="False"/>
     			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Interact" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="0,250,0,0"/>
-    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,300,0,0" ToolTipService.ToolTip="Select Entity" Content="Select"/>
-    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,390,0,0" ToolTipService.ToolTip="Move Entity" Content="Move"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,300,0,0" ToolTipService.ToolTip="Select Entity" Content="Select" IsEnabled="False"/>
+    			<Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Height="80" Margin="0,390,0,0" ToolTipService.ToolTip="Move Entity" Content="Move" IsEnabled="False"/>
+    			<Button Content="Destroy" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top" Width="80" Height="80" IsEnabled="False" ToolTipService.ToolTip="Destroy Entity"/>
     		</Grid>
-    		<Grid x:Name="EdToolPanel" HorizontalAlignment="Right" Width="200" Background="Black"/>
+    		<Grid x:Name="EdToolPanel" HorizontalAlignment="Right" Width="200" Background="Black">
+    			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Place" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}" Margin="0,20,0,0"/>
+    			<Button Content="Road" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="39,75,0,0" IsEnabled="False"/>
+    			<Button Content="Residential" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="39,118,0,0" IsEnabled="False"/>
+    			<Button Content="Business" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="39,161,0,0" IsEnabled="False"/>
+    			<Button Content="Player" HorizontalAlignment="Left" Margin="39,274,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+    			<Button Content="Forest" HorizontalAlignment="Left" Margin="39,204,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+    			<Button Content="NPC" HorizontalAlignment="Left" Margin="39,317,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+    			<Button Content="EnemySpawner" HorizontalAlignment="Left" Margin="39,360,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.437,0.395" IsEnabled="False"/>
+    			<Button Content="Loot" HorizontalAlignment="Left" Margin="39,403,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+    		</Grid>
     		<Border x:Name="EdObjectiveControl" HorizontalAlignment="Left" Height="40" Margin="140,20,0,0" VerticalAlignment="Top" Background="Black" Padding="10,5" Tapped="ToggleEditorObjectives">
     			<TextBlock TextWrapping="Wrap" Text="Objectives" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" Margin="50,0,0,0" FontFamily="Segoe UI" FontWeight="Light"/>
     		</Border>
-    		<Grid x:Name="EdObjectivePanel" HorizontalAlignment="Left" Width="300" Margin="140,70,0,20" Background="Black"/>
+    		<Grid x:Name="EdObjectivePanel" HorizontalAlignment="Left" Width="300" Margin="140,70,0,20" Background="Black" Visibility="Collapsed"/>
     	</Grid>
         
     	<Grid x:Name="mainMenuPanel" Opacity="0.75" d:IsHidden="True">
