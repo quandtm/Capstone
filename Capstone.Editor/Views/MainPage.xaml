@@ -8,6 +8,11 @@
     mc:Ignorable="d">
     
     <SwapChainBackgroundPanel x:Name="bgPanel">
+    	<Grid Opacity="0.75">
+    		<Grid.Background>
+    			<SolidColorBrush x:Name="GreyBGBrush" Color="Black"/>
+    		</Grid.Background>
+    	</Grid>
         
     </SwapChainBackgroundPanel>
     
