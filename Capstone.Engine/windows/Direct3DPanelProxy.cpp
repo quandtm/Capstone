@@ -117,6 +117,9 @@ namespace Capstone
 
 				_spriteRenderer = Capstone::Engine::Graphics::SpriteRenderer::Instance;
 				_spriteRenderer->Init(_device, _context);
+
+				_groundRenderer = ref new Capstone::Engine::Graphics::TileRenderer();
+				_roadRenderer = ref new Capstone::Engine::Graphics::TileRenderer();
 			}
 
 			void Direct3DPanelProxy::CreateSizeDependentResources()
@@ -209,6 +212,8 @@ namespace Capstone
 
 				Clear();
 
+				_groundRenderer->Draw();
+				_roadRenderer->Draw();
 				_spriteRenderer->Draw();
 
 				// Draw

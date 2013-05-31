@@ -245,6 +245,7 @@
     <ClInclude Include="resources\ResourceManager.h" />
     <ClInclude Include="scripting\IScript.h" />
     <ClInclude Include="scripting\ScriptManager.h" />
+    <ClInclude Include="TileRenderer.h" />
     <ClInclude Include="windows\Direct3DPanelProxy.h" />
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +267,7 @@
     </ClCompile>
     <ClCompile Include="resources\ResourceManager.cpp" />
     <ClCompile Include="scripting\ScriptManager.cpp" />
+    <ClCompile Include="TileRenderer.cpp" />
     <ClCompile Include="windows\Direct3DPanelProxy.cpp" />
   </ItemGroup>
   <ItemGroup>

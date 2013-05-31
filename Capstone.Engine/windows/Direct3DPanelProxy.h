@@ -2,6 +2,7 @@
 #include "common\BasicTimer.h"
 #include "../graphics/SpriteRenderer.h"
 #include "../scripting/ScriptManager.h"
+#include "../TileRenderer.h"
 
 namespace Capstone
 {
@@ -41,6 +42,10 @@ namespace Capstone
 				::Windows::Foundation::EventRegistrationToken _pressedToken, _movedToken, _releasedToken;
 
 				Capstone::Engine::Graphics::SpriteRenderer^ _spriteRenderer;
+
+				Capstone::Engine::Graphics::TileRenderer^ _groundRenderer;
+				Capstone::Engine::Graphics::TileRenderer^ _roadRenderer;
+
 				Capstone::Engine::Scripting::ScriptManager^ _scriptManager;
 				void Initialise();
 
