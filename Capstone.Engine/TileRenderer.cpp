@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "TileRenderer.h"
+#include <DDSTextureLoader.h>
+
+using namespace Capstone::Engine::Resources;
 
 namespace Capstone
 {
@@ -21,15 +24,11 @@ namespace Capstone
 			{
 				_sb = std::make_shared<DirectX::SpriteBatch>(context.Get());
 				_device = device;
+				_manager = std::shared_ptr<ResourceManager>(new ResourceManager(new Capstone::Engine::Memory::PageAllocator(30, 1024 * 1024))); // 30MB
 			}
 
 			void TileRenderer::Draw()
 			{
-			}
-
-			void TileRenderer::LoadTilesheet(Platform::String^ path, int tileWidth)
-			{
-
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 #pragma once
 #include <SpriteBatch.h>
+#include "graphics\Texture.h"
+#include "resources\ResourceManager.h"
 
 namespace Capstone
 {
@@ -12,6 +14,7 @@ namespace Capstone
 			private:
 				std::shared_ptr<DirectX::SpriteBatch> _sb;
 				Microsoft::WRL::ComPtr<ID3D11Device1> _device;
+				std::shared_ptr<Capstone::Engine::Resources::ResourceManager> _manager;
 
 				~TileRenderer();
 
@@ -21,7 +24,6 @@ namespace Capstone
 
 			public:
 				TileRenderer();
-				void LoadTilesheet(Platform::String^ path, int tileWidth);
 			};
 		}
 	}
