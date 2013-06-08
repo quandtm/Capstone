@@ -35,7 +35,9 @@
     <ClCompile Include="collision\DistanceCollider.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
-    <ClCompile Include="TileRenderer.cpp" />
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -85,7 +87,9 @@
     <ClInclude Include="collision\DistanceCollider.h">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="TileRenderer.h" />
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

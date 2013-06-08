@@ -21,6 +21,7 @@ namespace Capstone
 
 			public:
 				TileRenderer();
+				void LoadTilesheet(Platform::String^ path, int tileWidth);
 			};
 		}
 	}
