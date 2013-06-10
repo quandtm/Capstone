@@ -30,6 +30,11 @@ namespace Capstone
 			void TileRenderer::Draw()
 			{
 			}
+
+			void TileRenderer::LoadTileSheet(Platform::String^ name, Platform::String^ path, int width)
+			{
+
+			}
 		}
 	}
 }
