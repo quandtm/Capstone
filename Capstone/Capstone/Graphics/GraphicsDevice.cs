@@ -24,6 +24,7 @@ namespace Capstone.Graphics
         private D3D11.Device1 _device;
         private D3D11.DeviceContext1 _context;
         private SharpDX.DXGI.SwapChain1 _swap;
+        private int _width, _height;
 
         public event Action<double> Tick;
 
@@ -72,6 +73,9 @@ namespace Capstone.Graphics
             desc.SwapEffect = SwapEffect.FlipSequential;
             desc.Usage = Usage.RenderTargetOutput;
 
+            _width = width;
+            _height = height;
+
             var dxgiDev = ComObject.As<SharpDX.DXGI.Device>(_device.NativePointer);
             var adapter = dxgiDev.Adapter;
             var fact = adapter.GetParent<SharpDX.DXGI.Factory2>();
@@ -98,7 +102,10 @@ namespace Capstone.Graphics
 
         public void Resize(int width, int height)
         {
-            // TODO: Implement resizing
+            if (width != _width || height != _height)
+            {
+                // TODO: Resize
+            }
         }
     }
 }
