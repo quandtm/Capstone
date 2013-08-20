@@ -6,9 +6,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using D3D11 = SharpDX.Direct3D11;
 
-namespace Capstone.Graphics
+namespace Axial.Graphics
 {
-    public sealed class GraphicsDevice : IDisposable
+    public sealed class XAMLGraphicsDevice : IDisposable
     {
         private SwapChainBackgroundPanel _panel;
         private Stopwatch _sw;
@@ -31,7 +31,7 @@ namespace Capstone.Graphics
 
         public event Action<double> Tick;
 
-        public GraphicsDevice()
+        public XAMLGraphicsDevice()
         {
             _panel = null;
             _sw = new Stopwatch();
@@ -39,7 +39,7 @@ namespace Capstone.Graphics
             EnableGameLoop = true;
         }
 
-        ~GraphicsDevice()
+        ~XAMLGraphicsDevice()
         {
             Dispose();
         }
