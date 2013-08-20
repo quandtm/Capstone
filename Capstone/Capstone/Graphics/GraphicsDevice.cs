@@ -25,6 +25,7 @@ namespace Capstone.Graphics
         private D3D11.DeviceContext1 _context;
         private SharpDX.DXGI.SwapChain1 _swap;
         private int _width, _height;
+        private D3D11.RenderTargetView _rtv;
 
         public event Action<double> Tick;
 
@@ -51,6 +52,7 @@ namespace Capstone.Graphics
             _context = _device.ImmediateContext1;
 
             InitSwapChain(width, height);
+            RetrieveSetBuffers();
         }
 
         private void InitSwapChain(int width, int height)
@@ -76,10 +78,12 @@ namespace Capstone.Graphics
             _width = width;
             _height = height;
 
-            var dxgiDev = ComObject.As<SharpDX.DXGI.Device>(_device.NativePointer);
+            var dxgiDev = ComObject.As<SharpDX.DXGI.Device1>(_device.NativePointer);
             var adapter = dxgiDev.Adapter;
             var fact = adapter.GetParent<SharpDX.DXGI.Factory2>();
             _swap = fact.CreateSwapChainForComposition(_device, ref desc, null);
+
+            dxgiDev.MaximumFrameLatency = 1;
         }
 
         private void BindSwapChainBackgroundPanel(SwapChainBackgroundPanel panel)
@@ -90,6 +94,18 @@ namespace Capstone.Graphics
 
             _panel = panel;
             SetChainToPanel();
+        }
+
+        private void RetrieveSetBuffers()
+        {
+            if (_swap == null) throw new NullReferenceException("SwapChain is null");
+
+            var bb = _swap.GetBackBuffer<D3D11.Texture2D>(0);
+            _rtv = new D3D11.RenderTargetView(_device, bb);
+            bb.Dispose();
+
+            _context.OutputMerger.SetRenderTargets(_rtv);
+            _context.Rasterizer.SetViewport(0, 0, _width, _height);
         }
 
         private void SetChainToPanel()
@@ -104,7 +120,24 @@ namespace Capstone.Graphics
         {
             if (width != _width || height != _height)
             {
-                // TODO: Resize
+                if (_rtv != null)
+                {
+                    _rtv.Dispose();
+                    _rtv = null;
+                }
+
+                if (_swap != null)
+                {
+                    _swap.ResizeBuffers(2, width, height, Format.B8G8R8A8_UNorm, SwapChainFlags.None);
+                    _width = width;
+                    _height = height;
+                }
+                else
+                {
+                    InitSwapChain(width, height);
+                    SetChainToPanel();
+                }
+                RetrieveSetBuffers();
             }
         }
     }
