@@ -8,7 +8,7 @@ using D3D11 = SharpDX.Direct3D11;
 
 namespace Capstone.Graphics
 {
-    public sealed class GraphicsDevice
+    public sealed class GraphicsDevice : IDisposable
     {
         private SwapChainBackgroundPanel _panel;
         private Stopwatch _sw;
@@ -20,6 +20,8 @@ namespace Capstone.Graphics
         }
 
         public bool HasBackgroundPanel { get { return _panel != null; } }
+
+        public bool EnableGameLoop { get; set; }
 
         private D3D11.Device1 _device;
         private D3D11.DeviceContext1 _context;
@@ -34,13 +36,38 @@ namespace Capstone.Graphics
             _panel = null;
             _sw = new Stopwatch();
             CompositionTarget.Rendering += CompositionTarget_Rendering;
+            EnableGameLoop = true;
+        }
+
+        ~GraphicsDevice()
+        {
+            Dispose();
         }
 
         private void CompositionTarget_Rendering(object sender, object e)
         {
-            _sw.Restart();
-            if (Tick != null)
-                Tick(_sw.Elapsed.TotalSeconds);
+            if (EnableGameLoop)
+            {
+                _sw.Restart();
+
+                // Clear
+                _context.OutputMerger.SetRenderTargets(_rtv);
+                _context.ClearRenderTargetView(_rtv, Color4.White);
+
+                if (Tick != null)
+                    Tick(_sw.Elapsed.TotalSeconds);
+
+                var pp = new PresentParameters()
+                    {
+                        DirtyRectangles = null,
+                        ScrollOffset = null,
+                        ScrollRectangle = null
+                    };
+
+                // Present
+                _swap.Present(1, PresentFlags.None, pp);
+                _context.DiscardView(_rtv);
+            }
         }
 
         public void Initialise(int width, int height, params SharpDX.Direct3D.FeatureLevel[] featureLevels)
@@ -139,6 +166,20 @@ namespace Capstone.Graphics
                 }
                 RetrieveSetBuffers();
             }
+        }
+
+        public void Dispose()
+        {
+            if (_rtv != null)
+                _rtv.Dispose();
+            if (_swap != null)
+                _swap.Dispose();
+            if (_context != null)
+                _context.Dispose();
+            if (_device != null)
+                _device.Dispose();
+            _width = 0;
+            _height = 0;
         }
     }
 }
