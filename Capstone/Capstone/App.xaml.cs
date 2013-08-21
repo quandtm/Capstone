@@ -7,7 +7,7 @@ namespace Capstone
 {
     sealed partial class App : Application
     {
-        public static XAMLGraphicsDevice Device { get; private set; }
+        public static XamlGraphicsDevice Device { get; private set; }
 
         public App()
         {
@@ -21,7 +21,7 @@ namespace Capstone
                 var main = new MainPage();
                 Window.Current.Content = main;
 
-                Device = new XAMLGraphicsDevice();
+                Device = new XamlGraphicsDevice();
                 Device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
             }
             Window.Current.Activate();
