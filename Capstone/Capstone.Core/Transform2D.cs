@@ -46,6 +46,41 @@ namespace Capstone.Core
         }
         #endregion
 
+        #region World Transformations
+        public Vector2 Translation
+        {
+            get
+            {
+                Matrix m = Matrix.Identity;
+                if (_entity.Parent != null)
+                    _entity.Parent.Transform.GetWorld(out m);
+                return Vector2.TransformCoordinate(_translation, m);
+            }
+        }
+
+        public Vector2 Scale
+        {
+            get
+            {
+                Vector2 s = Vector2.One;
+                if (_entity.Parent != null)
+                    s = _entity.Parent.Transform.Scale;
+                return s * _scale;
+            }
+        }
+
+        public float Rotation
+        {
+            get
+            {
+                float r = 0;
+                if (_entity.Parent != null)
+                    r = _entity.Parent.Transform.Rotation;
+                return r + _rotation;
+            }
+        }
+        #endregion
+
         public Transform2D(Entity e)
         {
             if (e == null) throw new NullReferenceException("Entity cannot be null");
