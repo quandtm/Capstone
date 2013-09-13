@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using D3D11 = SharpDX.Direct3D11;
 
-namespace Axial.Graphics
+namespace Capstone.Graphics
 {
     public sealed class XamlGraphicsDevice : IDisposable
     {

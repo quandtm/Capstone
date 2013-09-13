@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Axial.Graphics;
+using Capstone.Graphics;
 using SharpDX.Direct3D;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
