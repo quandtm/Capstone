@@ -1,7 +1,7 @@
-﻿using SharpDX;
-using SharpDX.DXGI;
-using System;
+﻿using System;
 using System.Diagnostics;
+using SharpDX;
+using SharpDX.DXGI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using D3D11 = SharpDX.Direct3D11;
