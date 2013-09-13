@@ -17,7 +17,7 @@ namespace Capstone.Core
 
         // Properties
         public string Name { get; private set; }
-
+        public readonly Transform2D Transform;
         public Entity Parent
         {
             get { return _parent; }
@@ -42,6 +42,7 @@ namespace Capstone.Core
         {
             _children = new List<Entity>();
             _components = new Dictionary<Type, IComponent>();
+            Transform = new Transform2D(this);
         }
 
         public static Entity Create(string name = null, Entity parent = null)
@@ -90,6 +91,12 @@ namespace Capstone.Core
                 c.Value.Owner = null;
             }
             _components.Clear();
+        }
+
+        internal void UpdateChildTransforms()
+        {
+            for (int i = 0; i < _children.Count; i++)
+                _children[i].Transform.UpdateWorld();
         }
 
         public static Entity Find(string name)
