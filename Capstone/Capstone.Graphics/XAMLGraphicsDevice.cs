@@ -173,7 +173,7 @@ namespace Capstone.Graphics
             }
         }
 
-        public void PreDraw()
+        public void Clear()
         {
             if (!_ready) return;
             _context.OutputMerger.SetRenderTargets(_rtv);

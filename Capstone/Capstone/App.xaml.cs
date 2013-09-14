@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Capstone.Core;
 using Capstone.Graphics;
 using SharpDX.Direct3D;
 using Windows.ApplicationModel.Activation;
@@ -11,9 +12,8 @@ namespace Capstone
     sealed partial class App : Application
     {
         private static App _inst;
-        public static XamlGraphicsDevice Device { get; private set; }
 
-        private SwapChainBackgroundPanel _swapPanel;
+        private readonly SwapChainBackgroundPanel _swapPanel;
         private readonly Dictionary<Type, Page> _pages;
 
         private Page _cur;
@@ -29,6 +29,8 @@ namespace Capstone
             }
         }
 
+        public GameCore Game { get; private set; }
+
         public App()
         {
             _inst = this;
@@ -38,6 +40,7 @@ namespace Capstone
             _swapPanel.Loaded += OnSwapPanelLoaded;
 
             _pages = new Dictionary<Type, Page>();
+            Game = new GameCore();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -47,8 +50,8 @@ namespace Capstone
                 Window.Current.Content = _swapPanel;
                 _swapPanel.Children.Add(new MainPage());
 
-                Device = XamlGraphicsDevice.Instance;
-                Device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
+                var device = XamlGraphicsDevice.Instance;
+                device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
             }
             Window.Current.Activate();
         }
@@ -71,14 +74,16 @@ namespace Capstone
 
         private void OnSwapPanelSizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
         {
-            if (Device.HasBackgroundPanel)
-                Device.Resize((int)e.NewSize.Width, (int)e.NewSize.Height);
+            var device = XamlGraphicsDevice.Instance;
+            if (device.HasBackgroundPanel)
+                device.Resize((int)e.NewSize.Width, (int)e.NewSize.Height);
         }
 
         private void OnSwapPanelLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (!Device.HasBackgroundPanel)
-                Device.BackgroundPanel = _swapPanel;
+            var device = XamlGraphicsDevice.Instance;
+            if (!device.HasBackgroundPanel)
+                device.BackgroundPanel = _swapPanel;
         }
     }
 }
