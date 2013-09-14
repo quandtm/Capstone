@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using SharpDX;
 using SharpDX.DXGI;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using D3D11 = SharpDX.Direct3D11;
 
 namespace Capstone.Graphics
@@ -11,7 +9,12 @@ namespace Capstone.Graphics
     public sealed class XamlGraphicsDevice : IDisposable
     {
         private SwapChainBackgroundPanel _panel;
-        private Stopwatch _sw;
+        private bool _ready;
+        private D3D11.Device1 _device;
+        private D3D11.DeviceContext1 _context;
+        private SwapChain1 _swap;
+        private int _width, _height;
+        private D3D11.RenderTargetView _rtv;
 
         public SwapChainBackgroundPanel BackgroundPanel
         {
@@ -19,7 +22,6 @@ namespace Capstone.Graphics
             set { BindSwapChainBackgroundPanel(value); }
         }
         public bool HasBackgroundPanel { get { return _panel != null; } }
-        public bool EnableGameLoop { get; private set; }
         public Color4 ClearColour { get; set; }
 
         public SharpDX.Toolkit.Graphics.GraphicsDevice ToolkitDevice { get; private set; }
@@ -41,15 +43,6 @@ namespace Capstone.Graphics
             get { return _rtv; }
         }
 
-        private D3D11.Device1 _device;
-        private D3D11.DeviceContext1 _context;
-        private SwapChain1 _swap;
-        private int _width, _height;
-        private D3D11.RenderTargetView _rtv;
-
-        public event Action<double> Update;
-        public event Action<XamlGraphicsDevice, double> Draw;
-
         private static volatile XamlGraphicsDevice _inst = null;
         private static volatile object _sync = new object();
         public static XamlGraphicsDevice Instance
@@ -68,45 +61,14 @@ namespace Capstone.Graphics
         private XamlGraphicsDevice()
         {
             _panel = null;
-            _sw = new Stopwatch();
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
-            EnableGameLoop = false;
+            //CompositionTarget.Rendering += CompositionTarget_Rendering;
+            _ready = false;
             ClearColour = Color4.Black;
         }
 
         ~XamlGraphicsDevice()
         {
             Dispose();
-        }
-
-        private void CompositionTarget_Rendering(object sender, object e)
-        {
-            _sw.Stop();
-            if (EnableGameLoop)
-            {
-
-                if (Update != null)
-                    Update(_sw.Elapsed.TotalSeconds);
-
-                // Clear
-                _context.OutputMerger.SetRenderTargets(_rtv);
-                _context.ClearRenderTargetView(_rtv, ClearColour);
-
-                if (Draw != null)
-                    Draw(this, _sw.Elapsed.TotalSeconds);
-
-                var pp = new PresentParameters()
-                    {
-                        DirtyRectangles = null,
-                        ScrollOffset = null,
-                        ScrollRectangle = null
-                    };
-
-                // Present
-                _swap.Present(1, PresentFlags.None, pp);
-                _context.DiscardView(_rtv);
-            }
-            _sw.Start();
         }
 
         public void Initialise(int width, int height, params SharpDX.Direct3D.FeatureLevel[] featureLevels)
@@ -121,7 +83,7 @@ namespace Capstone.Graphics
 
             InitSwapChain(width, height);
             RetrieveSetBuffers();
-            EnableGameLoop = true;
+            _ready = true;
         }
 
         private void InitSwapChain(int width, int height)
@@ -209,6 +171,28 @@ namespace Capstone.Graphics
                 }
                 RetrieveSetBuffers();
             }
+        }
+
+        public void PreDraw()
+        {
+            if (!_ready) return;
+            _context.OutputMerger.SetRenderTargets(_rtv);
+            _context.ClearRenderTargetView(_rtv, ClearColour);
+        }
+
+        public void Present()
+        {
+            if (!_ready) return;
+            var pp = new PresentParameters()
+            {
+                DirtyRectangles = null,
+                ScrollOffset = null,
+                ScrollRectangle = null
+            };
+
+            // Present
+            _swap.Present(1, PresentFlags.None, pp);
+            _context.DiscardView(_rtv);
         }
 
         public void Dispose()
