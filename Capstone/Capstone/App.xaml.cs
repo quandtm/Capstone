@@ -17,7 +17,7 @@ namespace Capstone
         private readonly Dictionary<Type, Page> _pages;
 
         private Page _cur;
-        private Page Current
+        private Page CurrentPage
         {
             set
             {
@@ -56,12 +56,12 @@ namespace Capstone
             Window.Current.Activate();
         }
 
-        public static void NavigateTo<T>() where T : Page, new()
+        public static void NavigateTo<T>() where T : Page, INavigatable, new()
         {
             _inst.Navigate<T>();
         }
 
-        private void Navigate<T>() where T : Page, new()
+        private void Navigate<T>() where T : Page, INavigatable, new()
         {
             Page p;
             if (!_pages.TryGetValue(typeof(T), out p))
@@ -69,7 +69,10 @@ namespace Capstone
                 p = new T();
                 _pages.Add(typeof(T), p);
             }
-            Current = p;
+            if (_cur != null)
+                ((INavigatable)_cur).OnNavigatedFrom();
+            CurrentPage = p;
+            ((INavigatable)_cur).OnNavigatedTo();
         }
 
         private void OnSwapPanelSizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
