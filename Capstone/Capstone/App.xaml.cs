@@ -47,7 +47,7 @@ namespace Capstone
                 Window.Current.Content = _swapPanel;
                 _swapPanel.Children.Add(new MainPage());
 
-                Device = new XamlGraphicsDevice();
+                Device = XamlGraphicsDevice.Instance;
                 Device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
             }
             Window.Current.Activate();

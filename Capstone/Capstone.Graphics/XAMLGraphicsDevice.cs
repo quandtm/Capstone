@@ -19,7 +19,7 @@ namespace Capstone.Graphics
             set { BindSwapChainBackgroundPanel(value); }
         }
         public bool HasBackgroundPanel { get { return _panel != null; } }
-        public bool EnableGameLoop { get; set; }
+        public bool EnableGameLoop { get; private set; }
         public Color4 ClearColour { get; set; }
 
         public SharpDX.Toolkit.Graphics.GraphicsDevice ToolkitDevice { get; private set; }
@@ -47,14 +47,30 @@ namespace Capstone.Graphics
         private int _width, _height;
         private D3D11.RenderTargetView _rtv;
 
-        public event Action<double> Tick;
+        public event Action<double> Update;
+        public event Action<XamlGraphicsDevice, double> Draw;
 
-        public XamlGraphicsDevice()
+        private static volatile XamlGraphicsDevice _inst = null;
+        private static volatile object _sync = new object();
+        public static XamlGraphicsDevice Instance
+        {
+            get
+            {
+                lock (_sync)
+                {
+                    if (_inst == null)
+                        _inst = new XamlGraphicsDevice();
+                }
+                return _inst;
+            }
+        }
+
+        private XamlGraphicsDevice()
         {
             _panel = null;
             _sw = new Stopwatch();
             CompositionTarget.Rendering += CompositionTarget_Rendering;
-            EnableGameLoop = true;
+            EnableGameLoop = false;
             ClearColour = Color4.Black;
         }
 
@@ -65,16 +81,19 @@ namespace Capstone.Graphics
 
         private void CompositionTarget_Rendering(object sender, object e)
         {
+            _sw.Stop();
             if (EnableGameLoop)
             {
-                _sw.Restart();
+
+                if (Update != null)
+                    Update(_sw.Elapsed.TotalSeconds);
 
                 // Clear
                 _context.OutputMerger.SetRenderTargets(_rtv);
                 _context.ClearRenderTargetView(_rtv, ClearColour);
 
-                if (Tick != null)
-                    Tick(_sw.Elapsed.TotalSeconds);
+                if (Draw != null)
+                    Draw(this, _sw.Elapsed.TotalSeconds);
 
                 var pp = new PresentParameters()
                     {
@@ -87,6 +106,7 @@ namespace Capstone.Graphics
                 _swap.Present(1, PresentFlags.None, pp);
                 _context.DiscardView(_rtv);
             }
+            _sw.Start();
         }
 
         public void Initialise(int width, int height, params SharpDX.Direct3D.FeatureLevel[] featureLevels)
@@ -101,6 +121,7 @@ namespace Capstone.Graphics
 
             InitSwapChain(width, height);
             RetrieveSetBuffers();
+            EnableGameLoop = true;
         }
 
         private void InitSwapChain(int width, int height)
