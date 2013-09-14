@@ -15,8 +15,8 @@ namespace Capstone.Core
         public GameCore()
         {
             _screens = new Dictionary<Type, IScreen>();
-            CompositionTarget.Rendering += GameLoop;
             _sw = new Stopwatch();
+            CompositionTarget.Rendering += GameLoop;
         }
 
         private void GameLoop(object sender, object e)
