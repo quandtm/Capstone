@@ -46,7 +46,6 @@ namespace Capstone.Resources
 
         public T Load<T>(string key) where T : IResource, new()
         {
-            key = key.ToLower();
             ResBundle bundle;
             if (!_resources.TryGetValue(key, out bundle))
             {
@@ -69,7 +68,6 @@ namespace Capstone.Resources
 
         public void Release(string key)
         {
-            key = key.ToLower();
             ResBundle bundle;
             if (_resources.TryGetValue(key, out bundle))
             {

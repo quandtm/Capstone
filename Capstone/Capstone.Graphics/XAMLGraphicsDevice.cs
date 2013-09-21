@@ -61,7 +61,6 @@ namespace Capstone.Graphics
         private XamlGraphicsDevice()
         {
             _panel = null;
-            //CompositionTarget.Rendering += CompositionTarget_Rendering;
             _ready = false;
             ClearColour = Color4.Black;
         }
