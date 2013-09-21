@@ -5,7 +5,7 @@ namespace Capstone.Core
 {
     public sealed class Transform2D
     {
-        private Entity _entity;
+        private readonly Entity _entity;
         private Vector2 _translation, _scale;
         private float _rotation;
         private Matrix _world;

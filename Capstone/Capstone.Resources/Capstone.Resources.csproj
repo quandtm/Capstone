@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DFEAB772-0350-4F32-BD4E-253E68EAF555}</ProjectGuid>
+    <ProjectGuid>{36D835B3-4592-4C1C-B142-3B7C227F561F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Capstone.Graphics</RootNamespace>
-    <AssemblyName>Capstone.Graphics</AssemblyName>
+    <RootNamespace>Capstone.Resources</RootNamespace>
+    <AssemblyName>Capstone.Resources</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -101,9 +101,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sprites\Sprite.cs" />
-    <Compile Include="XAMLGraphicsDevice.cs" />
+    <Compile Include="ResourceCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SharpDX">
@@ -112,34 +112,15 @@
     <Reference Include="SharpDX.D3DCompiler">
       <HintPath>..\packages\SharpDX.D3DCompiler.2.5.0\lib\win8\SharpDX.D3DCompiler.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct2D1">
-      <HintPath>..\packages\SharpDX.Direct2D1.2.5.0\lib\win8\SharpDX.Direct2D1.dll</HintPath>
-    </Reference>
     <Reference Include="SharpDX.Direct3D11">
       <HintPath>..\packages\SharpDX.Direct3D11.2.5.0\lib\win8\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DXGI">
       <HintPath>..\packages\SharpDX.DXGI.2.5.0\lib\win8\SharpDX.DXGI.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Toolkit">
-      <HintPath>..\packages\SharpDX.Toolkit.2.5.0\lib\win8\SharpDX.Toolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Graphics">
-      <HintPath>..\packages\SharpDX.Toolkit.Graphics.2.5.0\lib\win8\SharpDX.Toolkit.Graphics.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Capstone.Core\Capstone.Core.csproj">
-      <Project>{3faa808e-a848-4350-b545-9a561e7deedb}</Project>
-      <Name>Capstone.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Capstone.Resources\Capstone.Resources.csproj">
-      <Project>{36d835b3-4592-4c1c-b142-3b7c227f561f}</Project>
-      <Name>Capstone.Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
