@@ -9,6 +9,10 @@ namespace Capstone.Graphics.Resources
 
         public Texture2D Texture2D { get; internal set; }
 
+        public Texture()
+        {
+        }
+
         public void Load(ResourceCache cache)
         {
             Texture2D = Texture2D.Load(XamlGraphicsDevice.Instance.ToolkitDevice, ResourceKey);

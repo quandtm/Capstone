@@ -6,7 +6,8 @@ namespace Capstone.Core
     public sealed class Transform2D
     {
         private readonly Entity _entity;
-        private Vector2 _translation, _scale;
+        private Vector3 _translation;
+        private Vector2 _scale;
         private float _rotation;
         private Matrix _world;
         private bool _dirty;
@@ -23,7 +24,7 @@ namespace Capstone.Core
             }
         }
 
-        public Vector2 LocalTranslation
+        public Vector3 LocalTranslation
         {
             get { return _translation; }
             set
@@ -47,14 +48,14 @@ namespace Capstone.Core
         #endregion
 
         #region World Transformations
-        public Vector2 Translation
+        public Vector3 Translation
         {
             get
             {
                 Matrix m = Matrix.Identity;
                 if (_entity.Parent != null)
                     _entity.Parent.Transform.GetWorld(out m);
-                return Vector2.TransformCoordinate(_translation, m);
+                return Vector3.TransformCoordinate(_translation, m);
             }
         }
 
@@ -85,7 +86,7 @@ namespace Capstone.Core
         {
             if (e == null) throw new NullReferenceException("Entity cannot be null");
             _entity = e;
-            _translation = Vector2.Zero;
+            _translation = Vector3.Zero;
             _scale = Vector2.One;
             _rotation = 0;
             _world = Matrix.Identity;
@@ -101,7 +102,7 @@ namespace Capstone.Core
             Matrix s, r, t, sr, srt;
             Matrix.Scaling(_scale.X, _scale.Y, 0, out s);
             Matrix.RotationZ(_rotation, out r);
-            Matrix.Translation(_translation.X, _translation.Y, 0, out t);
+            Matrix.Translation(_translation.X, _translation.Y, _translation.Z, out t);
             Matrix.Multiply(ref s, ref r, out sr);
             Matrix.Multiply(ref sr, ref t, out srt);
             Matrix.Multiply(ref srt, ref parent, out _world);
