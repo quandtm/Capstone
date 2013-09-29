@@ -62,7 +62,7 @@ namespace Capstone.Graphics
         {
             _panel = null;
             _ready = false;
-            ClearColour = Color4.Black;
+            ClearColour = Color.Magenta;
         }
 
         ~XamlGraphicsDevice()

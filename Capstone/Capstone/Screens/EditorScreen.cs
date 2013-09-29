@@ -2,6 +2,7 @@
 using Capstone.Graphics;
 using Capstone.Graphics.Sprites;
 using Capstone.Resources;
+using SharpDX;
 
 namespace Capstone.Screens
 {
@@ -22,8 +23,9 @@ namespace Capstone.Screens
         {
             SpriteRenderer.Instance = _spriteRenderer;
             _spriteRenderer.Initialise();
-            var test = _entities.Create("test");
-            test.AddComponent<Sprite>().Load(_cache, "Assets\\Logo.png");
+            _spriteRenderer.ScreenOffset = new Vector2(0, 100); // Offset for top toolbar
+
+            // TODO: Load things here
         }
 
         public void Destroy()
@@ -40,13 +42,17 @@ namespace Capstone.Screens
         public void Draw(double elapsedSeconds)
         {
             XamlGraphicsDevice.Instance.Clear();
+
+            // TODO: Draw things here
             SpriteRenderer.Instance.Draw();
+
             XamlGraphicsDevice.Instance.Present();
         }
 
         public void OnNavigatedTo()
         {
             SpriteRenderer.Instance = _spriteRenderer;
+            XamlGraphicsDevice.Instance.ClearColour = Color.CornflowerBlue;
         }
 
         public void OnNavigatedFrom()

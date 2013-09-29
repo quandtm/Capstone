@@ -1,4 +1,5 @@
-﻿using Capstone.Screens;
+﻿using Windows.UI.Xaml.Input;
+using Capstone.Screens;
 
 namespace Capstone.Pages
 {

@@ -1,4 +1,5 @@
-﻿using SharpDX.Toolkit.Graphics;
+﻿using SharpDX;
+using SharpDX.Toolkit.Graphics;
 using System.Collections.Generic;
 
 namespace Capstone.Graphics.Sprites
@@ -16,9 +17,12 @@ namespace Capstone.Graphics.Sprites
         private readonly List<Sprite> _sprites;
         private SpriteBatch _sb;
 
+        public Vector2 ScreenOffset { get; set; }
+
         public SpriteRenderer()
         {
             _sprites = new List<Sprite>();
+            ScreenOffset = Vector2.Zero;
         }
 
         public void Initialise()
@@ -44,7 +48,7 @@ namespace Capstone.Graphics.Sprites
                 _sb.Begin();
 
                 for (var i = 0; i < _sprites.Count; i++)
-                    _sprites[i].Draw(_sb);
+                    _sprites[i].Draw(_sb, ScreenOffset);
 
                 _sb.End();
             }

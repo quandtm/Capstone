@@ -37,12 +37,12 @@ namespace Capstone.Graphics.Sprites
             SpriteRenderer.Instance.RemoveSprite(this);
         }
 
-        internal void Draw(SpriteBatch sb)
+        internal void Draw(SpriteBatch sb, Vector2 offset)
         {
             if (_tex != null)
             {
                 var pos3 = Owner.Transform.Translation;
-                var pos = new Vector2(pos3.X, pos3.Y);
+                var pos = new Vector2(pos3.X, pos3.Y) + offset;
                 var scale = Owner.Transform.Scale;
                 var rot = Owner.Transform.Rotation;
                 var tex = _tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0];
