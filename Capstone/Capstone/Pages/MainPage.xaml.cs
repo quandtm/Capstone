@@ -1,8 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
-
-namespace Capstone
+﻿namespace Capstone.Pages
 {
-    public sealed partial class MainPage : Page, INavigatable
+    public sealed partial class MainPage : INavigatable
     {
         public MainPage()
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Capstone.Core;
 using Capstone.Graphics;
+using Capstone.Pages;
 using SharpDX.Direct3D;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -48,7 +49,7 @@ namespace Capstone
             if (Window.Current.Content == null)
             {
                 Window.Current.Content = _swapPanel;
-                _swapPanel.Children.Add(new MainPage());
+                Navigate<EditorPage>();
 
                 var device = XamlGraphicsDevice.Instance;
                 device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
@@ -59,6 +60,11 @@ namespace Capstone
         public static void NavigateTo<T>() where T : Page, INavigatable, new()
         {
             _inst.Navigate<T>();
+        }
+
+        public static T ChangeScreen<T>() where T : IScreen, new()
+        {
+            return _inst.Game.ChangeTo<T>();
         }
 
         private void Navigate<T>() where T : Page, INavigatable, new()

@@ -14,9 +14,12 @@ namespace Capstone.Graphics.Sprites
 
         private Texture _tex;
 
+        public Rectangle? SourceRegion { get; set; }
+
         public Sprite()
         {
             Origin = Vector2.Zero;
+            SourceRegion = null;
         }
 
         public void Load(ResourceCache resources, string textureName)
@@ -42,8 +45,7 @@ namespace Capstone.Graphics.Sprites
                 var pos = new Vector2(pos3.X, pos3.Y);
                 var scale = Owner.Transform.Scale;
                 var rot = Owner.Transform.Rotation;
-                // TODO: Replace sourceRect
-                sb.Draw(_tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0], pos, null, Color.White, rot, Origin, scale, SpriteEffects.None, pos3.Z);
+                sb.Draw(_tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0], pos, SourceRegion, Color.White, rot, Origin, scale, SpriteEffects.None, pos3.Z);
             }
         }
     }
