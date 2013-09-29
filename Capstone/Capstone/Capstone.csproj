@@ -155,6 +155,10 @@
       <Project>{dfeab772-0350-4f32-bd4e-253e68eaf555}</Project>
       <Name>Capstone.Graphics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Capstone.Resources\Capstone.Resources.csproj">
+      <Project>{36d835b3-4592-4c1c-b142-3b7c227f561f}</Project>
+      <Name>Capstone.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">

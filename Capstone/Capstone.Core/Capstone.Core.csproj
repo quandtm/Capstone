@@ -102,6 +102,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entity.cs" />
+    <Compile Include="EntitySet.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="IScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
