@@ -21,7 +21,7 @@
 
         </Grid>
 
-        <Grid Column="0" Row="1" Background="Transparent">
+        <Grid Column="0" Row="1" Background="Transparent" PointerPressed="HandlePointerDown" PointerReleased="HandlePointerUp" PointerMoved="HandlePointerMoved">
 
         </Grid>
 

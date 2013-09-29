@@ -12,7 +12,7 @@ namespace Capstone.Screens
         private readonly ResourceCache _cache;
         private readonly EntitySet _entities;
 
-        private Camera _camera;
+        public Camera Camera { get; private set; }
 
         public EditorScreen()
         {
@@ -27,9 +27,9 @@ namespace Capstone.Screens
             _spriteRenderer.Initialise();
 
             var camEntity = _entities.Create("camera");
-            _camera = camEntity.AddComponent<Camera>();
-            _spriteRenderer.CurrentCamera = _camera;
-            _camera.Move(0, -100); // Initial offset to account for top toolbar
+            Camera = camEntity.AddComponent<Camera>();
+            _spriteRenderer.CurrentCamera = Camera;
+            Camera.Move(0, -100); // Initial offset to account for top toolbar
 
             // Load things here
             var test = _entities.Create();
