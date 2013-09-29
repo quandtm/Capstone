@@ -1,28 +1,22 @@
-﻿using SharpDX;
+﻿using System.Collections.Generic;
+using SharpDX;
 using SharpDX.Toolkit.Graphics;
-using System.Collections.Generic;
 
 namespace Capstone.Graphics.Sprites
 {
     public class SpriteRenderer
     {
-        private static SpriteRenderer _instance;
-
-        public static SpriteRenderer Instance
-        {
-            get { return _instance; }
-            set { _instance = value; }
-        }
+        public static SpriteRenderer Instance { get; set; }
 
         private readonly List<Sprite> _sprites;
         private SpriteBatch _sb;
 
-        public Vector2 ScreenOffset { get; set; }
+        public Camera CurrentCamera { get; set; }
 
         public SpriteRenderer()
         {
             _sprites = new List<Sprite>();
-            ScreenOffset = Vector2.Zero;
+            CurrentCamera = null;
         }
 
         public void Initialise()
@@ -48,7 +42,7 @@ namespace Capstone.Graphics.Sprites
                 _sb.Begin();
 
                 for (var i = 0; i < _sprites.Count; i++)
-                    _sprites[i].Draw(_sb, ScreenOffset);
+                    _sprites[i].Draw(_sb, CurrentCamera == null ? Vector2.Zero : -CurrentCamera.GetPosition());
 
                 _sb.End();
             }

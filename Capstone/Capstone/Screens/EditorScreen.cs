@@ -12,6 +12,8 @@ namespace Capstone.Screens
         private readonly ResourceCache _cache;
         private readonly EntitySet _entities;
 
+        private Camera _camera;
+
         public EditorScreen()
         {
             _spriteRenderer = new SpriteRenderer();
@@ -23,9 +25,15 @@ namespace Capstone.Screens
         {
             SpriteRenderer.Instance = _spriteRenderer;
             _spriteRenderer.Initialise();
-            _spriteRenderer.ScreenOffset = new Vector2(0, 100); // Offset for top toolbar
 
-            // TODO: Load things here
+            var camEntity = _entities.Create("camera");
+            _camera = camEntity.AddComponent<Camera>();
+            _spriteRenderer.CurrentCamera = _camera;
+            _camera.Move(0, -100); // Initial offset to account for top toolbar
+
+            // Load things here
+            var test = _entities.Create();
+            test.AddComponent<Sprite>().Load(_cache, "Assets\\Logo.png");
         }
 
         public void Destroy()
@@ -42,10 +50,7 @@ namespace Capstone.Screens
         public void Draw(double elapsedSeconds)
         {
             XamlGraphicsDevice.Instance.Clear();
-
-            // TODO: Draw things here
             SpriteRenderer.Instance.Draw();
-
             XamlGraphicsDevice.Instance.Present();
         }
 
