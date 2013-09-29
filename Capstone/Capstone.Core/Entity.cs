@@ -44,6 +44,7 @@ namespace Capstone.Core
             c = new T();
             c.Owner = this;
             _components.Add(type, c);
+            c.Initialise();
             return (T)c;
         }
 

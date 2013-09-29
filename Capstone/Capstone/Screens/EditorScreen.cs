@@ -1,4 +1,5 @@
 ﻿using Capstone.Core;
+using Capstone.Graphics;
 using Capstone.Graphics.Sprites;
 using Capstone.Resources;
 
@@ -19,6 +20,10 @@ namespace Capstone.Screens
 
         public void Initialise()
         {
+            SpriteRenderer.Instance = _spriteRenderer;
+            _spriteRenderer.Initialise();
+            var test = _entities.Create("test");
+            test.AddComponent<Sprite>().Load(_cache, "Assets\\Logo.png");
         }
 
         public void Destroy()
@@ -34,7 +39,9 @@ namespace Capstone.Screens
 
         public void Draw(double elapsedSeconds)
         {
+            XamlGraphicsDevice.Instance.Clear();
             SpriteRenderer.Instance.Draw();
+            XamlGraphicsDevice.Instance.Present();
         }
 
         public void OnNavigatedTo()

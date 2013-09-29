@@ -6,12 +6,13 @@ namespace Capstone.Core
     {
         private readonly List<Entity> _entities;
         private readonly Dictionary<string, Entity> _lookup;
-        private static readonly List<Entity> _toDestroy;
+        private readonly List<Entity> _toDestroy;
 
         public EntitySet()
         {
             _entities = new List<Entity>();
             _lookup = new Dictionary<string, Entity>();
+            _toDestroy = new List<Entity>();
         }
 
         public Entity Create(string name = null, Entity parent = null)

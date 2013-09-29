@@ -49,10 +49,10 @@ namespace Capstone
             if (Window.Current.Content == null)
             {
                 Window.Current.Content = _swapPanel;
-                Navigate<EditorPage>();
-
                 var device = XamlGraphicsDevice.Instance;
                 device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
+
+                Navigate<EditorPage>();
             }
             Window.Current.Activate();
         }
@@ -78,7 +78,7 @@ namespace Capstone
             if (_cur != null)
                 ((INavigatable)_cur).OnNavigatedFrom();
             CurrentPage = p;
-            ((INavigatable)_cur).OnNavigatedTo();
+            ((INavigatable)p).OnNavigatedTo();
         }
 
         private void OnSwapPanelSizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)

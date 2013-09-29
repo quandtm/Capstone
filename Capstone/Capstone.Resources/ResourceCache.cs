@@ -44,18 +44,18 @@ namespace Capstone.Resources
             AutoUnload = true;
         }
 
-        public T Load<T>(string key) where T : IResource, new()
+        public T Load<T>(string path) where T : IResource, new()
         {
             ResBundle bundle;
-            if (!_resources.TryGetValue(key, out bundle))
+            if (!_resources.TryGetValue(path, out bundle))
             {
                 T res = new T
                 {
-                    ResourceKey = key
+                    ResourceKey = path
                 };
                 res.Load(this);
-                bundle = new ResBundle(key, res);
-                _resources.Add(key, bundle);
+                bundle = new ResBundle(path, res);
+                _resources.Add(path, bundle);
             }
             bundle.AddRef();
             return (T)bundle.Resource;
@@ -66,16 +66,16 @@ namespace Capstone.Resources
             Release(resource.ResourceKey);
         }
 
-        public void Release(string key)
+        public void Release(string path)
         {
             ResBundle bundle;
-            if (_resources.TryGetValue(key, out bundle))
+            if (_resources.TryGetValue(path, out bundle))
             {
                 if (!bundle.Release() && AutoUnload)
                 {
                     // No longer has references, unload
                     bundle.Resource.Unload(this);
-                    _resources.Remove(key);
+                    _resources.Remove(path);
                 }
             }
         }

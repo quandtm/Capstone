@@ -45,7 +45,8 @@ namespace Capstone.Graphics.Sprites
                 var pos = new Vector2(pos3.X, pos3.Y);
                 var scale = Owner.Transform.Scale;
                 var rot = Owner.Transform.Rotation;
-                sb.Draw(_tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0], pos, SourceRegion, Color.White, rot, Origin, scale, SpriteEffects.None, pos3.Z);
+                var tex = _tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0];
+                sb.Draw(tex, pos, SourceRegion, Color.White, rot, Origin, scale, SpriteEffects.None, pos3.Z);
             }
         }
     }
