@@ -106,6 +106,7 @@
     <Compile Include="Resources\Texture.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\SpriteRenderer.cs" />
+    <Compile Include="Sprites\TileSprite.cs" />
     <Compile Include="XAMLGraphicsDevice.cs" />
   </ItemGroup>
   <ItemGroup>
