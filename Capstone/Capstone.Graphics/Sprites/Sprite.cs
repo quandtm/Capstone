@@ -39,7 +39,7 @@ namespace Capstone.Graphics.Sprites
 
         internal void Draw(SpriteBatch sb, Vector2 offset)
         {
-            if (_tex != null)
+            if (_tex != null && _tex.IsLoaded)
             {
                 var pos3 = Owner.Transform.Translation;
                 var pos = new Vector2(pos3.X, pos3.Y) + offset;
