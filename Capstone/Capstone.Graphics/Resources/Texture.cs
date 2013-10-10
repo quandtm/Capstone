@@ -1,4 +1,6 @@
-﻿using Capstone.Resources;
+﻿using System;
+using System.Diagnostics;
+using Capstone.Resources;
 using SharpDX.Toolkit.Graphics;
 
 namespace Capstone.Graphics.Resources
@@ -9,13 +11,25 @@ namespace Capstone.Graphics.Resources
 
         public Texture2D Texture2D { get; internal set; }
 
+        public bool IsLoaded { get; private set; }
+
         public Texture()
         {
+            IsLoaded = false;
         }
 
         public void Load(ResourceCache cache)
         {
-            Texture2D = Texture2D.Load(XamlGraphicsDevice.Instance.ToolkitDevice, ResourceKey);
+            try
+            {
+                Texture2D = Texture2D.Load(XamlGraphicsDevice.Instance.ToolkitDevice, ResourceKey);
+                IsLoaded = true;
+            }
+            catch (Exception ex)
+            {
+                IsLoaded = false;
+                Debug.WriteLine("Unable to load Texture {0} - {1}", ResourceKey, ex.Message);
+            }
         }
 
         public void Unload(ResourceCache cache)
@@ -25,6 +39,7 @@ namespace Capstone.Graphics.Resources
                 Texture2D.Dispose();
                 Texture2D = null;
             }
+            IsLoaded = false;
         }
     }
 }
