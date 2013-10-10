@@ -35,6 +35,15 @@ namespace Capstone.Graphics.Sprites
             _sprites.Remove(s);
         }
 
+        internal void AddTileMap(TileSprite tileSprite)
+        {
+            // todo: add/remove tilesprite from renderer
+        }
+
+        internal void RemoveTileMap(TileSprite tileSprite)
+        {
+        }
+
         public void Draw()
         {
             if (_sprites.Count > 0)

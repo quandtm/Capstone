@@ -34,6 +34,9 @@ namespace Capstone.Screens
             // Load things here
             var test = _entities.Create();
             test.AddComponent<Sprite>().Load(_cache, "Assets\\Logo.png");
+
+            var tileTest = _entities.Create();
+            tileTest.AddComponent<TileSprite>().Load(_cache, "ms-appx:///Data/TestMap.map");
         }
 
         public void Destroy()

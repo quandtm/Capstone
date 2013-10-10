@@ -120,6 +120,9 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Capstone_TemporaryKey.pfx" />
+    <Content Include="Data\TestMap.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

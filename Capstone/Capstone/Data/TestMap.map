@@ -1,0 +1,25 @@
+﻿TEXTURE
+# Defines the texture file containing the tile atlas
+Data\Texture\Test.dds
+
+TILES
+# Defines the tile regions in the texture, also an indexed TOC for the MAP
+0,0,32,32
+32,0,32,32
+
+DIMENSIONS
+# Defines the dimensions of the tile map in tiles
+10,10
+
+MAP
+# Defines which tiles go into which cells, indexed using the order in TILES
+1,0,0,0,0,0,0,0,0,1
+0,0,1,1,1,1,1,1,0,0
+0,0,0,1,1,1,1,0,0,0
+0,0,0,0,1,1,0,0,0,0
+0,0,0,0,1,1,0,0,0,0
+0,0,0,0,1,1,0,0,0,0
+0,0,0,0,1,1,0,0,0,0
+0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0
+1,0,0,0,0,0,0,0,0,1
