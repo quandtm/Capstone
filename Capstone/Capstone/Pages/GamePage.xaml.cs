@@ -1,10 +1,14 @@
-﻿using Capstone.Screens;
+﻿using System.ComponentModel;
+using Windows.Devices.Input;
+using Capstone.Screens;
 
 namespace Capstone.Pages
 {
-    public sealed partial class GamePage : INavigatable
+    public sealed partial class GamePage : INavigatable, INotifyPropertyChanged
     {
         private GameScreen _screen;
+
+        public bool ShowTouchUI { get; private set; }
 
         public GamePage()
         {
@@ -15,10 +19,13 @@ namespace Capstone.Pages
 
         public void OnNavigatedTo()
         {
+            ShowTouchUI = new TouchCapabilities().TouchPresent >= 1;
         }
 
         public void OnNavigatedFrom()
         {
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
