@@ -29,10 +29,7 @@ namespace Capstone.Screens
             SpriteRenderer.Instance = _spriteRenderer;
             _spriteRenderer.Initialise();
 
-            var objectiveEntity = _entities.Create("objectives");
-            Objectives = objectiveEntity.AddComponent<ObjectiveManager>();
-            Objectives.CreateObjective("test1", "This is a test");
-            Objectives.CreateObjective("test2", "This is the second test");
+            Objectives = _entities.Create("objectives").AddComponent<ObjectiveManager>();
 
             var camEntity = _entities.Create("camera");
             Camera = camEntity.AddComponent<Camera>();
@@ -40,12 +37,6 @@ namespace Capstone.Screens
             Camera.Move(0, -100); // Initial offset to account for top toolbar
 
             // Load things here
-            var test = _entities.Create();
-            test.AddComponent<Sprite>().Load(_cache, "Assets\\Logo.png");
-
-            var tileTest = _entities.Create();
-            tileTest.Transform.LocalTranslation = new Vector3(300, 300, 0);
-            tileTest.AddComponent<TileSprite>().Load(_cache, "ms-appx:///Data/TestMap.map");
         }
 
         public void Destroy()

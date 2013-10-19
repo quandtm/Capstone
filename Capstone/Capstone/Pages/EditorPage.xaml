@@ -44,7 +44,7 @@
 		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222"/>
 
 		<Grid Grid.Column="0" Grid.Row="1" Background="Transparent" PointerPressed="HandlePointerDown" PointerReleased="HandlePointerUp" PointerMoved="HandlePointerMoved">
-			<ListView Margin="10,10,0,10" HorizontalAlignment="Left" Width="300" Header="Objectives" ItemsSource="{Binding Objectives}" HeaderTemplate="{StaticResource ObjHeaderTemplate}" ItemTemplate="{StaticResource ObjTemplate}" IsHitTestVisible="False" IsSwipeEnabled="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" ItemContainerStyle="{StaticResource ObjContainer}"/>
+			<ListView Margin="10,10,0,10" HorizontalAlignment="Left" Width="300" Header="Tasks" ItemsSource="{Binding Objectives}" HeaderTemplate="{StaticResource ObjHeaderTemplate}" ItemTemplate="{StaticResource ObjTemplate}" IsHitTestVisible="False" IsSwipeEnabled="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" ItemContainerStyle="{StaticResource ObjContainer}"/>
 		</Grid>
 
 		<Grid Grid.Column="1" Grid.Row="1" Background="#FF222222"/>
