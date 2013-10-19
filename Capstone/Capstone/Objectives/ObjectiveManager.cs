@@ -16,11 +16,16 @@ namespace Capstone.Objectives
             _lookup = new Dictionary<string, Objective>();
         }
 
-        public void CreateObjective(string id, string description, bool startCompleted = false)
+        public Objective CreateObjective(string id, string description, bool startCompleted = false)
         {
-            var obj = new Objective(id, description) { Completed = startCompleted };
-            Objectives.Add(obj);
-            _lookup.Add(id.ToLower(), obj);
+            Objective obj;
+            if (!_lookup.TryGetValue(id.ToLower(), out obj))
+            {
+                obj = new Objective(id, description) { Completed = startCompleted };
+                Objectives.Add(obj);
+                _lookup.Add(id.ToLower(), obj);
+            }
+            return obj;
         }
 
         public void CompleteObjective(string id)
