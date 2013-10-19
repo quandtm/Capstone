@@ -29,7 +29,7 @@ namespace Capstone.Screens
 
         public void OnNavigatedTo()
         {
-            XamlGraphicsDevice.Instance.ClearColour = Color.Black;
+            XamlGraphicsDevice.Instance.ClearColour = Color.DeepSkyBlue;
         }
 
         public void OnNavigatedFrom()

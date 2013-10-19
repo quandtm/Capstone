@@ -60,7 +60,7 @@ namespace Capstone.Screens
         public void OnNavigatedTo()
         {
             SpriteRenderer.Instance = _spriteRenderer;
-            XamlGraphicsDevice.Instance.ClearColour = Color.CornflowerBlue;
+            XamlGraphicsDevice.Instance.ClearColour = Color.DeepSkyBlue;
         }
 
         public void OnNavigatedFrom()
