@@ -52,7 +52,8 @@ namespace Capstone
                 var device = XamlGraphicsDevice.Instance;
                 device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
 
-                Navigate<EditorPage>();
+                //Navigate<EditorPage>();
+                Navigate<GamePage>();
             }
             Window.Current.Activate();
         }
