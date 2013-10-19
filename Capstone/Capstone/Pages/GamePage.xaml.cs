@@ -15,6 +15,8 @@ namespace Capstone.Pages
             InitializeComponent();
 
             _screen = App.ChangeScreen<GameScreen>();
+
+            DataContext = this;
         }
 
         public void OnNavigatedTo()
