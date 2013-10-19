@@ -7,7 +7,6 @@ using Capstone.Resources;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using Windows.Storage;
-using Buffer = SharpDX.Toolkit.Graphics.Buffer;
 using IComponent = Capstone.Core.IComponent;
 using Texture = Capstone.Graphics.Resources.Texture;
 
@@ -29,6 +28,8 @@ namespace Capstone.Graphics.Sprites
         // Width and height in tiles
         public int MapWidth { get; private set; }
         public int MapHeight { get; private set; }
+        public int MapWidthPixels { get { return MapWidth * _tileWidth; } }
+        public int MapHeightPixels { get { return MapHeight * _tileHeight; } }
 
         private Texture _tex;
         private int[] _map;
