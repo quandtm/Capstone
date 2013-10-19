@@ -106,6 +106,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
+    <Compile Include="Objectives\Objective.cs" />
+    <Compile Include="Objectives\ObjectiveManager.cs" />
     <Compile Include="Pages\EditorPage.xaml.cs">
       <DependentUpon>EditorPage.xaml</DependentUpon>
     </Compile>

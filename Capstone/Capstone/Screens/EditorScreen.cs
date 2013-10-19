@@ -1,6 +1,7 @@
 ﻿using Capstone.Core;
 using Capstone.Graphics;
 using Capstone.Graphics.Sprites;
+using Capstone.Objectives;
 using Capstone.Resources;
 using SharpDX;
 
@@ -14,6 +15,8 @@ namespace Capstone.Screens
 
         public Camera Camera { get; private set; }
 
+        public ObjectiveManager Objectives { get; private set; }
+
         public EditorScreen()
         {
             _spriteRenderer = new SpriteRenderer();
@@ -25,6 +28,11 @@ namespace Capstone.Screens
         {
             SpriteRenderer.Instance = _spriteRenderer;
             _spriteRenderer.Initialise();
+
+            var objectiveEntity = _entities.Create("objectives");
+            Objectives = objectiveEntity.AddComponent<ObjectiveManager>();
+            Objectives.CreateObjective("test1", "This is a test");
+            Objectives.CreateObjective("test2", "This is the second test");
 
             var camEntity = _entities.Create("camera");
             Camera = camEntity.AddComponent<Camera>();
