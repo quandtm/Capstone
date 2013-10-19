@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SharpDX;
+using SharpDX.Direct2D1.Effects;
 using SharpDX.Toolkit.Graphics;
 
 namespace Capstone.Graphics.Sprites
@@ -9,6 +10,7 @@ namespace Capstone.Graphics.Sprites
         public static SpriteRenderer Instance { get; set; }
 
         private readonly List<Sprite> _sprites;
+        private readonly List<TileSprite> _tiles;
         private SpriteBatch _sb;
 
         public Camera CurrentCamera { get; set; }
@@ -16,6 +18,7 @@ namespace Capstone.Graphics.Sprites
         public SpriteRenderer()
         {
             _sprites = new List<Sprite>();
+            _tiles = new List<TileSprite>();
             CurrentCamera = null;
         }
 
@@ -37,21 +40,27 @@ namespace Capstone.Graphics.Sprites
 
         internal void AddTileMap(TileSprite tileSprite)
         {
-            // todo: add/remove tilesprite from renderer
+            _tiles.Add(tileSprite);
         }
 
         internal void RemoveTileMap(TileSprite tileSprite)
         {
+            _tiles.Remove(tileSprite);
         }
 
         public void Draw()
         {
             if (_sprites.Count > 0)
             {
+                var offset = CurrentCamera == null ? Vector2.Zero : -CurrentCamera.GetPosition();
+
                 _sb.Begin();
 
+                for (int i = 0; i < _tiles.Count; i++)
+                    _tiles[i].Draw(_sb, offset);
+
                 for (var i = 0; i < _sprites.Count; i++)
-                    _sprites[i].Draw(_sb, CurrentCamera == null ? Vector2.Zero : -CurrentCamera.GetPosition());
+                    _sprites[i].Draw(_sb, offset);
 
                 _sb.End();
             }

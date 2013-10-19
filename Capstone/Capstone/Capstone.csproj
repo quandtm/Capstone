@@ -119,6 +119,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Data\Texture\Test.png" />
     <None Include="Capstone_TemporaryKey.pfx" />
     <Content Include="Data\TestMap.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -169,6 +170,7 @@
       <HintPath>..\packages\SharpDX.2.5.0\lib\win8\SharpDX.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

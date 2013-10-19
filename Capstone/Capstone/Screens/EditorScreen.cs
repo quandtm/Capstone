@@ -36,6 +36,7 @@ namespace Capstone.Screens
             test.AddComponent<Sprite>().Load(_cache, "Assets\\Logo.png");
 
             var tileTest = _entities.Create();
+            tileTest.Transform.LocalTranslation = new Vector3(300, 300, 0);
             tileTest.AddComponent<TileSprite>().Load(_cache, "ms-appx:///Data/TestMap.map");
         }
 

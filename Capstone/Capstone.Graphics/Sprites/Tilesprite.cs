@@ -7,6 +7,7 @@ using Capstone.Resources;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using Windows.Storage;
+using Buffer = SharpDX.Toolkit.Graphics.Buffer;
 using IComponent = Capstone.Core.IComponent;
 using Texture = Capstone.Graphics.Resources.Texture;
 
@@ -22,30 +23,19 @@ namespace Capstone.Graphics.Sprites
             Dimensions,
             Unknown
         }
-        /*
-         * A sprite that is rendered out from a tilemap at runtime.
-         * The sprite itself is defined by an array of tiles
-         * and then uses a tilemap texture to render out the tiles.
-         * The tilesprite will have its own grid, but won't snap to an external grid.
-         * This allows for complex "sprites" to be built up from a tilemap and
-         * rotated or positioned as needed within the world.
-         * Ideally there will be a small form of culling to help reduce overdraw.
-         * */
 
         public Entity Owner { get; set; }
-        public Vector2 Origin { get; private set; }
 
-        public int TileWidth { get; private set; }
-        public int TileHeight { get; private set; }
+        // Width and height in tiles
+        public int MapWidth { get; private set; }
+        public int MapHeight { get; private set; }
 
         private Texture _tex;
         private int[] _map;
-        private RectangleF[] _lookup;
-
-        public TileSprite()
-        {
-            Origin = Vector2.Zero;
-        }
+        private Rectangle[] _lookup;
+        // Individual tile width in pixels
+        private int _tileWidth;
+        private int _tileHeight;
 
         public void Load(ResourceCache resources, string mapFile)
         {
@@ -73,10 +63,11 @@ namespace Capstone.Graphics.Sprites
             }
 
             string texPath = string.Empty;
-            var tiles = new List<RectangleF>();
+            var tiles = new List<Rectangle>();
             var map = new List<int>();
             var stage = TileParserStage.Unknown;
             int heightParsed = 0;
+            int dimensionsParsed = 0;
 
             foreach (var line in lines)
             {
@@ -110,10 +101,10 @@ namespace Capstone.Graphics.Sprites
                                 case TileParserStage.Map:
                                     {
                                         var parts = clean.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                                        if (parts.Length != TileWidth)
+                                        if (parts.Length != MapWidth)
                                             continue;
                                         for (int i = 0; i < parts.Length; i++)
-                                            map.Add(int.Parse(parts[1]));
+                                            map.Add(int.Parse(parts[i]));
                                         heightParsed++;
                                     }
                                     break;
@@ -123,9 +114,18 @@ namespace Capstone.Graphics.Sprites
                                         var parts = clean.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                                         var x = int.Parse(parts[0]);
                                         var y = int.Parse(parts[1]);
-                                        TileWidth = x;
-                                        TileHeight = y;
-                                        stage = TileParserStage.Unknown;
+                                        if (dimensionsParsed == 0)
+                                        {
+                                            MapWidth = x;
+                                            MapHeight = y;
+                                        }
+                                        else if (dimensionsParsed == 1)
+                                        {
+                                            _tileWidth = x;
+                                            _tileHeight = y;
+                                            stage = TileParserStage.Unknown;
+                                        }
+                                        dimensionsParsed++;
                                     }
                                     break;
 
@@ -143,7 +143,7 @@ namespace Capstone.Graphics.Sprites
                                         var y = int.Parse(parts[1]);
                                         var w = int.Parse(parts[2]);
                                         var h = int.Parse(parts[3]);
-                                        var rect = new RectangleF(x, y, w, h);
+                                        var rect = new Rectangle(x, y, w, h);
                                         tiles.Add(rect);
                                     }
                                     break;
@@ -152,7 +152,7 @@ namespace Capstone.Graphics.Sprites
                         break;
                 }
             }
-            if (heightParsed != TileHeight)
+            if (heightParsed != MapHeight)
                 return string.Empty; // Error out, map height is wrong
             _lookup = tiles.ToArray();
             _map = map.ToArray();
@@ -173,7 +173,23 @@ namespace Capstone.Graphics.Sprites
         {
             if (_tex != null && _tex.IsLoaded)
             {
-                // Todo: draw the tile sprite
+                var pos3d = Owner.Transform.Translation;
+                var basePos = new Vector2(pos3d.X + offset.X, pos3d.Y + offset.Y);
+                basePos -= (new Vector2(_tileWidth * MapWidth, _tileHeight * MapHeight) / 2.0f);
+
+                int index = 0;
+                for (int y = 0; y < MapHeight; y++)
+                {
+                    for (int x = 0; x < MapWidth; x++)
+                    {
+                        var source = _lookup[_map[index]];
+                        index++;
+                        var pos = basePos + new Vector2(_tileWidth * x, _tileHeight * y);
+                        var dest = new Rectangle((int)pos.X, (int)pos.Y, _tileWidth, _tileHeight);
+                        var tex = _tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0];
+                        sb.Draw(tex, dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, pos3d.Z);
+                    }
+                }
             }
         }
     }
