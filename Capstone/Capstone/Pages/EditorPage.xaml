@@ -41,7 +41,15 @@
 			<ColumnDefinition Width="300" />
 		</Grid.ColumnDefinitions>
 
-		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222"/>
+		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222">
+			<StackPanel Orientation="Horizontal">
+				<Button Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100"/>
+				<Button Content="move" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100"/>
+				<Button Content="delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
+				<Button Content="road" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
+				<Button Content="zones" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
+			</StackPanel>
+		</Grid>
 
 		<Grid Grid.Column="0" Grid.Row="1" Background="Transparent" PointerPressed="HandlePointerDown" PointerReleased="HandlePointerUp" PointerMoved="HandlePointerMoved">
 			<ListView Margin="10,10,0,10" HorizontalAlignment="Left" Width="300" Header="Tasks" ItemsSource="{Binding Objectives}" HeaderTemplate="{StaticResource ObjHeaderTemplate}" ItemTemplate="{StaticResource ObjTemplate}" IsHitTestVisible="False" IsSwipeEnabled="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" ItemContainerStyle="{StaticResource ObjContainer}"/>
