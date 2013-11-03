@@ -107,7 +107,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\InvertedEditModeToBoolConverter.cs" />
+    <Compile Include="Converters\EditModeToBoolConverter.cs" />
+    <Compile Include="Converters\EditModeToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
+    <Compile Include="EditMode.cs" />
     <Compile Include="Objectives\Objective.cs" />
     <Compile Include="Objectives\ObjectiveManager.cs" />
     <Compile Include="Pages\EditorPage.xaml.cs">

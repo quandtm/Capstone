@@ -9,6 +9,8 @@
     mc:Ignorable="d"
     Foreground="White">
     <Page.Resources>
+    	<Converters:InvertedEditModeToBoolConverter x:Key="InvertedEditModeToBoolConverter"/>
+    	<Converters:EditModeToBoolConverter x:Key="EditModeToBoolConverter"/>
     	<Converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
         <DataTemplate x:Key="ObjHeaderTemplate">
         	<Grid Background="#7E000000" HorizontalAlignment="Stretch">
@@ -43,7 +45,7 @@
 
 		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222">
 			<StackPanel Orientation="Horizontal">
-				<Button Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100"/>
+				<Button Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=selected, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
 				<Button Content="move" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100"/>
 				<Button Content="delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
 				<Button Content="road" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>

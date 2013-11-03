@@ -15,6 +15,8 @@ namespace Capstone.Pages
 
         public ObservableCollection<Objective> Objectives { get; private set; }
 
+        public EditMode ToolMode { get; set; }
+
         public EditorPage()
         {
             InitializeComponent();
