@@ -118,15 +118,11 @@
       <DependentUpon>EditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="INavigatable.cs" />
-    <Compile Include="Pages\GamePage.xaml.cs">
-      <DependentUpon>GamePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\EditorScreen.cs" />
-    <Compile Include="Screens\GameScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -157,10 +153,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\EditorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

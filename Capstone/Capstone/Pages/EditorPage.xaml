@@ -45,11 +45,11 @@
 
 		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222">
 			<StackPanel Orientation="Horizontal">
-				<Button Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=selected, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
-				<Button Content="move" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100"/>
-				<Button Content="delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
-				<Button Content="road" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
-				<Button Content="zones" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100"/>
+                <Button Click="ChangeMode" Tag="select" Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Select, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
+                <Button Click="ChangeMode" Tag="move" Content="move" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Move, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
+                <Button Click="ChangeMode" Tag="delete" Content="delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Delete, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
+                <Button Click="ChangeMode" Tag="road" Content="road" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Road, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
+                <Button Click="ChangeMode" Tag="zone"  Content="zones" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Zone, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
 			</StackPanel>
 		</Grid>
 

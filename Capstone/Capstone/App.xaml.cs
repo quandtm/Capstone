@@ -53,7 +53,7 @@ namespace Capstone
                 device.Initialise((int)Window.Current.Bounds.Width, (int)Window.Current.Bounds.Height, FeatureLevel.Level_11_1, FeatureLevel.Level_11_0);
 
                 //Navigate<EditorPage>();
-                Navigate<GamePage>();
+                Navigate<EditorPage>();
             }
             Window.Current.Activate();
         }

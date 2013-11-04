@@ -1,9 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Capstone.Objectives;
 using Capstone.Screens;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace Capstone.Pages
@@ -57,5 +59,14 @@ namespace Capstone.Pages
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void ChangeMode(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var mode = btn.Tag as string;
+            EditMode m;
+            Enum.TryParse<EditMode>(mode, true, out m);
+            ToolMode = m;
+        }
     }
 }
