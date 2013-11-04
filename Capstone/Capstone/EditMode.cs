@@ -5,6 +5,7 @@
         Select,
         Move,
         Delete,
+        Object,
         Road,
         Zone
     }
