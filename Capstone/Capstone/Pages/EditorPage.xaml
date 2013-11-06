@@ -61,12 +61,16 @@
 
 		<Grid Grid.Column="1" Grid.Row="1" Background="#FF222222">
 			<StackPanel x:Name="CamDescPanel" Visibility="{Binding ToolMode, ConverterParameter=Camera, Converter={StaticResource EditModeToVisibilityConverter}}">
-				<TextBlock TextWrapping="Wrap" Text="Camera Mode" Margin="20,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
-				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Visibility="{Binding ToolMode, ConverterParameter=Camera, Converter={StaticResource EditModeToVisibilityConverter}}" Style="{StaticResource BodyTextStyle}" Text="Move the camera by clicking and dragging within the game world." Margin="20,20,20,0"/>
+				<TextBlock TextWrapping="Wrap" Text="Move Camera" Margin="20,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}" Text="Move the camera by clicking and dragging within the game world." Margin="20,20,20,0"/>
 			</StackPanel>
 			<StackPanel x:Name="ObjToolPanel" Visibility="{Binding ToolMode, ConverterParameter=Object, Converter={StaticResource EditModeToVisibilityConverter}}">
 				<TextBlock TextWrapping="Wrap" Text="Add Object" Style="{StaticResource SubheaderTextStyle}" Margin="20,0,0,0"/>
 				<ListBox x:Name="ObjTypeList" Margin="20,20,20,0" Height="600" ItemsSource="{Binding ObjectTypes}"/>
+			</StackPanel>
+			<StackPanel x:Name="MoveDescPanel" Visibility="{Binding ToolMode, ConverterParameter=Move, Converter={StaticResource EditModeToVisibilityConverter}}">
+				<TextBlock TextWrapping="Wrap" Text="Move Object" Margin="20,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}" Text="Move an object by clicking and dragging it around the game world." Margin="20,20,20,0"/>
 			</StackPanel>
 		</Grid>
 	</Grid>
