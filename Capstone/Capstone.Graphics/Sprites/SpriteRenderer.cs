@@ -50,7 +50,7 @@ namespace Capstone.Graphics.Sprites
 
         public void Draw()
         {
-            if (_sprites.Count > 0)
+            if (_sprites.Count > 0 || _tiles.Count > 0)
             {
                 var offset = CurrentCamera == null ? Vector2.Zero : -CurrentCamera.GetPosition();
 

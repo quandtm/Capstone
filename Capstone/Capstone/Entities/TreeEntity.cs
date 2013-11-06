@@ -10,7 +10,7 @@ namespace Capstone.Entities
     {
         public string TypeName
         {
-            get { return "treeentity"; }
+            get { return "tree"; }
         }
 
         public Entity Generate(EntitySet set, ResourceCache cache, string entityName, Dictionary<string, object> parameters)
@@ -23,7 +23,7 @@ namespace Capstone.Entities
             clickArea.Selectable = parameters.GetOrDefault("Selectable", true);
 
             var visual = e.AddComponent<TileSprite>();
-            visual.Load(cache, "Data\\TestMap.map");
+            visual.Load(cache, "ms-appx:///Data/TestMap.map");
 
             return e;
         }

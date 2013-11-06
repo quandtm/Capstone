@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     Foreground="White">
     <Page.Resources>
+    	<Converters:EditModeToVisibilityConverter x:Key="EditModeToVisibilityConverter"/>
     	<Converters:InvertedEditModeToBoolConverter x:Key="InvertedEditModeToBoolConverter"/>
     	<Converters:EditModeToBoolConverter x:Key="EditModeToBoolConverter"/>
     	<Converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
@@ -45,6 +46,7 @@
 
 		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222">
 			<StackPanel Orientation="Horizontal">
+                <Button Click="ChangeMode" Tag="camera" Content="camera" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Camera, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
                 <Button Click="ChangeMode" Tag="select" Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Select, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
                 <Button Click="ChangeMode" Tag="move" Content="move" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Move, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
                 <Button Click="ChangeMode" Tag="delete" Content="delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Delete, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
@@ -58,6 +60,11 @@
 			<ListView Margin="10,10,0,10" HorizontalAlignment="Left" Width="300" Header="Tasks" ItemsSource="{Binding Objectives}" HeaderTemplate="{StaticResource ObjHeaderTemplate}" ItemTemplate="{StaticResource ObjTemplate}" IsHitTestVisible="False" IsSwipeEnabled="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" ItemContainerStyle="{StaticResource ObjContainer}"/>
 		</Grid>
 
-		<Grid Grid.Column="1" Grid.Row="1" Background="#FF222222"/>
+		<Grid Grid.Column="1" Grid.Row="1" Background="#FF222222">
+			<StackPanel x:Name="ObjToolPanel" Visibility="{Binding ToolMode, ConverterParameter=Object, Converter={StaticResource EditModeToVisibilityConverter}}">
+				<TextBlock TextWrapping="Wrap" Text="Add Object" Style="{StaticResource SubheaderTextStyle}" Margin="20,0,0,0"/>
+				<ListBox x:Name="ObjTypeList" Margin="20,20,20,0" Height="600" ItemsSource="{Binding ObjectTypes}"/>
+			</StackPanel>
+		</Grid>
 	</Grid>
 </Page>

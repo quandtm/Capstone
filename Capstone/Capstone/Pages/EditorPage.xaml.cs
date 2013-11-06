@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Capstone.Objectives;
@@ -17,6 +18,8 @@ namespace Capstone.Pages
 
         public ObservableCollection<Objective> Objectives { get; private set; }
 
+        public List<string> ObjectTypes { get; private set; }
+
         public EditMode ToolMode { get; set; }
 
         public EditorPage()
@@ -27,7 +30,15 @@ namespace Capstone.Pages
 
             Objectives = _screen.Objectives.Objectives;
 
+            ObjectTypes = new List<string>();
+            BuildObjTypeList();
+
             DataContext = this;
+        }
+
+        private void BuildObjTypeList()
+        {
+            ObjectTypes.Add("Tree");
         }
 
         public void OnNavigatedTo()
@@ -41,6 +52,24 @@ namespace Capstone.Pages
         private void HandlePointerDown(object sender, PointerRoutedEventArgs e)
         {
             _prevPoint = e.GetCurrentPoint((UIElement)sender);
+
+            switch (ToolMode)
+            {
+                case EditMode.Object:
+                    var selected = ObjTypeList.SelectedItem;
+                    if (selected is string)
+                    {
+                        var pos = _screen.Camera.Owner.Transform.LocalTranslation;
+                        pos.Z = 0;
+                        pos.X += (float)_prevPoint.Position.X;
+                        pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
+                        var p = new Dictionary<string, object>();
+                        p.Add("BaseWidth", 320f);
+                        p.Add("BaseHeight", 320f);
+                        _screen.AddObject(selected as string, null, pos.X, pos.Y, 0, p);
+                    }
+                    break;
+            }
         }
 
         private void HandlePointerUp(object sender, PointerRoutedEventArgs e)
@@ -53,7 +82,8 @@ namespace Capstone.Pages
             if (_prevPoint != null)
             {
                 var curPt = e.GetCurrentPoint((UIElement)sender);
-                _screen.Camera.Move((float)(_prevPoint.Position.X - curPt.Position.X), (float)(_prevPoint.Position.Y - curPt.Position.Y));
+                if (ToolMode == EditMode.Camera)
+                    _screen.Camera.Move((float)(_prevPoint.Position.X - curPt.Position.X), (float)(_prevPoint.Position.Y - curPt.Position.Y));
                 _prevPoint = curPt;
             }
         }
