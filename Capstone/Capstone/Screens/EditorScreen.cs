@@ -51,7 +51,7 @@ namespace Capstone.Screens
         public Entity AddObject(string entityTypeName, string entityName, Dictionary<string, object> parameters)
         {
             IEntityGenerator gen;
-            if (_generators.TryGetValue(entityTypeName, out gen))
+            if (_generators.TryGetValue(entityTypeName.ToLower(), out gen))
                 return gen.Generate(_entities, parameters);
             return null;
         }
