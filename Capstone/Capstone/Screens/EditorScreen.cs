@@ -48,11 +48,15 @@ namespace Capstone.Screens
             Camera.Move(0, -100); // Initial offset to account for top toolbar
         }
 
-        public Entity AddObject(string entityTypeName, string entityName, Dictionary<string, object> parameters)
+        public Entity AddObject(string entityTypeName, string entityName, float x, float y, float depth, Dictionary<string, object> parameters)
         {
             IEntityGenerator gen;
             if (_generators.TryGetValue(entityTypeName.ToLower(), out gen))
-                return gen.Generate(_entities, entityName, parameters);
+            {
+                var e = gen.Generate(_entities, _cache, entityName, parameters);
+                e.Transform.LocalTranslation = new Vector3(x, y, depth);
+                return e;
+            }
             return null;
         }
 
