@@ -3,7 +3,6 @@
     public enum EditMode
     {
         Camera,
-        Select,
         Move,
         Delete,
         Object,

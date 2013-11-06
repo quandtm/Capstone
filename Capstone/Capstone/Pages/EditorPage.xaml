@@ -47,7 +47,6 @@
 		<Grid Grid.ColumnSpan="2" Grid.Row="0" Background="#FF222222">
 			<StackPanel Orientation="Horizontal">
                 <Button Click="ChangeMode" Tag="camera" Content="camera" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Camera, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
-                <Button Click="ChangeMode" Tag="select" Content="select" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Select, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
                 <Button Click="ChangeMode" Tag="move" Content="move" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Move, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
                 <Button Click="ChangeMode" Tag="delete" Content="delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Delete, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
                 <Button Click="ChangeMode" Tag="object" Content="objects" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="100" IsEnabled="{Binding ToolMode, ConverterParameter=Object, Converter={StaticResource InvertedEditModeToBoolConverter}}"/>
