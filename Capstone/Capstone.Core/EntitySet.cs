@@ -37,6 +37,7 @@ namespace Capstone.Core
         public void Destroy(Entity e)
         {
             _toDestroy.Remove(e);
+            e.DestroyChildren();
         }
 
         public void Destroy(string name)

@@ -70,6 +70,13 @@ namespace Capstone.Core
             _components.Clear();
         }
 
+        internal void DestroyChildren()
+        {
+            foreach (var c in _children)
+                Owner.Destroy(c);
+            _children.Clear();
+        }
+
         internal void UpdateChildTransforms()
         {
             for (int i = 0; i < _children.Count; i++)

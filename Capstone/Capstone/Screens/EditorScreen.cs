@@ -1,4 +1,6 @@
-﻿using Capstone.Core;
+﻿using System.Collections.Generic;
+using Capstone.Core;
+using Capstone.Entities;
 using Capstone.Graphics;
 using Capstone.Graphics.Sprites;
 using Capstone.Objectives;
@@ -17,11 +19,20 @@ namespace Capstone.Screens
 
         public ObjectiveManager Objectives { get; private set; }
 
+        private readonly Dictionary<string, IEntityGenerator> _generators;
+
         public EditorScreen()
         {
             _spriteRenderer = new SpriteRenderer();
             _cache = new ResourceCache();
             _entities = new EntitySet();
+            _generators = new Dictionary<string, IEntityGenerator>();
+            RegisterGenerators();
+        }
+
+        private void RegisterGenerators()
+        {
+
         }
 
         public void Initialise()
@@ -35,8 +46,19 @@ namespace Capstone.Screens
             Camera = camEntity.AddComponent<Camera>();
             _spriteRenderer.CurrentCamera = Camera;
             Camera.Move(0, -100); // Initial offset to account for top toolbar
+        }
 
-            // Load things here
+        public Entity AddObject(string entityTypeName, string entityName, Dictionary<string, object> parameters)
+        {
+            IEntityGenerator gen;
+            if (_generators.TryGetValue(entityTypeName, out gen))
+                return gen.Generate(_entities, parameters);
+            return null;
+        }
+
+        public void RemoveObject(Entity e)
+        {
+            _entities.Destroy(e);
         }
 
         public void Destroy()

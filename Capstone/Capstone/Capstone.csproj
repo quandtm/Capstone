@@ -112,6 +112,7 @@
     <Compile Include="Converters\EditModeToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
     <Compile Include="EditMode.cs" />
+    <Compile Include="Entities\IEntityGenerator.cs" />
     <Compile Include="Objectives\Objective.cs" />
     <Compile Include="Objectives\ObjectiveManager.cs" />
     <Compile Include="Pages\EditorPage.xaml.cs">
