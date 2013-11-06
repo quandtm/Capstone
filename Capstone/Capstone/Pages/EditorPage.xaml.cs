@@ -23,6 +23,7 @@ namespace Capstone.Pages
         public List<string> ObjectTypes { get; private set; }
 
         public EditMode ToolMode { get; set; }
+        public ObjectType DeleteMode { get; set; }
 
         private Graphics.Grid _gameGrid;
         private Core.Entity _selected;
@@ -42,6 +43,11 @@ namespace Capstone.Pages
             _gameGrid = new Graphics.Grid(Vector3.Zero, 32, 1000, 1000);
             _selected = null;
             _offset = Vector3.Zero;
+
+            DeleteModeCombo.Items.Add(ObjectType.Object);
+            //DeleteModeCombo.Items.Add(ObjectType.Road);
+            //DeleteModeCombo.Items.Add(ObjectType.Zone);
+            DeleteModeCombo.SelectedIndex = 0;
 
             DataContext = this;
         }
@@ -99,15 +105,30 @@ namespace Capstone.Pages
 
         private void HandlePointerUp(object sender, PointerRoutedEventArgs e)
         {
-            _prevPoint = null;
-
             switch (ToolMode)
             {
                 case EditMode.Move:
                     _selected = null;
                     _offset = Vector3.Zero;
                     break;
+
+                case EditMode.Delete:
+                    {
+                        switch (DeleteMode)
+                        {
+                            case ObjectType.Object:
+                                var pos = _screen.Camera.Owner.Transform.LocalTranslation;
+                                pos.X += (float)_prevPoint.Position.X;
+                                pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
+                                var toDelete = ClickDetector.GetClicked(pos.X, pos.Y);
+                                if (toDelete != null)
+                                    _screen.RemoveObject(toDelete);
+                                break;
+                        }
+                    }
+                    break;
             }
+            _prevPoint = null;
         }
 
         private void HandlePointerMoved(object sender, PointerRoutedEventArgs e)

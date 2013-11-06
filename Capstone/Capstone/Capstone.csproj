@@ -119,6 +119,7 @@
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Objectives\Objective.cs" />
     <Compile Include="Objectives\ObjectiveManager.cs" />
+    <Compile Include="ObjectType.cs" />
     <Compile Include="Pages\EditorPage.xaml.cs">
       <DependentUpon>EditorPage.xaml</DependentUpon>
     </Compile>
