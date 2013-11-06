@@ -107,6 +107,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\ClickArea.cs" />
+    <Compile Include="Components\ClickDetector.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedEditModeToBoolConverter.cs" />
     <Compile Include="Converters\EditModeToBoolConverter.cs" />
