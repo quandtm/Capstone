@@ -32,7 +32,7 @@ namespace Capstone.Screens
 
         private void RegisterGenerators()
         {
-
+            AddGenerator(new TreeEntity());
         }
 
         public void Initialise()
@@ -52,7 +52,7 @@ namespace Capstone.Screens
         {
             IEntityGenerator gen;
             if (_generators.TryGetValue(entityTypeName.ToLower(), out gen))
-                return gen.Generate(_entities, parameters);
+                return gen.Generate(_entities, entityName, parameters);
             return null;
         }
 
@@ -88,6 +88,11 @@ namespace Capstone.Screens
         public void OnNavigatedFrom()
         {
             SpriteRenderer.Instance = null;
+        }
+
+        private void AddGenerator(IEntityGenerator g)
+        {
+            _generators.Add(g.TypeName.ToLower(), g);
         }
     }
 }
