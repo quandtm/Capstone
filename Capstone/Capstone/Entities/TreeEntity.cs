@@ -20,7 +20,6 @@ namespace Capstone.Entities
             var clickArea = e.AddComponent<ClickArea>();
             clickArea.BaseWidth = parameters.GetOrDefault("BaseWidth", 1f);
             clickArea.BaseHeight = parameters.GetOrDefault("BaseHeight", 1f);
-            clickArea.Selectable = parameters.GetOrDefault("Selectable", true);
 
             var visual = e.AddComponent<TileSprite>();
             visual.Load(cache, "ms-appx:///Data/TestMap.map");
