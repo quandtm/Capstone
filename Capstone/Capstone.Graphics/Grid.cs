@@ -7,50 +7,33 @@ namespace Capstone.Graphics
         private Vector3 _topLeftCenter;
         private Vector3 _topLeft;
         private float _cellSize;
-        private int _width;
-        private int _height;
 
-        public Grid(Vector3 center, float cellSize, int width, int height)
+        public Grid(Vector3 topLeft, float cellSize)
         {
             _cellSize = cellSize;
-            _width = width;
-            _height = height;
-            _topLeft = center - (new Vector3(width / 2, height / 2, 0) * cellSize);
+            _topLeft = topLeft - (new Vector3(.5f, .5f, 0) * cellSize);
             _topLeftCenter = _topLeft + new Vector3(cellSize / 2, cellSize / 2, 0);
         }
 
-        public bool ContainsPoint(Vector3 v)
+        public Vector3 ToCellCenter(int x, int y, float? cellSize = null)
         {
-            int x, y;
-            ToCellCoords(v, out x, out y);
-            return x >= 0 && x < _width && y >= 0 && y < _height;
+            var cs = cellSize.HasValue ? cellSize.Value : _cellSize;
+            return _topLeftCenter + (new Vector3(x, y, 0) * cs);
         }
 
-        public Vector3 ToCellCenter(int x, int y)
+        public void ToCellCoords(Vector3 v, out int x, out int y, float? cellSize = null)
         {
-            return _topLeftCenter + (new Vector3(x, y, 0) * _cellSize);
-        }
-
-        public void ToCellCoords(Vector3 v, out int x, out int y)
-        {
-            x = y = 0;
+            var cs = cellSize.HasValue ? cellSize.Value : _cellSize;
             var dir = v - _topLeft;
-            x = (int)(dir.X / _cellSize);
-            y = (int)(dir.Y / _cellSize);
+            x = (int)(dir.X / cs);
+            y = (int)(dir.Y / cs);
         }
 
-        public Vector2 ToCellCoords(Vector3 v)
+        public Vector3 Snap(Vector3 v, float? altCellSize = null)
         {
             int x, y;
-            ToCellCoords(v, out x, out y);
-            return new Vector2(x, y);
-        }
-
-        public Vector3 Snap(Vector3 v)
-        {
-            int x, y;
-            ToCellCoords(v, out x, out y);
-            return ToCellCenter(x, y);
+            ToCellCoords(v, out x, out y, altCellSize);
+            return ToCellCenter(x, y, altCellSize);
         }
     }
 }

@@ -40,12 +40,12 @@ namespace Capstone.Pages
             ObjectTypes = new List<string>();
             BuildObjTypeList();
 
-            _gameGrid = new Graphics.Grid(Vector3.Zero, 32, 1000, 1000);
+            _gameGrid = new Graphics.Grid(Vector3.Zero, 32);
             _selected = null;
             _offset = Vector3.Zero;
 
             DeleteModeCombo.Items.Add(ObjectType.Object);
-            //DeleteModeCombo.Items.Add(ObjectType.Road);
+            DeleteModeCombo.Items.Add(ObjectType.Road);
             //DeleteModeCombo.Items.Add(ObjectType.Zone);
             DeleteModeCombo.SelectedIndex = 0;
 
@@ -83,7 +83,7 @@ namespace Capstone.Pages
                         var p = new Dictionary<string, object>();
                         p.Add("BaseWidth", 320f);
                         p.Add("BaseHeight", 320f);
-                        _screen.AddObject(selected as string, null, pos.X, pos.Y, 0, p);
+                        _selected = _screen.AddObject(selected as string, null, pos.X, pos.Y, 0, p);
                     }
                     break;
 
@@ -107,6 +107,7 @@ namespace Capstone.Pages
         {
             switch (ToolMode)
             {
+                case EditMode.Object:
                 case EditMode.Move:
                     _selected = null;
                     _offset = Vector3.Zero;
@@ -139,9 +140,10 @@ namespace Capstone.Pages
                 switch (ToolMode)
                 {
                     case EditMode.Camera:
-                        _screen.Camera.Move((float)(_prevPoint.Position.X - curPt.Position.X), (float)(_prevPoint.Position.Y - curPt.Position.Y));
+                        _screen.Camera.Move((float)(_prevPoint.Position.X - curPt.Position.X), (float)(_prevPoint.Position.Y - curPt.Position.Y), 0, 0);
                         break;
 
+                    case EditMode.Object:
                     case EditMode.Move:
                         if (_selected != null)
                         {

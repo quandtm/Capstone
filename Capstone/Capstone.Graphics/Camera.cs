@@ -1,5 +1,6 @@
 ﻿using Capstone.Core;
 using SharpDX;
+using System;
 using IComponent = Capstone.Core.IComponent;
 
 namespace Capstone.Graphics
@@ -8,9 +9,13 @@ namespace Capstone.Graphics
     {
         public Entity Owner { get; set; }
 
-        public void Move(float dx, float dy)
+        public void Move(float dx, float dy, float minX = float.MinValue, float minY = float.MinValue, float maxX = float.MaxValue, float maxY = float.MaxValue)
         {
-            Owner.Transform.LocalTranslation = Owner.Transform.LocalTranslation + new Vector3(dx, dy, 0);
+            var pos = Owner.Transform.LocalTranslation + new Vector3(dx, dy, 0);
+            if (maxX > minX)
+                pos.X = Math.Max(Math.Min(pos.X, maxX), minX);
+            if (maxY > minY)
+                pos.Y = Math.Max(Math.Min(pos.Y, maxY), minY);
         }
 
         public void SetPosition(float x, float y)
