@@ -109,6 +109,15 @@ namespace Capstone.Pages
                         }
                     }
                     break;
+
+                case EditMode.Road:
+                    StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value);
+                    break;
+
+                case EditMode.Delete:
+                    if (DeleteMode == ObjectType.Road)
+                        StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
+                    break;
             }
         }
 
@@ -126,16 +135,14 @@ namespace Capstone.Pages
 
                 case EditMode.Delete:
                     {
-                        switch (DeleteMode)
+                        if (DeleteMode == ObjectType.Object)
                         {
-                            case ObjectType.Object:
-                                var pos = _screen.Camera.Owner.Transform.LocalTranslation;
-                                pos.X += (float)_prevPoint.Position.X;
-                                pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
-                                var toDelete = ClickDetector.GetClicked(pos.X, pos.Y);
-                                if (toDelete != null)
-                                    _screen.RemoveObject(toDelete);
-                                break;
+                            var pos = _screen.Camera.Owner.Transform.LocalTranslation;
+                            pos.X += (float)_prevPoint.Position.X;
+                            pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
+                            var toDelete = ClickDetector.GetClicked(pos.X, pos.Y);
+                            if (toDelete != null)
+                                _screen.RemoveObject(toDelete);
                         }
                     }
                     break;
@@ -170,12 +177,17 @@ namespace Capstone.Pages
                     case EditMode.Road:
                         StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value);
                         break;
+
+                    case EditMode.Delete:
+                        if (DeleteMode == ObjectType.Road)
+                            StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
+                        break;
                 }
                 _prevPoint = curPt;
             }
         }
 
-        private void StampRoad(float mouseX, float mouseY, int size)
+        private void StampRoad(float mouseX, float mouseY, int size, int val = 0)
         {
             var pos = _screen.Camera.Owner.Transform.LocalTranslation;
             pos.Z = 1;
@@ -183,16 +195,16 @@ namespace Capstone.Pages
             pos.Y += mouseY + 100; // +100 to offset camera position
             int cx, cy;
             _gameGrid.ToCellCoords(pos, out cx, out cy);
-
-            var xStart = Math.Max(cx - (size / 2), 0);
-            var yStart = Math.Max(cy - (size / 2), 0);
+            var halfSize = (int)(((float)size / 2) - 0.5f);
+            var xStart = Math.Max(cx - halfSize, 0);
+            var yStart = Math.Max(cy - halfSize, 0);
 
             for (int y = yStart; y < yStart + size; y++)
             {
                 for (int x = xStart; x < xStart + size; x++)
                 {
                     var index = (y * _roadSprite.MapWidth) + x;
-                    _roadSprite.Map[index] = 0;
+                    _roadSprite.Map[index] = val;
                 }
             }
         }

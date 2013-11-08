@@ -11,5 +11,5 @@ TILES
 
 DIMENSIONS
 # Defines the dimensions of the tile map in tiles
-64,64
+128,128
 32,32
