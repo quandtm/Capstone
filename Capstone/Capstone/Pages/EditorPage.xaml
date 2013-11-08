@@ -72,10 +72,16 @@
 				<TextBlock TextWrapping="Wrap" Text="Move Object" Margin="20,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
 				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}" Text="Move an object by clicking and dragging it around the game world." Margin="20,20,20,0"/>
 			</StackPanel>
-			<StackPanel x:Name="DeletePanel" Visibility="{Binding ToolMode, ConverterParameter=Delete, Converter={StaticResource EditModeToVisibilityConverter}}">
+			<StackPanel x:Name="DeletePanel" Visibility="{Binding ToolMode, ConverterParameter=Delete, Converter={StaticResource EditModeToVisibilityConverter}}" d:IsHidden="True">
 				<TextBlock TextWrapping="Wrap" Text="Delete Object" Margin="20,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
 				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}" Text="Select the category of object to delete, and click on it to delete it." Margin="20,20,0,0"/>
 				<ComboBox x:Name="DeleteModeCombo" Margin="20,20,20,0" SelectedItem="{Binding DeleteMode, Mode=TwoWay}"/>
+			</StackPanel>
+			<StackPanel x:Name="RoadPanel" Visibility="{Binding ToolMode, ConverterParameter=Road, Converter={StaticResource EditModeToVisibilityConverter}}">
+				<TextBlock TextWrapping="Wrap" Text="Road Tool" Margin="20,0,-200,0" Style="{StaticResource SubheaderTextStyle}"/>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}" Text="Click to paint roads onto the map." Margin="20,20,-192,0"/>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource ItemTextStyle}" Text="Brush Size" Margin="20,20,0,0"/>
+				<Slider x:Name="BrushSizeSlider" Margin="20,0" LargeChange="1" Maximum="5" Minimum="1" Value="3" VerticalAlignment="Top"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

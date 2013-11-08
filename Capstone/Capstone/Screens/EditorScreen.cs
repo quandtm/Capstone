@@ -15,6 +15,8 @@ namespace Capstone.Screens
         private readonly ResourceCache _cache;
         private readonly EntitySet _entities;
 
+        public ResourceCache Cache { get { return _cache; } }
+
         public Camera Camera { get; private set; }
 
         public ObjectiveManager Objectives { get; private set; }
@@ -46,6 +48,13 @@ namespace Capstone.Screens
             Camera = camEntity.AddComponent<Camera>();
             _spriteRenderer.CurrentCamera = Camera;
             Camera.Move(0, -100); // Initial offset to account for top toolbar
+        }
+
+        public Entity CreateEntity(string entityName, float x, float y, float depth)
+        {
+            var e = _entities.Create(entityName);
+            e.Transform.LocalTranslation = new Vector3(x, y, depth);
+            return e;
         }
 
         public Entity AddObject(string entityTypeName, string entityName, float x, float y, float depth, Dictionary<string, object> parameters)

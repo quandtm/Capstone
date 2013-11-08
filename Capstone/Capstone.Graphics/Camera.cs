@@ -16,6 +16,7 @@ namespace Capstone.Graphics
                 pos.X = Math.Max(Math.Min(pos.X, maxX), minX);
             if (maxY > minY)
                 pos.Y = Math.Max(Math.Min(pos.Y, maxY), minY);
+            Owner.Transform.LocalTranslation = pos;
         }
 
         public void SetPosition(float x, float y)

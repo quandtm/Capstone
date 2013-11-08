@@ -17,12 +17,11 @@ namespace Capstone.Entities
         {
             var e = set.Create(entityName);
 
-            var clickArea = e.AddComponent<ClickArea>();
-            clickArea.BaseWidth = parameters.GetOrDefault("BaseWidth", 1f);
-            clickArea.BaseHeight = parameters.GetOrDefault("BaseHeight", 1f);
-
             var visual = e.AddComponent<TileSprite>();
             visual.Load(cache, "ms-appx:///Data/TestMap.map");
+
+            var clickArea = e.AddComponent<ClickArea>();
+            clickArea.TileSprite = visual;
 
             return e;
         }

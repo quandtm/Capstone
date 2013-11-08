@@ -1,0 +1,15 @@
+﻿TEXTURE
+# Defines the texture file containing the tile atlas
+Data\Texture\Test.png
+
+TILES
+# Defines the tile regions in the texture, also an indexed TOC for the MAP
+# Road
+32,0,32,32
+# Grass
+0,0,32,32
+
+DIMENSIONS
+# Defines the dimensions of the tile map in tiles
+64,64
+32,32

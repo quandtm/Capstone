@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Capstone.Components;
+using Capstone.Graphics.Sprites;
 using Capstone.Objectives;
 using Capstone.Screens;
 using SharpDX;
@@ -29,6 +30,9 @@ namespace Capstone.Pages
         private Core.Entity _selected;
         private Vector3 _offset;
 
+        private TileSprite _roadSprite;
+        private bool _pointerDown;
+
         public EditorPage()
         {
             InitializeComponent();
@@ -49,6 +53,13 @@ namespace Capstone.Pages
             //DeleteModeCombo.Items.Add(ObjectType.Zone);
             DeleteModeCombo.SelectedIndex = 0;
 
+            var roadMapEntity = _screen.CreateEntity("RoadMap", 0, 0, 1);
+            _roadSprite = roadMapEntity.AddComponent<TileSprite>();
+            _roadSprite.Load(_screen.Cache, "ms-appx:///Data/Road.map");
+            _roadSprite.Origin = TileSprite.OriginLocation.TopLeft;
+
+            _pointerDown = false;
+
             DataContext = this;
         }
 
@@ -68,6 +79,7 @@ namespace Capstone.Pages
         private void HandlePointerDown(object sender, PointerRoutedEventArgs e)
         {
             _prevPoint = e.GetCurrentPoint((UIElement)sender);
+            _pointerDown = true;
 
             switch (ToolMode)
             {
@@ -80,10 +92,7 @@ namespace Capstone.Pages
                         pos.X += (float)_prevPoint.Position.X;
                         pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
                         pos = _gameGrid.Snap(pos);
-                        var p = new Dictionary<string, object>();
-                        p.Add("BaseWidth", 320f);
-                        p.Add("BaseHeight", 320f);
-                        _selected = _screen.AddObject(selected as string, null, pos.X, pos.Y, 0, p);
+                        _selected = _screen.AddObject(selected as string, null, pos.X, pos.Y, 0, null);
                     }
                     break;
 
@@ -105,6 +114,8 @@ namespace Capstone.Pages
 
         private void HandlePointerUp(object sender, PointerRoutedEventArgs e)
         {
+            _pointerDown = false;
+
             switch (ToolMode)
             {
                 case EditMode.Object:
@@ -155,8 +166,34 @@ namespace Capstone.Pages
                             _selected.Transform.LocalTranslation = pos;
                         }
                         break;
+
+                    case EditMode.Road:
+                        StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value);
+                        break;
                 }
                 _prevPoint = curPt;
+            }
+        }
+
+        private void StampRoad(float mouseX, float mouseY, int size)
+        {
+            var pos = _screen.Camera.Owner.Transform.LocalTranslation;
+            pos.Z = 1;
+            pos.X += mouseX;
+            pos.Y += mouseY + 100; // +100 to offset camera position
+            int cx, cy;
+            _gameGrid.ToCellCoords(pos, out cx, out cy);
+
+            var xStart = Math.Max(cx - (size / 2), 0);
+            var yStart = Math.Max(cy - (size / 2), 0);
+
+            for (int y = yStart; y < yStart + size; y++)
+            {
+                for (int x = xStart; x < xStart + size; x++)
+                {
+                    var index = (y * _roadSprite.MapWidth) + x;
+                    _roadSprite.Map[index] = 0;
+                }
             }
         }
 

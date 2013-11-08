@@ -23,6 +23,12 @@ namespace Capstone.Graphics.Sprites
             Unknown
         }
 
+        public enum OriginLocation
+        {
+            TopLeft,
+            Center
+        }
+
         public Entity Owner { get; set; }
 
         // Width and height in tiles
@@ -30,13 +36,20 @@ namespace Capstone.Graphics.Sprites
         public int MapHeight { get; private set; }
         public int MapWidthPixels { get { return MapWidth * _tileWidth; } }
         public int MapHeightPixels { get { return MapHeight * _tileHeight; } }
+        public OriginLocation Origin { get; set; }
 
         private Texture _tex;
         private int[] _map;
+        public int[] Map { get { return _map; } }
         private Rectangle[] _lookup;
         // Individual tile width in pixels
         private int _tileWidth;
         private int _tileHeight;
+
+        public TileSprite()
+        {
+            Origin = TileSprite.OriginLocation.Center;
+        }
 
         public void Load(ResourceCache resources, string mapFile)
         {
@@ -153,10 +166,15 @@ namespace Capstone.Graphics.Sprites
                         break;
                 }
             }
-            if (heightParsed != MapHeight)
-                return string.Empty; // Error out, map height is wrong
             _lookup = tiles.ToArray();
-            _map = map.ToArray();
+            if (map.Count > 0)
+                _map = map.ToArray();
+            else
+            {
+                _map = new int[MapWidth * MapHeight];
+                for (int i = 0; i < _map.Length; i++)
+                    _map[i] = -1;
+            }
             return texPath;
         }
 
@@ -176,19 +194,23 @@ namespace Capstone.Graphics.Sprites
             {
                 var pos3d = Owner.Transform.Translation;
                 var basePos = new Vector2(pos3d.X + offset.X, pos3d.Y + offset.Y);
-                basePos -= (new Vector2(_tileWidth * MapWidth, _tileHeight * MapHeight) / 2.0f);
+                if (Origin == OriginLocation.Center)
+                    basePos -= (new Vector2(_tileWidth * MapWidth, _tileHeight * MapHeight) / 2.0f);
 
                 int index = 0;
                 for (int y = 0; y < MapHeight; y++)
                 {
                     for (int x = 0; x < MapWidth; x++)
                     {
-                        var source = _lookup[_map[index]];
+                        if (_map[index] >= 0)
+                        {
+                            var source = _lookup[_map[index]];
+                            var pos = basePos + new Vector2(_tileWidth * x, _tileHeight * y);
+                            var dest = new Rectangle((int)pos.X, (int)pos.Y, _tileWidth, _tileHeight);
+                            var tex = _tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0];
+                            sb.Draw(tex, dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, pos3d.Z);
+                        }
                         index++;
-                        var pos = basePos + new Vector2(_tileWidth * x, _tileHeight * y);
-                        var dest = new Rectangle((int)pos.X, (int)pos.Y, _tileWidth, _tileHeight);
-                        var tex = _tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0];
-                        sb.Draw(tex, dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, pos3d.Z);
                     }
                 }
             }

@@ -140,6 +140,9 @@
     <Content Include="Data\TestMap.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Road.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Fody.targets" />
     <None Include="packages.config" />
   </ItemGroup>
