@@ -49,8 +49,7 @@ namespace Capstone.Pages
             _offset = Vector3.Zero;
 
             DeleteModeCombo.Items.Add(ObjectType.Object);
-            DeleteModeCombo.Items.Add(ObjectType.Road);
-            //DeleteModeCombo.Items.Add(ObjectType.Zone);
+            DeleteModeCombo.Items.Add(ObjectType.RoadZone);
             DeleteModeCombo.SelectedIndex = 0;
 
             var roadMapEntity = _screen.CreateEntity("RoadMap", 0, 0, 1);
@@ -111,12 +110,16 @@ namespace Capstone.Pages
                     break;
 
                 case EditMode.Road:
-                    StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value);
+                    StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 1);
+                    break;
+
+                case EditMode.Zone:
+                    StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 2, -1);
                     break;
 
                 case EditMode.Delete:
-                    if (DeleteMode == ObjectType.Road)
-                        StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
+                    if (DeleteMode == ObjectType.RoadZone)
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
                     break;
             }
         }
@@ -175,19 +178,23 @@ namespace Capstone.Pages
                         break;
 
                     case EditMode.Road:
-                        StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value);
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 1);
+                        break;
+
+                    case EditMode.Zone:
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 2, -1);
                         break;
 
                     case EditMode.Delete:
-                        if (DeleteMode == ObjectType.Road)
-                            StampRoad((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
+                        if (DeleteMode == ObjectType.RoadZone)
+                            StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
                         break;
                 }
                 _prevPoint = curPt;
             }
         }
 
-        private void StampRoad(float mouseX, float mouseY, int size, int val = 0)
+        private void StampTile(float mouseX, float mouseY, int size, int val, int existingValMustBe = -2) // use -2 to stamp anywhere
         {
             var pos = _screen.Camera.Owner.Transform.LocalTranslation;
             pos.Z = 1;
@@ -204,7 +211,8 @@ namespace Capstone.Pages
                 for (int x = xStart; x < xStart + size; x++)
                 {
                     var index = (y * _roadSprite.MapWidth) + x;
-                    _roadSprite.Map[index] = val;
+                    if (existingValMustBe < -1 || existingValMustBe == _roadSprite.Map[index])
+                        _roadSprite.Map[index] = val;
                 }
             }
         }
