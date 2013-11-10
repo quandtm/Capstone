@@ -114,7 +114,7 @@ namespace Capstone.Pages
                     break;
 
                 case EditMode.Zone:
-                    StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 2, -1);
+                    StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, -1);
                     break;
 
                 case EditMode.Delete:
@@ -182,7 +182,7 @@ namespace Capstone.Pages
                         break;
 
                     case EditMode.Zone:
-                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 2, -1);
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, -1);
                         break;
 
                     case EditMode.Delete:
