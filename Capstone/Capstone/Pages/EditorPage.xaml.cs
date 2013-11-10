@@ -227,5 +227,10 @@ namespace Capstone.Pages
             Enum.TryParse<EditMode>(mode, true, out m);
             ToolMode = m;
         }
+
+        private void GenerateBuildings(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
