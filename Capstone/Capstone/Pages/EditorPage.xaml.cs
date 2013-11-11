@@ -117,12 +117,12 @@ namespace Capstone.Pages
                     break;
 
                 case EditMode.Zone:
-                    StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, -1);
+                    StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, 0);
                     break;
 
                 case EditMode.Delete:
                     if (DeleteMode == ObjectType.RoadZone)
-                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0);
                     break;
             }
         }
@@ -185,12 +185,12 @@ namespace Capstone.Pages
                         break;
 
                     case EditMode.Zone:
-                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, -1);
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, 0);
                         break;
 
                     case EditMode.Delete:
                         if (DeleteMode == ObjectType.RoadZone)
-                            StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, -1);
+                            StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0);
                         break;
                 }
                 _prevPoint = curPt;
@@ -267,7 +267,7 @@ namespace Capstone.Pages
 
         private void FindPlots(List<Tuple<RectangleF, float>> plots)
         {
-            plots.Add(new Tuple<RectangleF, float>(new RectangleF(0, 0, 5, 5), MathUtil.PiOverTwo));
+
         }
     }
 }

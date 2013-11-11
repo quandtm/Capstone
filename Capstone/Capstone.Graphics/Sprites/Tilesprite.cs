@@ -173,7 +173,7 @@ namespace Capstone.Graphics.Sprites
             {
                 _map = new int[MapWidth * MapHeight];
                 for (int i = 0; i < _map.Length; i++)
-                    _map[i] = -1;
+                    _map[i] = 0;
             }
             return texPath;
         }
@@ -188,7 +188,7 @@ namespace Capstone.Graphics.Sprites
             SpriteRenderer.Instance.RemoveTileMap(this);
         }
 
-        internal void Draw(SpriteBatch sb, Vector2 offset)
+        internal void Draw(SpriteBatch sb, Vector2 offset, Vector2 viewArea)
         {
             if (_tex != null && _tex.IsLoaded)
             {
@@ -197,11 +197,17 @@ namespace Capstone.Graphics.Sprites
                 if (Origin == OriginLocation.Center)
                     basePos -= (new Vector2(_tileWidth * MapWidth, _tileHeight * MapHeight) / 2.0f);
 
-                int index = 0;
-                for (int y = 0; y < MapHeight; y++)
+                int startX = Math.Max((int)(-offset.X / _tileWidth), 0);
+                int startY = Math.Max((int)(-offset.Y / _tileHeight), 0);
+
+                var width = Math.Min((int)(viewArea.X / _tileWidth), MapWidth - startX);
+                var height = Math.Min((int)(viewArea.Y / _tileHeight) + 1, MapHeight - startY);
+
+                for (int y = startY; y < startY + height; y++)
                 {
-                    for (int x = 0; x < MapWidth; x++)
+                    for (int x = startX; x < startX + width; x++)
                     {
+                        int index = (y * MapWidth) + x;
                         if (_map[index] >= 0)
                         {
                             var source = _lookup[_map[index]];
@@ -210,7 +216,6 @@ namespace Capstone.Graphics.Sprites
                             var tex = _tex.Texture2D.ShaderResourceView[ViewType.Full, 0, 0];
                             sb.Draw(tex, dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, pos3d.Z);
                         }
-                        index++;
                     }
                 }
             }

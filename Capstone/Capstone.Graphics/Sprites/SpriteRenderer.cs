@@ -53,11 +53,12 @@ namespace Capstone.Graphics.Sprites
             if (_sprites.Count > 0 || _tiles.Count > 0)
             {
                 var offset = CurrentCamera == null ? Vector2.Zero : -CurrentCamera.GetPosition();
+                var camArea = new Vector2(_sb.GraphicsDevice.Viewport.Width, _sb.GraphicsDevice.Viewport.Height);
 
                 _sb.Begin();
 
                 for (int i = 0; i < _tiles.Count; i++)
-                    _tiles[i].Draw(_sb, offset);
+                    _tiles[i].Draw(_sb, offset, camArea);
 
                 for (var i = 0; i < _sprites.Count; i++)
                     _sprites[i].Draw(_sb, offset);
