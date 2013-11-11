@@ -214,8 +214,11 @@ namespace Capstone.Pages
                 for (int x = xStart; x < xStart + size; x++)
                 {
                     var index = (y * _roadSprite.MapWidth) + x;
-                    if (existingValMustBe < -1 || existingValMustBe == _roadSprite.Map[index])
-                        _roadSprite.Map[index] = val;
+                    if (index >= 0 && index < _roadSprite.Map.Length)
+                    {
+                        if (existingValMustBe < -1 || existingValMustBe == _roadSprite.Map[index])
+                            _roadSprite.Map[index] = val;
+                    }
                 }
             }
         }
@@ -245,7 +248,7 @@ namespace Capstone.Pages
             {
                 var pos = plot.Item1.Center * cell;
 
-                var bounds = new RectangleF(plot.Item1.Left * cell, plot.Item1.Top * cell, plot.Item1.Width * cell, plot.Item1.Height * cell);
+                var bounds = new RectangleF(plot.Item1.Left * cell + 1, plot.Item1.Top * cell + 1, plot.Item1.Width * cell, plot.Item1.Height * cell);
                 if (ClickDetector.FindIntersects(bounds) != null) continue;
 
                 var rot = plot.Item2;
@@ -347,6 +350,7 @@ namespace Capstone.Pages
                 for (int tx = 0; tx < plotWidth; tx++)
                 {
                     int index = ((ty + py) * mapWidth) + (tx + px);
+                    if (index < 0 || index >= map.Length) return false;
                     if (map[index] != testValue)
                         return false;
                 }

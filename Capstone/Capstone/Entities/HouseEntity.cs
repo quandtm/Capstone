@@ -23,8 +23,10 @@ namespace Capstone.Entities
             e.Transform.LocalRotation = rot;
 
             var area = e.AddComponent<ClickArea>();
-            area.BaseWidth = 180;
-            area.BaseHeight = 180;
+            area.BaseWidth = 160;
+            area.BaseHeight = 160;
+            area.OriginX = sprite.Origin.X;
+            area.OriginY = sprite.Origin.Y;
 
             return e;
         }

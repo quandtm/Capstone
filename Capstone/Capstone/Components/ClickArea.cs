@@ -8,6 +8,8 @@ namespace Capstone.Components
 
         public float BaseWidth { get; set; }
         public float BaseHeight { get; set; }
+        public float OriginX { get; set; }
+        public float OriginY { get; set; }
 
         public Graphics.Sprites.TileSprite TileSprite { get; set; }
 
@@ -46,7 +48,11 @@ namespace Capstone.Components
 
         public bool Intersects(SharpDX.RectangleF rect)
         {
-            throw new System.NotImplementedException();
+            var testRect = new SharpDX.RectangleF(Owner.Transform.Translation.X - OriginX, Owner.Transform.Translation.Y - OriginY, BaseWidth, BaseHeight);
+            bool contains = false;
+            rect.Contains(ref testRect, out contains);
+            bool intersects = rect.Intersects(testRect);
+            return contains || intersects;
         }
     }
 }
