@@ -243,21 +243,11 @@ namespace Capstone.Pages
             float cell = 32;
             foreach (var plot in plots)
             {
-                var tl = plot.Item1.TopLeft * cell;
-                if (ClickDetector.GetClicked(tl.X, tl.Y) != null)
-                    continue;
-                var tr = plot.Item1.TopRight * cell;
-                if (ClickDetector.GetClicked(tr.X, tr.Y) != null)
-                    continue;
-                var bl = plot.Item1.BottomLeft * cell;
-                if (ClickDetector.GetClicked(bl.X, bl.Y) != null)
-                    continue;
-                var br = plot.Item1.BottomRight * cell;
-                if (ClickDetector.GetClicked(br.X, br.Y) != null)
-                    continue;
-
-                // Nothing in the way, create
                 var pos = plot.Item1.Center * cell;
+
+                var bounds = new RectangleF(plot.Item1.Left * cell, plot.Item1.Top * cell, plot.Item1.Width * cell, plot.Item1.Height * cell);
+                if (ClickDetector.FindIntersects(bounds) != null) continue;
+
                 var rot = plot.Item2;
                 var p = new Dictionary<string, object>();
                 p.Add("Rotation", rot);
@@ -267,7 +257,116 @@ namespace Capstone.Pages
 
         private void FindPlots(List<Tuple<RectangleF, float>> plots)
         {
+            const int plotWidth = 5;
+            const int plotHeight = 5;
+            int mapWidth = _roadSprite.MapWidth;
+            int mapHeight = _roadSprite.MapHeight;
+            const int roadValue = 1;
+            const int plotValue = 2;
+            var map = _roadSprite.Map;
 
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    int index = (y * mapWidth) + x;
+                    if (map[index] == plotValue)
+                    {
+                        Direction dirToRoad;
+                        // Check if this cell is next to a road
+                        if (IsRoadAdjacent(map, index, roadValue, out dirToRoad))
+                        {
+                            int sx, sy, w, h;
+                            float rotation = 0;
+                            switch (dirToRoad)
+                            {
+                                case Direction.North:
+                                    sx = x - plotWidth + 1;
+                                    sy = y;
+                                    w = plotWidth;
+                                    h = 1;
+                                    break;
+
+                                case Direction.South:
+                                    sx = x - plotWidth + 1;
+                                    sy = y - plotHeight + 1;
+                                    w = plotWidth;
+                                    h = 1;
+                                    rotation = MathUtil.Pi;
+                                    break;
+
+                                case Direction.East:
+                                    sx = x - plotWidth + 1;
+                                    sy = y - plotHeight + 1;
+                                    w = 1;
+                                    h = plotHeight;
+                                    rotation = MathUtil.PiOverTwo;
+                                    break;
+
+                                case Direction.West:
+                                    sx = x;
+                                    sy = y - plotHeight + 1;
+                                    w = 1;
+                                    h = plotHeight;
+                                    rotation = MathUtil.Pi + MathUtil.PiOverTwo;
+                                    break;
+
+                                default:
+                                    throw new NotImplementedException();
+                            }
+                            if (sx < 0 || sy < 0 || sx >= mapWidth || sy >= mapHeight) continue;
+                            w = Math.Min(sx + w, mapWidth);
+                            h = Math.Min(sy + h, mapHeight);
+                            // Check that the entire plot is on zoned land
+                            bool placed = false;
+                            for (int py = sy; py < h; py++)
+                            {
+                                for (int px = sx; px < w; px++)
+                                {
+                                    // Check each plot option until one is found or we run out of space to check
+                                    if (CheckPlot(px, py, plotWidth, plotHeight, mapWidth, map, plotValue))
+                                    {
+                                        plots.Add(new Tuple<RectangleF, float>(new RectangleF(sx, sy, plotWidth, plotHeight), rotation));
+                                        placed = true;
+                                        break;
+                                    }
+                                }
+                                if (placed)
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool CheckPlot(int px, int py, int plotWidth, int plotHeight, int mapWidth, int[] map, int testValue)
+        {
+            for (int ty = 0; ty < plotHeight; ty++)
+            {
+                for (int tx = 0; tx < plotWidth; tx++)
+                {
+                    int index = ((ty + py) * mapWidth) + (tx + px);
+                    if (map[index] != testValue)
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        private bool IsRoadAdjacent(int[] map, int index, int roadValue, out Direction dirToRoad)
+        {
+            if ((index + 1) < (_roadSprite.MapWidth * _roadSprite.MapHeight) && map[index + 1] == roadValue)
+                dirToRoad = Direction.East;
+            else if ((index - 1) >= 0 && map[index - 1] == roadValue)
+                dirToRoad = Direction.West;
+            else if ((index - _roadSprite.MapWidth) >= 0 && map[index - _roadSprite.MapWidth] == roadValue)
+                dirToRoad = Direction.North;
+            else if ((index + _roadSprite.MapWidth) < (_roadSprite.MapWidth * _roadSprite.MapHeight) && map[index + _roadSprite.MapHeight] == roadValue)
+                dirToRoad = Direction.South;
+            else
+                dirToRoad = Direction.None;
+            return dirToRoad != Direction.None;
         }
     }
 }

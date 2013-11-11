@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Capstone.Core;
+using SharpDX;
 
 namespace Capstone.Components
 {
@@ -28,6 +29,17 @@ namespace Capstone.Components
             {
                 var c = _areas[i];
                 if (c.ContainsPoint(x, y))
+                    return c.Owner;
+            }
+            return null;
+        }
+
+        public static Entity FindIntersects(RectangleF rect)
+        {
+            for (int i = 0; i < _areas.Count; i++)
+            {
+                var c = _areas[i];
+                if (c.Intersects(rect))
                     return c.Owner;
             }
             return null;

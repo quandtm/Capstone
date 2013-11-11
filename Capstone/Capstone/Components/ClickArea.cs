@@ -43,5 +43,10 @@ namespace Capstone.Components
             var yTest = y >= minY && y <= maxY;
             return xTest && yTest;
         }
+
+        public bool Intersects(SharpDX.RectangleF rect)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

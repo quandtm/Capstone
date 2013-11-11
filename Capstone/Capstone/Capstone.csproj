@@ -113,6 +113,7 @@
     <Compile Include="Converters\EditModeToBoolConverter.cs" />
     <Compile Include="Converters\EditModeToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="EditMode.cs" />
     <Compile Include="Entities\HouseEntity.cs" />
     <Compile Include="Entities\IEntityGenerator.cs" />
