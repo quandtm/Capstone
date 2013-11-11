@@ -35,6 +35,7 @@ namespace Capstone.Screens
         private void RegisterGenerators()
         {
             AddGenerator(new TreeEntity());
+            AddGenerator(new HouseEntity());
         }
 
         public void Initialise()

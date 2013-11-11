@@ -114,6 +114,7 @@
     <Compile Include="Converters\EditModeToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
     <Compile Include="EditMode.cs" />
+    <Compile Include="Entities\HouseEntity.cs" />
     <Compile Include="Entities\IEntityGenerator.cs" />
     <Compile Include="Entities\TreeEntity.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
@@ -134,6 +135,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Data\Texture\house1.png" />
     <Content Include="Data\Texture\Test.png" />
     <Content Include="FodyWeavers.xml" />
     <None Include="Capstone_TemporaryKey.pfx" />

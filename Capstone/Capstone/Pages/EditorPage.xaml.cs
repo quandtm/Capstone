@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Capstone.Components;
+using Capstone.Core;
 using Capstone.Graphics.Sprites;
 using Capstone.Objectives;
 using Capstone.Screens;
@@ -32,6 +33,8 @@ namespace Capstone.Pages
 
         private TileSprite _roadSprite;
         private bool _pointerDown;
+
+        private List<Entity> _houses = new List<Entity>();
 
         public EditorPage()
         {
@@ -230,7 +233,41 @@ namespace Capstone.Pages
 
         private void GenerateBuildings(object sender, RoutedEventArgs e)
         {
+            List<Tuple<RectangleF, float>> plots = new List<Tuple<RectangleF, float>>();
+            FindPlots(plots);
+            FillPlots(plots);
+        }
 
+        private void FillPlots(List<Tuple<RectangleF, float>> plots)
+        {
+            float cell = 32;
+            foreach (var plot in plots)
+            {
+                var tl = plot.Item1.TopLeft * cell;
+                if (ClickDetector.GetClicked(tl.X, tl.Y) != null)
+                    continue;
+                var tr = plot.Item1.TopRight * cell;
+                if (ClickDetector.GetClicked(tr.X, tr.Y) != null)
+                    continue;
+                var bl = plot.Item1.BottomLeft * cell;
+                if (ClickDetector.GetClicked(bl.X, bl.Y) != null)
+                    continue;
+                var br = plot.Item1.BottomRight * cell;
+                if (ClickDetector.GetClicked(br.X, br.Y) != null)
+                    continue;
+
+                // Nothing in the way, create
+                var pos = plot.Item1.Center * cell;
+                var rot = plot.Item2;
+                var p = new Dictionary<string, object>();
+                p.Add("Rotation", rot);
+                _screen.AddObject("house", null, pos.X, pos.Y, 0.5f, p);
+            }
+        }
+
+        private void FindPlots(List<Tuple<RectangleF, float>> plots)
+        {
+            plots.Add(new Tuple<RectangleF, float>(new RectangleF(0, 0, 5, 5), MathUtil.PiOverTwo));
         }
     }
 }
