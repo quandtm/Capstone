@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Capstone.Components;
 using Capstone.Graphics.Sprites;
 
@@ -6,6 +7,8 @@ namespace Capstone.Entities
 {
     public class HouseEntity : IEntityGenerator
     {
+        private const int MaxIndex = 1;
+
         public string TypeName
         {
             get { return "house"; }
@@ -16,7 +19,9 @@ namespace Capstone.Entities
             var e = set.Create(entityName);
 
             var sprite = e.AddComponent<Sprite>();
-            sprite.Load(cache, "Data/Texture/house1.png");
+            var r = new Random((int)(DateTime.Now.Ticks % (long)int.MaxValue));
+            var path = "Data/Texture/house" + r.Next(500) % (MaxIndex + 1) + ".png";
+            sprite.Load(cache, path);
             sprite.Origin = new SharpDX.Vector2(160f / 2f);
 
             var rot = parameters.GetOrDefault("Rotation", 0f);

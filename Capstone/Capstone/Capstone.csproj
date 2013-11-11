@@ -136,6 +136,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Data\Texture\house0.png" />
     <Content Include="Data\Texture\house1.png" />
     <Content Include="Data\Texture\Test.png" />
     <Content Include="FodyWeavers.xml" />
