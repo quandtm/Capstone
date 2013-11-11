@@ -248,7 +248,7 @@ namespace Capstone.Pages
             {
                 var pos = plot.Item1.Center * cell;
 
-                var bounds = new RectangleF(plot.Item1.Left * cell + 1, plot.Item1.Top * cell + 1, plot.Item1.Width * cell, plot.Item1.Height * cell);
+                var bounds = new RectangleF(plot.Item1.Left * cell, plot.Item1.Top * cell, plot.Item1.Width * cell, plot.Item1.Height * cell);
                 if (ClickDetector.FindIntersects(bounds) != null) continue;
 
                 var rot = plot.Item2;
