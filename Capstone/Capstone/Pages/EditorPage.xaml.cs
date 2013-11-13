@@ -60,9 +60,21 @@ namespace Capstone.Pages
             _roadSprite.Load(_screen.Cache, "ms-appx:///Data/Road.map");
             _roadSprite.Origin = TileSprite.OriginLocation.TopLeft;
 
+            AddObjectives();
+
             _pointerDown = false;
 
             DataContext = this;
+        }
+
+        private void AddObjectives()
+        {
+            _screen.Objectives.CreateObjective("placetree", "Use the objects tool to place a tree");
+            _screen.Objectives.CreateObjective("placeroad", "Select the Roads tool and use your mouse to draw a road");
+            _screen.Objectives.CreateObjective("placezone", "Use the zone tool to draw zones surrounding the road");
+            _screen.Objectives.CreateObjective("genhouses", "Click Generate Houses in the Zones tool to generate some buildings");
+            _screen.Objectives.CreateObjective("deletetree", "Delete an object using the delete tool (set to object)");
+            _screen.Objectives.CreateObjective("deleteroads", "Delete a road or zone using the delete tool (set to road/zone)");
         }
 
         private void BuildObjTypeList()
@@ -95,6 +107,8 @@ namespace Capstone.Pages
                         pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
                         pos = _gameGrid.Snap(pos);
                         _selected = _screen.AddObject(selected as string, null, pos.X, pos.Y, 0, null);
+                        if (((string)selected).ToLower() == "tree")
+                            _screen.Objectives.CompleteObjective("placetree");
                     }
                     break;
 
@@ -114,15 +128,20 @@ namespace Capstone.Pages
 
                 case EditMode.Road:
                     StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)BrushSizeSlider.Value, 1);
+                    _screen.Objectives.CompleteObjective("placeroad");
                     break;
 
                 case EditMode.Zone:
                     StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)ZoneBrushSizeSlider.Value, 2, 0);
+                    _screen.Objectives.CompleteObjective("placezone");
                     break;
 
                 case EditMode.Delete:
                     if (DeleteMode == ObjectType.RoadZone)
-                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0);
+                    {
+                        if (StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0) > 0)
+                            _screen.Objectives.CompleteObjective("deleteroads");
+                    }
                     break;
             }
         }
@@ -130,6 +149,7 @@ namespace Capstone.Pages
         private void HandlePointerUp(object sender, PointerRoutedEventArgs e)
         {
             _pointerDown = false;
+            if (_prevPoint == null) return;
 
             switch (ToolMode)
             {
@@ -148,7 +168,10 @@ namespace Capstone.Pages
                             pos.Y += (float)_prevPoint.Position.Y + 100; // +100 to offset camera position
                             var toDelete = ClickDetector.GetClicked(pos.X, pos.Y);
                             if (toDelete != null)
+                            {
                                 _screen.RemoveObject(toDelete);
+                                _screen.Objectives.CompleteObjective("deletetree");
+                            }
                         }
                     }
                     break;
@@ -190,14 +213,17 @@ namespace Capstone.Pages
 
                     case EditMode.Delete:
                         if (DeleteMode == ObjectType.RoadZone)
-                            StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0);
+                        {
+                            if (StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0) > 0)
+                                _screen.Objectives.CompleteObjective("deleteroads");
+                        }
                         break;
                 }
                 _prevPoint = curPt;
             }
         }
 
-        private void StampTile(float mouseX, float mouseY, int size, int val, int existingValMustBe = -2) // use -2 to stamp anywhere
+        private int StampTile(float mouseX, float mouseY, int size, int val, int existingValMustBe = -2) // use -2 to stamp anywhere
         {
             var pos = _screen.Camera.Owner.Transform.LocalTranslation;
             pos.Z = 1;
@@ -209,6 +235,7 @@ namespace Capstone.Pages
             var xStart = Math.Max(cx - halfSize, 0);
             var yStart = Math.Max(cy - halfSize, 0);
 
+            int numStamped = 0;
             for (int y = yStart; y < yStart + size; y++)
             {
                 for (int x = xStart; x < xStart + size; x++)
@@ -216,11 +243,15 @@ namespace Capstone.Pages
                     var index = (y * _roadSprite.MapWidth) + x;
                     if (index >= 0 && index < _roadSprite.Map.Length)
                     {
-                        if (existingValMustBe < -1 || existingValMustBe == _roadSprite.Map[index])
+                        if ((existingValMustBe < -1 || existingValMustBe == _roadSprite.Map[index]) && _roadSprite.Map[index] != val)
+                        {
                             _roadSprite.Map[index] = val;
+                            numStamped++;
+                        }
                     }
                 }
             }
+            return numStamped;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -239,6 +270,7 @@ namespace Capstone.Pages
             List<Tuple<RectangleF, float>> plots = new List<Tuple<RectangleF, float>>();
             FindPlots(plots);
             FillPlots(plots);
+            _screen.Objectives.CompleteObjective("genhouses");
         }
 
         private void FillPlots(List<Tuple<RectangleF, float>> plots)
