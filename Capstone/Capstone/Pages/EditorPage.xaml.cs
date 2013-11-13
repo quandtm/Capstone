@@ -368,7 +368,7 @@ namespace Capstone.Pages
                                     // Check each plot option until one is found or we run out of space to check
                                     if (CheckPlot(px, py, plotWidth, plotHeight, mapWidth, map, plotValue))
                                     {
-                                        plots.Add(new Tuple<RectangleF, float>(new RectangleF(sx, sy, plotWidth, plotHeight), rotation));
+                                        plots.Add(new Tuple<RectangleF, float>(new RectangleF(px, py, plotWidth, plotHeight), rotation));
                                         placed = true;
                                         break;
                                     }
