@@ -139,6 +139,7 @@
     <Content Include="Data\Texture\house0.png" />
     <Content Include="Data\Texture\house1.png" />
     <Content Include="Data\Texture\Test.png" />
+    <Content Include="Data\Texture\tree.png" />
     <Content Include="FodyWeavers.xml" />
     <None Include="Capstone_TemporaryKey.pfx" />
     <Content Include="Data\TestMap.map">
