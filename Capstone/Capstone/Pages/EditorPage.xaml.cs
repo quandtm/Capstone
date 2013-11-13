@@ -52,7 +52,8 @@ namespace Capstone.Pages
             _offset = Vector3.Zero;
 
             DeleteModeCombo.Items.Add(ObjectType.Object);
-            DeleteModeCombo.Items.Add(ObjectType.RoadZone);
+            DeleteModeCombo.Items.Add(ObjectType.Road);
+            DeleteModeCombo.Items.Add(ObjectType.Zone);
             DeleteModeCombo.SelectedIndex = 0;
 
             var roadMapEntity = _screen.CreateEntity("RoadMap", 0, 0, 1);
@@ -74,7 +75,7 @@ namespace Capstone.Pages
             _screen.Objectives.CreateObjective("placezone", "Use the zone tool to draw zones surrounding the road");
             _screen.Objectives.CreateObjective("genhouses", "Click Generate Houses in the Zones tool to generate some buildings");
             _screen.Objectives.CreateObjective("deletetree", "Delete an object using the delete tool (set to object)");
-            _screen.Objectives.CreateObjective("deleteroads", "Delete a road or zone using the delete tool (set to road/zone)");
+            _screen.Objectives.CreateObjective("deleteroads", "Delete a road using the delete tool (set to road)");
         }
 
         private void BuildObjTypeList()
@@ -137,10 +138,14 @@ namespace Capstone.Pages
                     break;
 
                 case EditMode.Delete:
-                    if (DeleteMode == ObjectType.RoadZone)
+                    if (DeleteMode == ObjectType.Road)
                     {
-                        if (StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0) > 0)
+                        if (StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0, 1) > 0)
                             _screen.Objectives.CompleteObjective("deleteroads");
+                    }
+                    else if (DeleteMode == ObjectType.Zone)
+                    {
+                        StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0, 2);
                     }
                     break;
             }
@@ -212,11 +217,13 @@ namespace Capstone.Pages
                         break;
 
                     case EditMode.Delete:
-                        if (DeleteMode == ObjectType.RoadZone)
+                        if (DeleteMode == ObjectType.Road)
                         {
-                            if (StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0) > 0)
+                            if (StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0, 1) > 0)
                                 _screen.Objectives.CompleteObjective("deleteroads");
                         }
+                        else if (DeleteMode == ObjectType.Zone)
+                            StampTile((float)_prevPoint.Position.X, (float)_prevPoint.Position.Y, (int)DelBrushSizeSlider.Value, 0, 2);
                         break;
                 }
                 _prevPoint = curPt;

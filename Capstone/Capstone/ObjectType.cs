@@ -3,6 +3,7 @@
     public enum ObjectType
     {
         Object,
-        RoadZone
+        Road,
+        Zone
     }
 }

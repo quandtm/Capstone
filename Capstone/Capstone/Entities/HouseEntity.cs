@@ -8,6 +8,7 @@ namespace Capstone.Entities
     public class HouseEntity : IEntityGenerator
     {
         private const int MaxIndex = 1;
+        private static Random r;
 
         public string TypeName
         {
@@ -19,7 +20,8 @@ namespace Capstone.Entities
             var e = set.Create(entityName);
 
             var sprite = e.AddComponent<Sprite>();
-            var r = new Random((int)(DateTime.Now.Ticks % (long)int.MaxValue));
+            if (r == null)
+                r = new Random((int)(DateTime.Now.Ticks % (long)int.MaxValue));
             var path = "Data/Texture/house" + r.Next(500) % (MaxIndex + 1) + ".png";
             sprite.Load(cache, path);
             sprite.Origin = new SharpDX.Vector2(160f / 2f);
