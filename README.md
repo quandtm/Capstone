@@ -1,1 +1,10 @@
-Capstone========This project contains the source and assets for my in-progress capstone project.This is not an example of good code, as it has been pieced together through some prototyping.Goal====The goal of this capstone is to look at implementing gamification in level editors and game design tools to assist with the process by making certain aspects more interesting. As a side goal, this project should also produce a simple 2D engine that supports the editor, and the engine itself should be relatively easy to port to other platforms.
+Capstone
+========
+
+This project contains the source code for a proof of concept editor that implements the techniques described in my capstone research project.
+
+The focus of this project was on utilising gameplay design elements within game content creation tools such as level editors.
+
+In particular it looks at the use of an objective based tutorial system, and a road/zone system (like SimCity) to rapidly create content.
+
+This is purely for research/educational purposes and as such no warranties or support are provided.
